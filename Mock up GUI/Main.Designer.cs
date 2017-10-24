@@ -39,8 +39,8 @@ namespace PL
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.upperTrackBar = new System.Windows.Forms.TrackBar();
+            this.lowerTrackBar = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,12 +53,12 @@ namespace PL
             this.label6 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.muteButton = new System.Windows.Forms.Button();
+            this.monitorRadioButton = new System.Windows.Forms.RadioButton();
+            this.diagnoseRadioButton = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upperTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lowerTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // chart1
@@ -162,19 +162,19 @@ namespace PL
             this.button5.Text = "Zero point";
             this.button5.UseVisualStyleBackColor = false;
             // 
-            // trackBar1
+            // upperTrackBar
             // 
-            this.trackBar1.Location = new System.Drawing.Point(323, 427);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(202, 45);
-            this.trackBar1.TabIndex = 6;
+            this.upperTrackBar.Location = new System.Drawing.Point(323, 427);
+            this.upperTrackBar.Name = "upperTrackBar";
+            this.upperTrackBar.Size = new System.Drawing.Size(202, 45);
+            this.upperTrackBar.TabIndex = 6;
             // 
-            // trackBar2
+            // lowerTrackBar
             // 
-            this.trackBar2.Location = new System.Drawing.Point(323, 487);
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(202, 45);
-            this.trackBar2.TabIndex = 7;
+            this.lowerTrackBar.Location = new System.Drawing.Point(323, 487);
+            this.lowerTrackBar.Name = "lowerTrackBar";
+            this.lowerTrackBar.Size = new System.Drawing.Size(202, 45);
+            this.lowerTrackBar.TabIndex = 7;
             // 
             // label1
             // 
@@ -313,43 +313,43 @@ namespace PL
             this.label7.TabIndex = 19;
             this.label7.Text = "Mean arterial pressure";
             // 
-            // button7
+            // muteButton
             // 
-            this.button7.BackColor = System.Drawing.Color.White;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button7.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(562, 456);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(90, 35);
-            this.button7.TabIndex = 20;
-            this.button7.Text = "Mute";
-            this.button7.UseVisualStyleBackColor = false;
+            this.muteButton.BackColor = System.Drawing.Color.White;
+            this.muteButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.muteButton.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.muteButton.Location = new System.Drawing.Point(562, 456);
+            this.muteButton.Name = "muteButton";
+            this.muteButton.Size = new System.Drawing.Size(90, 35);
+            this.muteButton.TabIndex = 20;
+            this.muteButton.Text = "Mute";
+            this.muteButton.UseVisualStyleBackColor = false;
             // 
-            // radioButton1
+            // monitorRadioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.Color.White;
-            this.radioButton1.Location = new System.Drawing.Point(781, 335);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(137, 24);
-            this.radioButton1.TabIndex = 21;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Monitor-mode";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.monitorRadioButton.AutoSize = true;
+            this.monitorRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monitorRadioButton.ForeColor = System.Drawing.Color.White;
+            this.monitorRadioButton.Location = new System.Drawing.Point(781, 335);
+            this.monitorRadioButton.Name = "monitorRadioButton";
+            this.monitorRadioButton.Size = new System.Drawing.Size(137, 24);
+            this.monitorRadioButton.TabIndex = 21;
+            this.monitorRadioButton.TabStop = true;
+            this.monitorRadioButton.Text = "Monitor-mode";
+            this.monitorRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // diagnoseRadioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.ForeColor = System.Drawing.Color.White;
-            this.radioButton2.Location = new System.Drawing.Point(781, 385);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(153, 24);
-            this.radioButton2.TabIndex = 22;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Diagnose-mode";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.diagnoseRadioButton.AutoSize = true;
+            this.diagnoseRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.diagnoseRadioButton.ForeColor = System.Drawing.Color.White;
+            this.diagnoseRadioButton.Location = new System.Drawing.Point(781, 385);
+            this.diagnoseRadioButton.Name = "diagnoseRadioButton";
+            this.diagnoseRadioButton.Size = new System.Drawing.Size(153, 24);
+            this.diagnoseRadioButton.TabIndex = 22;
+            this.diagnoseRadioButton.TabStop = true;
+            this.diagnoseRadioButton.Text = "Diagnose-mode";
+            this.diagnoseRadioButton.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -357,9 +357,9 @@ namespace PL
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(978, 576);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.diagnoseRadioButton);
+            this.Controls.Add(this.monitorRadioButton);
+            this.Controls.Add(this.muteButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label6);
@@ -372,8 +372,8 @@ namespace PL
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.trackBar2);
-            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.lowerTrackBar);
+            this.Controls.Add(this.upperTrackBar);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -383,8 +383,8 @@ namespace PL
             this.Name = "Main";
             this.Text = "Main";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upperTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lowerTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -398,8 +398,8 @@ namespace PL
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.TrackBar upperTrackBar;
+        private System.Windows.Forms.TrackBar lowerTrackBar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -412,9 +412,9 @@ namespace PL
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Button muteButton;
+        private System.Windows.Forms.RadioButton monitorRadioButton;
+        private System.Windows.Forms.RadioButton diagnoseRadioButton;
     }
 }
 
