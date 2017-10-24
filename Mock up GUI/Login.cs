@@ -35,5 +35,10 @@ namespace PL
                 MessageBox.Show("Invalid Login \n Please try again");
             }
         }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
