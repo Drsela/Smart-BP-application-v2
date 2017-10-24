@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[LoginDB]
+(
+	[UserID] INT IDENTITY(100,1) NOT NULL PRIMARY KEY,
+	[PasswordHash] BINARY(64) NOT NULL,
+	[FirstName] NVARCHAR(32) NOT NULL,
+	[LastName] NVARCHAR(32) NOT NULL,
+)
