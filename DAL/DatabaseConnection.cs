@@ -12,7 +12,7 @@ namespace DAL
         private readonly SqlConnection conn;
         private SqlDataReader _sqlDataReader;
         private SqlCommand _command;
-        private const string DatabaseString = "F17ST2ITS2201605182"; //Database Login
+        private const string DatabaseString = "F17ST2ITS2201605182"; //Database Login - Remember VPN
         public DatabaseConnection()
         {
             conn = new SqlConnection("Data Source =i4dab.ase.au.dk; Initial Catalog = " + DatabaseString + "; Persist Security Info = True; User ID =" + DatabaseString + "; password = " + DatabaseString + "");
