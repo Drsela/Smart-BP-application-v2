@@ -27,7 +27,7 @@ namespace PL
         {
             if(_saveData.ValidateLogin(EmployeeID.Text,Password.Text) == true)
             { 
-                Save formSave = new Save();
+                Save formSave = new Save(_businessLogic);
                 formSave.Show();
             }
             else

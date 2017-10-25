@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CPRtextBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,12 +36,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // CPRtextBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(185, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 20);
-            this.textBox1.TabIndex = 1;
+            this.CPRtextBox1.Location = new System.Drawing.Point(185, 44);
+            this.CPRtextBox1.Name = "CPRtextBox1";
+            this.CPRtextBox1.Size = new System.Drawing.Size(140, 20);
+            this.CPRtextBox1.TabIndex = 1;
             // 
             // textBox2
             // 
@@ -84,6 +84,7 @@
             this.button3.TabIndex = 12;
             this.button3.Text = "Save";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button1
             // 
@@ -109,7 +110,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.CPRtextBox1);
             this.Name = "Save";
             this.Text = "Save";
             this.ResumeLayout(false);
@@ -118,7 +119,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox CPRtextBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
