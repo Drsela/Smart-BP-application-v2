@@ -21,7 +21,8 @@ namespace DAL
         public bool ValidateLogin(string UserID, string password)
         {
             // Oprette SQL kommando
-            _command = new SqlCommand("select * from dbo.LoginDB where UserID ='" + UserID + "' and PasswordHash = '" + password + "' COLLATE Latin1_General_CS_AS", conn);
+            //_command = new SqlCommand("select * from dbo.LoginDB where UserID ='" + UserID + "' and PasswordHash = '" + password + "' COLLATE Latin1_General_CS_AS", conn);
+            _command = new SqlCommand("SELECT * FROM LoginDBWithHash WHERE UserID='" + UserID + "' AND PasswordHash=HASHBYTES('SHA2_512','" + password + "')", conn);
 
             // Åbne DB-forbindelsen
             conn.Open();
