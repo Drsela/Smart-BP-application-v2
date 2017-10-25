@@ -40,11 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bloodpressure.cs" />
     <Compile Include="CtrlDataAccessLogic.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveMeasurement.cs" />
+    <Compile Include="StartMeasurement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTO\DTO.csproj">
