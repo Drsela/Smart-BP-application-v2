@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
@@ -27,19 +28,26 @@ namespace DAL
             _command = new SqlCommand("SELECT * FROM LoginDBWithHash WHERE UserID='" + UserID + "' AND PasswordHash=HASHBYTES('SHA2_512','" + password + "')", conn);
 
             // Åbne DB-forbindelsen
-            conn.Open();
-
-            // Udføre det ønskede SQL statement på DB
-            _sqlDataReader = _command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
-            if (_sqlDataReader.HasRows == true)
+            try
             {
+                conn.Open();
+                _sqlDataReader = _command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
+                if (_sqlDataReader.HasRows == true)
+                {
 
-                conn.Close();
-                return true;
+                    conn.Close();
+                    return true;
+                }
+                else
+                {
+                    conn.Close();
+                    return false;
+                }
             }
-            else { 
-                conn.Close();
-                return false;
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new Exception("You are not connected to the VPN. Please connect to VPN and try again.");
             }
         }
 

@@ -32,12 +32,17 @@ namespace PL
                 chart1.Series["Series 1"].Points.AddXY(t+0.5, dia);
                 t++;
             }
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Login formLogin = new Login(_businessLogic);
             formLogin.Show();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
         }
     }
 }
