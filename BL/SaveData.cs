@@ -4,17 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using DTO;
 
 namespace BL
 {
     public class SaveData
     {
         private DatabaseConnection _connection;
+        private EmployeeDTO _employee;
         public SaveData()
         {
             
         }
 
+        public void uploadEmployee(string CPR, int UserID, string kommentar)
+        {
+            CPR = CPR.Replace("-", "");
+            _connection = new DatabaseConnection();
+            _connection.uploadMeasurement(CPR,UserID,kommentar);
+        }
+        public EmployeeDTO GetEmployeeFromValidation(string UN, string PW)
+        {
+            _connection = new DatabaseConnection();
+            return  _connection.GetDto(UN, PW);
+        }
         public bool ValidateLogin(string UN, string PW)
         {
              _connection = new DatabaseConnection();
@@ -28,6 +41,8 @@ namespace BL
                 return false;
             }
         }
+
+
         public bool ValidateCPR(string PatientCPR)
         {
             int testcpr = 1;                //init testcpr = 1

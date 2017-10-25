@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.CPRtextBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.commentTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -43,13 +43,13 @@
             this.CPRtextBox1.Size = new System.Drawing.Size(140, 20);
             this.CPRtextBox1.TabIndex = 1;
             // 
-            // textBox2
+            // commentTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(185, 97);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(140, 81);
-            this.textBox2.TabIndex = 2;
+            this.commentTextBox.Location = new System.Drawing.Point(185, 97);
+            this.commentTextBox.Multiline = true;
+            this.commentTextBox.Name = "commentTextBox";
+            this.commentTextBox.Size = new System.Drawing.Size(140, 81);
+            this.commentTextBox.TabIndex = 2;
             // 
             // label2
             // 
@@ -109,7 +109,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.commentTextBox);
             this.Controls.Add(this.CPRtextBox1);
             this.Name = "Save";
             this.Text = "Save";
@@ -120,7 +120,7 @@
 
         #endregion
         private System.Windows.Forms.TextBox CPRtextBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox commentTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button3;

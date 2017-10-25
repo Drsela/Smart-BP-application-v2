@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Interfaces;
 using BL;
+using DTO;
 
 namespace PL
 {
@@ -16,11 +17,13 @@ namespace PL
     {
         private iBusinessLogic _businessLogic;
         private SaveData _saveData;
-        public Save(iBusinessLogic businessLogic)
+        public EmployeeDTO _Employee;
+        public Save(iBusinessLogic businessLogic, EmployeeDTO employee)
         {
             InitializeComponent();
             _businessLogic = businessLogic;
             _saveData = new SaveData();
+            _Employee = employee;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,7 +34,13 @@ namespace PL
         private void button3_Click(object sender, EventArgs e)
         {
             if (_saveData.ValidateCPR(CPRtextBox1.Text) == true)
+            {
+                _saveData.uploadEmployee(CPRtextBox1.Text,_Employee.ID,commentTextBox.Text);
                 MessageBox.Show("Success");
+                this.Close();
+                
+            }
+                
             else
             {
                 MessageBox.Show("Wrong CPR-Number");

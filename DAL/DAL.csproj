@@ -42,10 +42,15 @@
   <ItemGroup>
     <Compile Include="CtrlDataAccessLogic.cs" />
     <Compile Include="DatabaseConnection.cs" />
+    <Compile Include="Employee.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj">
+      <Project>{772b379f-5e6a-472c-bf64-84b8484514ed}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{03b4736f-6ec4-4232-8f50-0a88b7d43c79}</Project>
       <Name>Interfaces</Name>

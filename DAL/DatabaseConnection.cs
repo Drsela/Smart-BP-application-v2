@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace DAL
 {
@@ -13,6 +14,7 @@ namespace DAL
         private SqlDataReader _sqlDataReader;
         private SqlCommand _command;
         private const string DatabaseString = "F17ST2ITS2201605182"; //Database Login - Remember VPN
+        public EmployeeDTO _Employee;
         public DatabaseConnection()
         {
             conn = new SqlConnection("Data Source =i4dab.ase.au.dk; Initial Catalog = " + DatabaseString + "; Persist Security Info = True; User ID =" + DatabaseString + "; password = " + DatabaseString + "");
@@ -31,6 +33,7 @@ namespace DAL
             _sqlDataReader = _command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
             if (_sqlDataReader.HasRows == true)
             {
+
                 conn.Close();
                 return true;
             }
@@ -38,6 +41,34 @@ namespace DAL
                 conn.Close();
                 return false;
             }
+        }
+
+        public EmployeeDTO GetDto(string UserID, string password)
+        {
+            _command = new SqlCommand("SELECT * FROM LoginDBWithHash WHERE UserID='" + UserID + "' AND PasswordHash=HASHBYTES('SHA2_512','" + password + "')", conn);
+
+            // Åbne DB-forbindelsen
+            conn.Open();
+
+            // Udføre det ønskede SQL statement på DB
+            _sqlDataReader = _command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
+            if (_sqlDataReader.HasRows == true)
+            {
+                while (_sqlDataReader.Read())
+                {
+                    _Employee = new EmployeeDTO(_sqlDataReader.GetInt32(0), _sqlDataReader.GetString(2), _sqlDataReader.GetString(3));
+                }
+                conn.Close();
+            }
+            return _Employee;
+        }
+
+        public void uploadMeasurement(string CPR, int UserID, string kommentar)
+        {
+            DateTime currentTime = DateTime.Now;
+            _command = new SqlCommand("INSERT INTO MaalingDB(Patient,AnsvarligID,Dato,Kommentar) VALUES ('"+ CPR+"', '"+UserID+"', '"+ currentTime+"', '"+ kommentar+"')",conn);
+            conn.Open();
+            _sqlDataReader = _command.ExecuteReader();
         }
     }
 }

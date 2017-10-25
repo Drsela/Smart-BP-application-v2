@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BL;
 using Interfaces;
+using DTO;
 
 namespace PL
 {
@@ -26,8 +27,10 @@ namespace PL
         private void button3_Click(object sender, EventArgs e)
         {
             if(_saveData.ValidateLogin(EmployeeID.Text,Password.Text) == true)
-            { 
-                Save formSave = new Save(_businessLogic);
+            {
+                //_saveData.GetEmployeeFromValidation(EmployeeID.Text, Password.Text);
+                Save formSave = new Save(_businessLogic, _saveData.GetEmployeeFromValidation(EmployeeID.Text, Password.Text));
+                this.Close();
                 formSave.Show();
             }
             else
