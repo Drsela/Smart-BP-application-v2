@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NationalInstruments.DAQmx;
+using NationalInstruments;
 
 namespace ST2Prj2LibNI_DAQ
 {

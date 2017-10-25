@@ -16,7 +16,7 @@ namespace BL
         }
         public void doAnAlogrithm()
         {
-
+            
         }
     }
 }
