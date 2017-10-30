@@ -44,5 +44,15 @@ namespace PL
         private void Main_Load(object sender, EventArgs e)
         {
         }
+
+        private void upperTrackBar_Scroll(object sender, EventArgs e)
+        {
+            UpperlimitText.Text = Convert.ToString(upperTrackBar.Value);
+        }
+
+        private void lowerTrackBar_Scroll(object sender, EventArgs e)
+        {
+            LowerlimitText.Text = Convert.ToString(lowerTrackBar.Value);
+        }
     }
 }
