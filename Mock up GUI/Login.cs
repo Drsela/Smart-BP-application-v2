@@ -43,5 +43,13 @@ namespace PL
         {
             this.Close();
         }
+
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button3_Click(this, new EventArgs());
+            }
+        }
     }
 }
