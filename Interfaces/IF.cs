@@ -14,6 +14,7 @@ namespace Interfaces
     public interface iBusinessLogic
     {
         void doAnAlogrithm();
+        void startThreads();
     }
 
     public interface iPresentationLogic

@@ -11,14 +11,15 @@ namespace DAL
         public double _mv;
         public List<double> _MvList;
 
-        public Datacontainer(List<double> mv)
+        public Datacontainer()
         {
-            _MvList = mv;
+            _MvList = new List<double>();
+            //_MvList = mv;
         }
 
         public void setMVMeasurement(double mv)
         {
-            _mv = mv;
+            _MvList.Add(mv);
         }
         public List<double> getMVMeasaurement()
         {

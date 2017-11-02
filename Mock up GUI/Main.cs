@@ -5,8 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BL;
 using Interfaces;
 
 namespace PL
@@ -21,6 +23,11 @@ namespace PL
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            _businessLogic.startThreads();
+            //_ctrlBusinessLogic.startThreads();
+
+
+            /*
             chart1.Series[0].Points.Clear();
             Random testRandom = new Random();
             int t = 1;
@@ -32,7 +39,7 @@ namespace PL
                 chart1.Series["Series 1"].Points.AddXY(t+0.5, dia);
                 t++;
             }
-
+            */
         }
 
         private void button3_Click(object sender, EventArgs e)
