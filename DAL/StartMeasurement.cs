@@ -8,14 +8,14 @@ namespace DAL
 {
     public class StartMeasurement
     {
-        private Bloodpressure _bp;
+        private MVMeasurements _bp;
         private List<double> _bpList;
         private NI_DAQVoltage _daq;
 
         public List<double> GetBP()
         {
             _bpList = new List<double>();
-            _bp = new Bloodpressure();
+            _bp = new MVMeasurements();
             _daq = _bp.Maaling();
             _daq.getVoltageSeqBlocking();
 

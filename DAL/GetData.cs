@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using ST2Prj2LibNI_DAQ;
+using NationalInstruments.DAQmx;
 
 namespace DAL
 {
-    public class Bloodpressure
+    
+
+    public class GetData
     {
         private NI_DAQVoltage _daq;
 
@@ -17,12 +19,13 @@ namespace DAL
             _daq = new NI_DAQVoltage()
             {
                 deviceName = "Dev1/ai0",
-                samplesPerChannel = 5000,
+                samplesPerChannel = 500,
                 sampleRateInHz = 1000,
-                rangeMaximumVolt = 2,
-                rangeMinimumVolt = -2
+                rangeMaximumVolt = -7,
+                rangeMinimumVolt = 7
             };
             return _daq; // Opretter DAQ med vores specifikationer
         }
+
     }
 }
