@@ -29,9 +29,11 @@ namespace BL
                     Thread.Sleep(0);
                 }
                // UDREGNINGER3
-               Debug.Write("Højeste punkt: " + container.getMVMeasaurement().Max());
-               Debug.Write("Laveste punkt: " + container.getMVMeasaurement().Min());
-               Debug.WriteLine("CONSUMER: Listen er på " + container.getMVMeasaurement().Count);
+               Debug.WriteLine("______________________ Consumer START __________________");
+               Debug.WriteLine("Højeste punkt: " + container.getMVMeasaurement().Max());
+               Debug.WriteLine("Laveste punkt: " + container.getMVMeasaurement().Min());
+               Debug.WriteLine("Beregninger er foretaget over " + container.getMVMeasaurement().Count + " målinger");
+               Debug.WriteLine("______________________ Consumer END __________________");
             }
         }
     }

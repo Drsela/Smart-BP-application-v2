@@ -35,9 +35,11 @@ namespace DAL
                     measurementDatacontainer.setMVMeasurement(item);
                     mvList.Add(item);       //tilføjer alle målingerne til en liste
                 }
-                Debug.WriteLine("Listen bør indeholde 500. Den indeholder: " + measurementDatacontainer._MvList.Count);
+                Debug.WriteLine("______________________ Producer START __________________");
+                Debug.WriteLine("Containeren bør indeholder 500. Den indeholder faktisk: " + measurementDatacontainer._MvList.Count);
 
-                Debug.Write("Listen bør være " +  500*counter +". Den er faktisk " + mvList.Count+ "");
+                Debug.WriteLine("Den samlede liste bør indeholder " +  500*counter +". Den er faktisk " + mvList.Count+ "");
+                Debug.WriteLine("______________________ Producer END __________________");
                 counter++;
                 _dataQueue.Enqueue(measurementDatacontainer);
             }
