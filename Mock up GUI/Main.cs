@@ -68,5 +68,10 @@ namespace PL
         {
             LowerlimitText.Text = Convert.ToString(lowerTrackBar.Value);
         }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            _businessLogic.stopThreads();
+        }
     }
 }

@@ -11,18 +11,18 @@ namespace DAL
 {
     public class CtrlDataAccessLogic : iDataAccessLogic
     {
-        private NI_DAQVoltage _daq;
+        private GetData _daq;
         public CtrlDataAccessLogic()
         {
         }
         
-        public int getSomeData()
+
+        public List<double> getData()
         {
-            _daq = new NI_DAQVoltage();
-            return 5;       // FJERN DETTE
-            
+            _daq = new GetData();
+            return _daq.GetBpList();
         }
-        
+
         public void saveSomeData(int val)
         {
         }

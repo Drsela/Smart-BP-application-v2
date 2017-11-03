@@ -11,13 +11,15 @@ namespace Interfaces
 {
     public interface iDataAccessLogic
     {
-        int getSomeData();//Signatur
+        List<double> getData();//Signatur
         void saveSomeData(int val);
     }
     public interface iBusinessLogic
     {
         void doAnAlogrithm();
         void startThreads(ConcurrentQueue<Datacontainer> dataQueue);
+
+        void stopThreads();
     }
 
     public interface iPresentationLogic

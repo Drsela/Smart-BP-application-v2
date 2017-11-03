@@ -12,17 +12,19 @@ namespace BL
 {
     public class CtrlBusinessLogic : iBusinessLogic
     {
-        private iDataAccessLogic currentDal;
+        private iDataAccessLogic _currentDal;
         private Producer _producer;
         private Consumer _consumer;
+        private Thread proucerThread;
+        private Thread consumerThread;
 
         public CtrlBusinessLogic(iDataAccessLogic mydal)
         {
-            this.currentDal = mydal;
+            this._currentDal = mydal;
         }
         public void doAnAlogrithm()
         {
-            
+
         }
 
         public void startThreads(ConcurrentQueue<Datacontainer> dataQueue)
@@ -30,12 +32,18 @@ namespace BL
             _consumer = new Consumer(dataQueue); 
             _producer = new Producer(dataQueue);
 
-            Thread startProucerThread = new Thread(_producer.RunProducer);
-            Thread startConsumerThread = new Thread(_consumer.RunConsumer);
+            proucerThread = new Thread(_producer.RunProducer);
+            consumerThread = new Thread(_consumer.RunConsumer);
 
-            startProucerThread.Start();
-            startConsumerThread.Start();
+            proucerThread.Start();
+            consumerThread.Start();
          
+        }
+
+        public void stopThreads()
+        {
+            proucerThread.Abort();
+            consumerThread.Abort();
         }
     }
 }

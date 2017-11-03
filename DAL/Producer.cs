@@ -16,6 +16,7 @@ namespace DAL
         private NI_DAQVoltage _daq;
         private GetData _getData;
         private List<double> mvList;
+        private int counter = 1;
        
         public Producer(ConcurrentQueue<Datacontainer> dataQueue)
         {
@@ -35,7 +36,9 @@ namespace DAL
                     mvList.Add(item);       //tilføjer alle målingerne til en liste
                 }
                 Debug.WriteLine("Listen bør indeholde 500. Den indeholder: " + measurementDatacontainer._MvList.Count);
-                Debug.Write("Listen bør være 500. Den er faktisk " + mvList.Count);
+
+                Debug.Write("Listen bør være " +  500*counter +". Den er faktisk " + mvList.Count+ "");
+                counter++;
                 _dataQueue.Enqueue(measurementDatacontainer);
             }
         }
