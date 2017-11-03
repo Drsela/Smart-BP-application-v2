@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,7 +13,6 @@ namespace BL
     public class Consumer
     {
         private readonly ConcurrentQueue<Datacontainer> _dataQueue;
-
         public Consumer(ConcurrentQueue<Datacontainer> dataQueue)
         {
             _dataQueue = dataQueue;
@@ -28,8 +28,10 @@ namespace BL
                 {
                     Thread.Sleep(0);
                 }
-               // UDREGNINGER
-                Console.WriteLine("Udregninger");
+               // UDREGNINGER3
+               Debug.Write("Højeste punkt: " + container.getMVMeasaurement().Max());
+               Debug.Write("Laveste punkt: " + container.getMVMeasaurement().Min());
+               Debug.WriteLine("CONSUMER: Listen er på " + container.getMVMeasaurement().Count);
             }
         }
     }

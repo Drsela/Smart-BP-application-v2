@@ -35,7 +35,7 @@
     <Reference Include="NationalInstruments.Common.Native, Version=13.0.40.190, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=x86" />
     <Reference Include="NationalInstruments.DAQmx, Version=9.9.45.39, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Source\Repos\Smart-BP-application-v2-master\Smart-BP-application-v2-master\ST2PRJ2Support\ST2Prj2LibNI-DAQ\NationalInstruments.DAQmx.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\National Instruments\MeasurementStudioVS2012\DotNET\Assemblies\Current\NationalInstruments.DAQmx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
+using DTO;
 
 namespace Interfaces
 {
@@ -14,7 +17,7 @@ namespace Interfaces
     public interface iBusinessLogic
     {
         void doAnAlogrithm();
-        void startThreads();
+        void startThreads(ConcurrentQueue<Datacontainer> dataQueue);
     }
 
     public interface iPresentationLogic

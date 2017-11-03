@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,13 +10,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BL;
+using DAL;
 using Interfaces;
+using DTO;
 
 namespace PL
 {
     public partial class Main : Form
     {
         private iBusinessLogic _businessLogic;
+        private ConcurrentQueue<Datacontainer> dataQueue;
+
         public Main(iBusinessLogic businessLogic)
         {
             InitializeComponent();
@@ -23,7 +28,9 @@ namespace PL
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            _businessLogic.startThreads();
+            dataQueue = new ConcurrentQueue<Datacontainer>();
+
+            _businessLogic.startThreads(dataQueue);
             //_ctrlBusinessLogic.startThreads();
 
 

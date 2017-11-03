@@ -15,8 +15,6 @@ namespace BL
         private iDataAccessLogic currentDal;
         private Producer _producer;
         private Consumer _consumer;
-        private Datacontainer datacontainer;
-        private readonly ConcurrentQueue<Datacontainer> _dataQueue;
 
         public CtrlBusinessLogic(iDataAccessLogic mydal)
         {
@@ -27,10 +25,10 @@ namespace BL
             
         }
 
-        public void startThreads()
+        public void startThreads(ConcurrentQueue<Datacontainer> dataQueue)
         {
-            _consumer = new Consumer(_dataQueue); 
-            _producer = new Producer(_dataQueue);
+            _consumer = new Consumer(dataQueue); 
+            _producer = new Producer(dataQueue);
 
             Thread startProucerThread = new Thread(_producer.RunProducer);
             Thread startConsumerThread = new Thread(_consumer.RunConsumer);
