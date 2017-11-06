@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Interfaces;
 using System.Windows.Forms;
+using PL;
 
 namespace PL
 {
@@ -14,7 +15,6 @@ namespace PL
         public CtrlPresentation(iBusinessLogic mybl)
         {
             this.currentBL = mybl;
-
         }
         public void startUpGUI()
         {
@@ -22,7 +22,6 @@ namespace PL
             Application.SetCompatibleTextRenderingDefault(false);
             Application.DoEvents();
             Application.Run(new Main(currentBL));
-
         }
     }
 }

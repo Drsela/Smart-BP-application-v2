@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BL;
-using DAL;
 using Interfaces;
 using DTO;
 
@@ -19,34 +18,24 @@ namespace PL
     public partial class Main : Form
     {
         private iBusinessLogic _businessLogic;
+        private GraphDTO _graphDTO;
         private ConcurrentQueue<Datacontainer> dataQueue;
+        private double counter;
+        private AlarmDTO _alarm;
+       
 
         public Main(iBusinessLogic businessLogic)
         {
             InitializeComponent();
             _businessLogic = businessLogic;
+            _graphDTO = new GraphDTO();
+            _alarm = new AlarmDTO();
         }
         private void button1_Click(object sender, EventArgs e)
         {
             dataQueue = new ConcurrentQueue<Datacontainer>();
-
             _businessLogic.startThreads(dataQueue);
-            //_ctrlBusinessLogic.startThreads();
-
-
-            /*
-            chart1.Series[0].Points.Clear();
-            Random testRandom = new Random();
-            int t = 1;
-            for (int i = 0; i < 20; i++)
-            {
-                int sys = testRandom.Next(100, 220);
-                int dia = testRandom.Next(50, 100);
-                chart1.Series["Series 1"].Points.AddXY(t, sys);
-                chart1.Series["Series 1"].Points.AddXY(t+0.5, dia);
-                t++;
-            }
-            */
+            _businessLogic.startAlarm(_alarm);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -62,16 +51,31 @@ namespace PL
         private void upperTrackBar_Scroll(object sender, EventArgs e)
         {
             UpperlimitText.Text = Convert.ToString(upperTrackBar.Value);
+            _alarm.setUpperLimit(upperTrackBar.Value);
         }
 
         private void lowerTrackBar_Scroll(object sender, EventArgs e)
         {
             LowerlimitText.Text = Convert.ToString(lowerTrackBar.Value);
+            _alarm.setUpperLimit(lowerTrackBar.Value);
         }
 
         private void stopButton_Click(object sender, EventArgs e)
         {
             _businessLogic.stopThreads();
+        }
+
+        public void updateGraph(double yValue)     
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke((Action) delegate
+                {
+                    chart1.Series["Blodtryk"].Points.AddXY(counter,_graphDTO.GetCurrentValue());
+                    counter = counter + 0.001;  //1000 målinger i sekunder (1/1000)
+                });
+            }
+
         }
     }
 }

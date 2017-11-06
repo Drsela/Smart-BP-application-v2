@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace DTO
 {
     public class Datacontainer
     {
@@ -14,7 +14,6 @@ namespace DAL
         public Datacontainer()
         {
             _MvList = new List<double>();
-            //_MvList = mv;
         }
 
         public void setMVMeasurement(double mv)

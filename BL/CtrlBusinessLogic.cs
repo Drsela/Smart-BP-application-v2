@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using DAL;
+using DTO;
 using Interfaces;
+
 
 namespace BL
 {
@@ -17,10 +19,17 @@ namespace BL
         private Consumer _consumer;
         private Thread proucerThread;
         private Thread consumerThread;
+       
+     
 
         public CtrlBusinessLogic(iDataAccessLogic mydal)
         {
             this._currentDal = mydal;
+        }
+
+        public void startAlarm()
+        {
+            
         }
         public void doAnAlogrithm()
         {
@@ -44,6 +53,11 @@ namespace BL
         {
             proucerThread.Abort();
             consumerThread.Abort();
+        }
+
+        public void startAlarm(AlarmDTO alarm)
+        {
+            
         }
     }
 }

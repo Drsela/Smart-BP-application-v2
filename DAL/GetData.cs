@@ -14,6 +14,9 @@ namespace DAL
     {
         private NI_DAQVoltage _daq;
         private List<double> _bpList;
+        private List<double> _singleList;
+
+        private double singleValue;
 
         public List<double> GetBpList()
         {
@@ -26,6 +29,18 @@ namespace DAL
             }
             return _bpList;
 
+        }
+        
+        public double getSingleValue()
+        {
+            _singleList = new List<double>();
+            _daq = Maaling();
+            _daq.getVoltageSeqBlocking();
+            foreach (double item in _daq.currentVoltageSeq)
+            {
+                _singleList.Add(item);
+            }
+            return singleValue;
         }
 
         public NI_DAQVoltage Maaling()
@@ -41,5 +56,17 @@ namespace DAL
             return _daq; // Opretter DAQ med vores specifikationer
         }
 
+        public NI_DAQVoltage singleMaaling()
+        {
+            _daq = new NI_DAQVoltage()
+            {
+                deviceName = "Dev1/ai0",
+                samplesPerChannel = 1,
+                sampleRateInHz = 1000,
+                rangeMaximumVolt = 1,
+                rangeMinimumVolt = -1
+            };
+            return _daq; // Opretter DAQ med vores specifikationer
+        }
     }
 }

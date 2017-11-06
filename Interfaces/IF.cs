@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+using BL;
 using DTO;
 
 namespace Interfaces
@@ -20,6 +20,7 @@ namespace Interfaces
         void startThreads(ConcurrentQueue<Datacontainer> dataQueue);
 
         void stopThreads();
+        void startAlarm(AlarmDTO alarm);
     }
 
     public interface iPresentationLogic

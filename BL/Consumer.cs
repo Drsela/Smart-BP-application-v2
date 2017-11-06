@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DAL;
+using DTO;
 
 namespace BL
 {
