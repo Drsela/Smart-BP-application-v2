@@ -13,6 +13,9 @@ namespace Interfaces
     {
         List<double> getData();//Signatur
         void saveSomeData(int val);
+
+        double getSingleReading();
+        void uploadCalibation(CalibrationValuesDTO calibrationValuesDto);
     }
     public interface iBusinessLogic
     {
@@ -21,6 +24,7 @@ namespace Interfaces
 
         void stopThreads();
         void startAlarm(AlarmDTO alarm);
+        void getSingleReading();
     }
 
     public interface iPresentationLogic

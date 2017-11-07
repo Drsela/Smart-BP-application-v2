@@ -16,8 +16,6 @@ namespace DAL
         private List<double> _bpList;
         private List<double> _singleList;
 
-        private double singleValue;
-
         public List<double> GetBpList()
         {
             _bpList = new List<double>();
@@ -34,13 +32,14 @@ namespace DAL
         public double getSingleValue()
         {
             _singleList = new List<double>();
-            _daq = Maaling();
+            _daq =  Maaling();
             _daq.getVoltageSeqBlocking();
             foreach (double item in _daq.currentVoltageSeq)
             {
                 _singleList.Add(item);
             }
-            return singleValue;
+
+            return _singleList.Average();
         }
 
         public NI_DAQVoltage Maaling()
@@ -53,7 +52,7 @@ namespace DAL
                 rangeMaximumVolt = 1,
                 rangeMinimumVolt = -1
             };
-            return _daq; // Opretter DAQ med vores specifikationer
+            return _daq; // Opretter DAQ som giver 500 målinger
         }
 
         public NI_DAQVoltage singleMaaling()
@@ -66,7 +65,7 @@ namespace DAL
                 rangeMaximumVolt = 1,
                 rangeMinimumVolt = -1
             };
-            return _daq; // Opretter DAQ med vores specifikationer
+            return _daq; // Opretter DAQ som giver 1 måling
         }
     }
 }

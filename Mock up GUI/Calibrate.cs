@@ -7,14 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Interfaces;
 
 namespace PL
 {
     public partial class Calibrate : Form
     {
-        public Calibrate()
+        public iBusinessLogic _BusinessLogic;
+        public Calibrate(iBusinessLogic businessLogic)
         {
             InitializeComponent();
+            _BusinessLogic = businessLogic;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Calibrate_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void calibrateButton_Click_1(object sender, EventArgs e)
+        {
+            _BusinessLogic.getSingleReading();
         }
     }
 }

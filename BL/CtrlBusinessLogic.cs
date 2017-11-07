@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows.Forms;
 using DAL;
 using DTO;
 using Interfaces;
@@ -19,7 +20,9 @@ namespace BL
         private Consumer _consumer;
         private Thread proucerThread;
         private Thread consumerThread;
-       
+        private AlarmDTO _alarm;
+        private Calibration _calibration;
+
      
 
         public CtrlBusinessLogic(iDataAccessLogic mydal)
@@ -57,6 +60,14 @@ namespace BL
 
         public void startAlarm(AlarmDTO alarm)
         {
+            _alarm = alarm;
+            _alarm.startAlarm();
+        }
+
+        public void getSingleReading()
+        {
+            _calibration = new Calibration();
+            _calibration.calibrateSystem();
             
         }
     }

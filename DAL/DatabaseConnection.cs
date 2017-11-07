@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+
 using DTO;
 
 namespace DAL
@@ -77,6 +78,22 @@ namespace DAL
             _command = new SqlCommand("INSERT INTO MaalingDB(Patient,AnsvarligID,Dato,Kommentar) VALUES ('"+ CPR+"', '"+UserID+"', '"+ currentTime+"', '"+ kommentar+"')",conn);
             conn.Open();
             _sqlDataReader = _command.ExecuteReader();
+        }
+
+        public void uploadCalibration(CalibrationValuesDTO calibrationValuesDto)
+        {
+            try
+            {
+                DateTime currentTime = DateTime.Now;
+                _command = new SqlCommand("INSERT INTO dbo.calibrationDB(Mmhg10,Mmhg50,Mmhg100,CurrentDate) VALUES ('" + calibrationValuesDto.getSingleValue(0) + "', '" + calibrationValuesDto.getSingleValue(1) + "', '" + calibrationValuesDto.getSingleValue(2) + "', '" + currentTime + "')", conn);
+                conn.Open();
+                _sqlDataReader = _command.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

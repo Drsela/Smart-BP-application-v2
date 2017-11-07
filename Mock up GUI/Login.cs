@@ -17,7 +17,7 @@ namespace PL
     {
         private iBusinessLogic _businessLogic;
         private readonly SaveData _saveData;
-        private iBusinessLogic _savedateBusinessLogic;
+
         public Login(iBusinessLogic businessLogic)
         {
             InitializeComponent();

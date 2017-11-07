@@ -77,5 +77,17 @@ namespace PL
             }
 
         }
+
+
+        private void openCalibrationButton(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Calibrate calibrateWindow = new Calibrate(_businessLogic);
+            calibrateWindow.Show();
+        }
     }
 }
