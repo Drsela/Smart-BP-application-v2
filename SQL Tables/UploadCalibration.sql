@@ -1,0 +1,3 @@
+﻿INSERT INTO dbo.[calibrationDB]
+(Mmhg10,Mmhg50,Mmhg100,CurrentDate) 
+VALUES ('0.2342342342','0.53423421','1.532423432', '2016-03-20 20:50:15')
