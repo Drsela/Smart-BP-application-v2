@@ -10,20 +10,24 @@ namespace DTO
     public class GraphDTO
     {
         private double _currentValue;
+        private List<double> list;
 
         public GraphDTO()
         {
-            
+            list = new List<double>();
         }
 
-        public double GetCurrentValue()
+        public List<double> GetCurrentValue()
         {
-            return _currentValue;
+            return list;
         }
 
-        public void SetCurrentValue(double value)
+        public void SetCurrentValue(List<double> values)
         {
-            _currentValue = value;   
+            foreach (var item in values)
+            {
+                list.Add(item);
+            }
         }
     }
 }

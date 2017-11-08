@@ -25,6 +25,7 @@ namespace Interfaces
         void stopThreads();
         void startAlarm(AlarmDTO alarm);
         void getSingleReading();
+        List<double> Get500Measurements();
     }
 
     public interface iPresentationLogic

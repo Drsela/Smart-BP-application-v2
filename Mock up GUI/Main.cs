@@ -36,6 +36,10 @@ namespace PL
             dataQueue = new ConcurrentQueue<Datacontainer>();
             _businessLogic.startThreads(dataQueue);
             _businessLogic.startAlarm(_alarm);
+
+            Thread graphThread = new Thread(UpdateGraph);
+            graphThread.IsBackground = true;
+            graphThread.Start();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -65,23 +69,29 @@ namespace PL
             _businessLogic.stopThreads();
         }
 
-        public void updateGraph(double yValue)     
+        public void UpdateGraph()     
         {
             if (this.InvokeRequired)
             {
                 this.BeginInvoke((Action) delegate
                 {
+                    /*
                     chart1.Series["Blodtryk"].Points.AddXY(counter,_graphDTO.GetCurrentValue());
                     counter = counter + 0.001;  //1000 målinger i sekunder (1/1000)
+                    */
+                    List<double> measurements = getReadingsToGraph();
+                    for (int i = 0; i < measurements.Count; i++)
+                    {
+                        chart1.Series["Blodtryk"].Points.AddXY(counter, measurements[i]);
+                        counter = counter + 0.001;
+                    }
                 });
             }
-
         }
 
-
-        private void openCalibrationButton(object sender, EventArgs e)
+        public List<double> getReadingsToGraph()
         {
-            
+             return _businessLogic.Get500Measurements();
         }
 
         private void button4_Click(object sender, EventArgs e)

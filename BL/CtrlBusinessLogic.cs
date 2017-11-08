@@ -49,7 +49,11 @@ namespace BL
 
             proucerThread.Start();
             consumerThread.Start();
-         
+        }
+
+        public List<double> Get500Measurements()
+        {
+            return _currentDal.getData();
         }
 
         public void stopThreads()

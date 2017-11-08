@@ -40,7 +40,6 @@ namespace DAL
                 {
                     measurementDatacontainer.setMVMeasurement(item);
                     mvList.Add(item);       //tilføjer alle målingerne til en liste
-                    _graphDTO.SetCurrentValue(item);
                 }
                 Debug.WriteLine("______________________ Producer START __________________");
                 Debug.WriteLine("Containeren bør indeholder 500. Den indeholder faktisk: " + measurementDatacontainer._MvList.Count);
