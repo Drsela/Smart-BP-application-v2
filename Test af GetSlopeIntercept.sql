@@ -1,0 +1,1 @@
+﻿SELECT TOP 1 * FROM dbo.calibrationDB ORDER BY CurrentDate DESC
