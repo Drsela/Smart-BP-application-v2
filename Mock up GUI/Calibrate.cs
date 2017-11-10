@@ -33,6 +33,8 @@ namespace PL
         private void calibrateButton_Click_1(object sender, EventArgs e)
         {
             _BusinessLogic.getSingleReading();
+            MessageBox.Show("Calibration Succesfull");
+            this.Close();
         }
     }
 }

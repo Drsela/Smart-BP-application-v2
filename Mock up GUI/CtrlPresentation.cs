@@ -11,17 +11,21 @@ namespace PL
 {
     public class CtrlPresentation : iPresentationLogic
     {
-        private iBusinessLogic currentBL;
+        //private iBusinessLogic currentBL;
+        public Main _myMain;
+        public iBusinessLogic currentBL { set; get; }
         public CtrlPresentation(iBusinessLogic mybl)
         {
             this.currentBL = mybl;
+            Application.SetCompatibleTextRenderingDefault(false);
+            _myMain = new Main(currentBL);
         }
         public void startUpGUI()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.DoEvents();
-            Application.Run(new Main(currentBL));
+            Application.Run(_myMain);
         }
+
     }
 }

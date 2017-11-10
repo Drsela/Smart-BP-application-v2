@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using DAL;
 using Interfaces;
 using DTO;
+using Accord.Statistics.Models.Regression.Linear;
 
 namespace BL
 {
@@ -23,6 +24,7 @@ namespace BL
         public void calibrateSystem()
         {
             _calibrationValuesDto.addValue(_iDataAccessLogic.getSingleReading());
+            
             for (int i = 0; i<= 1; i++)
             {
                 DialogResult dialogResponse = MessageBox.Show("Connect next coloumn as seen on the screen. Press Yes when the coloumn is connected",
@@ -32,7 +34,25 @@ namespace BL
                     _calibrationValuesDto.addValue(_iDataAccessLogic.getSingleReading());
                 }
             }
+
+            double[] _voltageArray =
+            {
+                _calibrationValuesDto.getValues()[0], _calibrationValuesDto.getValues()[1], _calibrationValuesDto.getValues()[2]
+            };
+            double[] _mmhgArray = {10, 50, 100};
+            
+            OrdinaryLeastSquares ols = new OrdinaryLeastSquares();
+            SimpleLinearRegression _linearRegression = ols.Learn(_voltageArray, _mmhgArray);
+
+            double slope = _linearRegression.Slope;
+            double intercept = _linearRegression.Intercept;
+
+            _calibrationValuesDto.Slope = slope;
+            _calibrationValuesDto.Intercept = intercept;
+
             _iDataAccessLogic.uploadCalibation(_calibrationValuesDto);
         }
     }
+
+
 }

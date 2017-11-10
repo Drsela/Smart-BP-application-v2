@@ -22,7 +22,10 @@ namespace PL
         private ConcurrentQueue<Datacontainer> dataQueue;
         private double counter;
         private AlarmDTO _alarm;
-       
+        private Datacontainer measurements;
+        
+
+
 
         public Main(iBusinessLogic businessLogic)
         {
@@ -30,16 +33,21 @@ namespace PL
             _businessLogic = businessLogic;
             _graphDTO = new GraphDTO();
             _alarm = new AlarmDTO();
+            counter = 0;
         }
         private void button1_Click(object sender, EventArgs e)
         {
             dataQueue = new ConcurrentQueue<Datacontainer>();
             _businessLogic.startThreads(dataQueue);
-            _businessLogic.startAlarm(_alarm);
 
-            Thread graphThread = new Thread(UpdateGraph);
-            graphThread.IsBackground = true;
+
+            //_businessLogic.startAlarm(_alarm);
+
+            /*
+            Thread graphThread = new Thread(UpdateGraph) {IsBackground = true};
             graphThread.Start();
+            */
+           
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -69,35 +77,41 @@ namespace PL
             _businessLogic.stopThreads();
         }
 
-        public void UpdateGraph()     
+        private void UpdateGraf()
         {
-            if (this.InvokeRequired)
+            Datacontainer grafContainer = _businessLogic.GetDatacontainer();
+            List<double> grafList = grafContainer.getMVMeasaurement();
+
+            for (int i = 0; i < grafList.Count; i++)
             {
-                this.BeginInvoke((Action) delegate
-                {
-                    /*
-                    chart1.Series["Blodtryk"].Points.AddXY(counter,_graphDTO.GetCurrentValue());
-                    counter = counter + 0.001;  //1000 målinger i sekunder (1/1000)
-                    */
-                    List<double> measurements = getReadingsToGraph();
-                    for (int i = 0; i < measurements.Count; i++)
-                    {
-                        chart1.Series["Blodtryk"].Points.AddXY(counter, measurements[i]);
-                        counter = counter + 0.001;
-                    }
-                });
+                chart1.Series["Blodtryk"].Points.AddXY(counter, grafList[i]);
+                counter = counter + 0.001;
             }
         }
 
-        public List<double> getReadingsToGraph()
+        public Datacontainer getReadingsToGraph()
         {
-             return _businessLogic.Get500Measurements();
+             return _businessLogic.GetDatacontainer();
         }
 
+        
+        public List<double> getListToGraph()
+        {
+            return _businessLogic.returnTestList();
+        }
+        
         private void button4_Click(object sender, EventArgs e)
         {
             Calibrate calibrateWindow = new Calibrate(_businessLogic);
             calibrateWindow.Show();
+        }
+
+        public void update()        //Delegate som kalder UpdateGraf
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke((Action)UpdateGraf);
+            }
         }
     }
 }

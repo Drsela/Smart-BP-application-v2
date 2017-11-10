@@ -9,11 +9,26 @@ namespace DTO
     public class CalibrationValuesDTO
     {
         private List<double> _calibrationValues;
+        private double _slope;
+        public double Slope {
+            get => _slope;
+            set => _slope = value;
+        }
+        
+        private double _intercept;
+        public double Intercept
+        {
+            get => _intercept;
+            set => _intercept = value;
+        }
+
 
         public CalibrationValuesDTO()
         {
             _calibrationValues = new List<double>();
         }
+
+        
 
         public void addValue(double value)
         {

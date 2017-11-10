@@ -25,11 +25,15 @@ namespace Interfaces
         void stopThreads();
         void startAlarm(AlarmDTO alarm);
         void getSingleReading();
-        List<double> Get500Measurements();
+        Datacontainer GetDatacontainer();
+
+        List<double> returnTestList();
+
     }
 
     public interface iPresentationLogic
     {
         void startUpGUI();
     }
+
 }

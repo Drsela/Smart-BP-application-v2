@@ -51,9 +51,14 @@ namespace BL
             consumerThread.Start();
         }
 
-        public List<double> Get500Measurements()
+        public Datacontainer GetDatacontainer()
         {
-            return _currentDal.getData();
+            return _consumer.GetDatacontainer();
+        }
+
+        public List<double> returnTestList()
+        { 
+            return _consumer.returnTestList();
         }
 
         public void stopThreads()

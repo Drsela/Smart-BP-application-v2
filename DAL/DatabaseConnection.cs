@@ -80,12 +80,38 @@ namespace DAL
             _sqlDataReader = _command.ExecuteReader();
         }
 
+        public double[] GetSlopeInterceptDoubles()
+        {
+            _command = new SqlCommand("SELECT TOP 1 * FROM dbo.calibrationDB ORDER BY CurrentDate DESC");
+            conn.Open();
+            double[] SlopeInterceptList = new double[2];
+                // Udføre det ønskede SQL statement på DB
+            _sqlDataReader = _command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
+
+                while (_sqlDataReader.Read())
+                {
+                    SlopeInterceptList = new[] {_sqlDataReader.GetDouble(3), _sqlDataReader.GetDouble(4)};
+                }
+                conn.Close();
+            return SlopeInterceptList;
+        }
+
         public void uploadCalibration(CalibrationValuesDTO calibrationValuesDto)
         {
+            DateTime currentTime = DateTime.Now;
+            //_command = new SqlCommand("INSERT INTO dbo.calibrationDB(Mmhg10,Mmhg50,Mmhg100,CurrentDate) VALUES ('" + calibrationValuesDto.getSingleValue(0) + "', '" + calibrationValuesDto.getSingleValue(1) + "', '" + calibrationValuesDto.getSingleValue(2) + "', '" + calibrationValuesDto.Slope + "', '"+ calibrationValuesDto.Intercept+ ", '" + currentTime + "')", conn);
+            
+            _command = new SqlCommand("INSERT INTO dbo.calibrationDB(Mmhg10,Mmhg50,Mmhg100,Slope,Intercept, CurrentDate) VALUES (@Mmhg10, @Mmhg50, @Mmhg100, @Slope, @Intercept, @Date)",conn);
+            _command.Parameters.AddWithValue("@Mmhg10", calibrationValuesDto.getValues()[0]);
+            _command.Parameters.AddWithValue("@Mmhg50", calibrationValuesDto.getValues()[1]);
+            _command.Parameters.AddWithValue("@Mmhg100", calibrationValuesDto.getValues()[2]);
+            _command.Parameters.AddWithValue("@Slope", calibrationValuesDto.Slope);
+            _command.Parameters.AddWithValue("@Intercept", calibrationValuesDto.Intercept);
+            _command.Parameters.AddWithValue("@Date", currentTime);
+            
             try
             {
-                DateTime currentTime = DateTime.Now;
-                _command = new SqlCommand("INSERT INTO dbo.calibrationDB(Mmhg10,Mmhg50,Mmhg100,CurrentDate) VALUES ('" + calibrationValuesDto.getSingleValue(0) + "', '" + calibrationValuesDto.getSingleValue(1) + "', '" + calibrationValuesDto.getSingleValue(2) + "', '" + currentTime + "')", conn);
+               
                 conn.Open();
                 _sqlDataReader = _command.ExecuteReader();
             }

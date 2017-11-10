@@ -23,9 +23,15 @@ namespace Main
 
         public Program()
         {
+            
+
             currentDAL = new CtrlDataAccessLogic();
             currentBL = new CtrlBusinessLogic(currentDAL);
             currentGUIPL = new CtrlPresentation(currentBL);
+            
+            
+            
+
             currentGUIPL.startUpGUI();
         }
     }
