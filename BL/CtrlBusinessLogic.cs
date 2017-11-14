@@ -23,8 +23,6 @@ namespace BL
         private AlarmDTO _alarm;
         private Calibration _calibration;
 
-     
-
         public CtrlBusinessLogic(iDataAccessLogic mydal)
         {
             this._currentDal = mydal;
@@ -78,6 +76,11 @@ namespace BL
             _calibration = new Calibration();
             _calibration.calibrateSystem();
             
+        }
+
+        public CalibrationValuesDTO GetCalibrationValuesFromDAL()
+        {
+            return _currentDal.getValues();
         }
     }
 }

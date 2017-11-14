@@ -80,6 +80,30 @@ namespace DAL
             _sqlDataReader = _command.ExecuteReader();
         }
 
+        public CalibrationValuesDTO getCalibrationValues()
+        {
+            CalibrationValuesDTO calibrationValues = new CalibrationValuesDTO();
+            _command = new SqlCommand("SELECT TOP 1 * FROM dbo.calibrationDB ORDER BY CurrentDate DESC",conn);
+            try
+            {
+                conn.Open();
+                _sqlDataReader =_command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
+                while (_sqlDataReader.Read())
+                {
+                    calibrationValues.Intercept = Convert.ToDouble(_sqlDataReader.GetString(3));
+                    calibrationValues.Slope = Convert.ToDouble(_sqlDataReader.GetString(4));
+                }
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return calibrationValues;
+        }
+
+
         public double[] GetSlopeInterceptDoubles()
         {
             _command = new SqlCommand("SELECT TOP 1 * FROM dbo.calibrationDB ORDER BY CurrentDate DESC");

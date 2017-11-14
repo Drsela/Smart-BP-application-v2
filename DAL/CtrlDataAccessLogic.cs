@@ -13,11 +13,12 @@ namespace DAL
     public class CtrlDataAccessLogic : iDataAccessLogic
     {
         private GetData _daq;
-        private DatabaseConnection _databseConnection;
+        private DatabaseConnection _databaseConnection;
+
         public CtrlDataAccessLogic()
         {
         }
-        
+
 
         public List<double> getData()
         {
@@ -37,10 +38,14 @@ namespace DAL
 
         public void uploadCalibation(CalibrationValuesDTO calibrationValuesDto)
         {
-            _databseConnection = new DatabaseConnection();
-            _databseConnection.uploadCalibration(calibrationValuesDto);
+            _databaseConnection = new DatabaseConnection();
+            _databaseConnection.uploadCalibration(calibrationValuesDto);
         }
 
-
+        public CalibrationValuesDTO getValues()
+        {
+            _databaseConnection = new DatabaseConnection();
+            return _databaseConnection.getCalibrationValues();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -37,17 +38,14 @@ namespace PL
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            CalibrationValuesDTO latestValues = _businessLogic.GetCalibrationValuesFromDAL();
+            Debug.WriteLine("Slope is :" + latestValues.Slope);
+            Debug.WriteLine("Intercept is: " + latestValues.Intercept);
+            /*
             dataQueue = new ConcurrentQueue<Datacontainer>();
             _businessLogic.startThreads(dataQueue);
-
-
-            //_businessLogic.startAlarm(_alarm);
-
-            /*
-            Thread graphThread = new Thread(UpdateGraph) {IsBackground = true};
-            graphThread.Start();
             */
-           
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -87,17 +85,6 @@ namespace PL
                 chart1.Series["Blodtryk"].Points.AddXY(counter, grafList[i]);
                 counter = counter + 0.001;
             }
-        }
-
-        public Datacontainer getReadingsToGraph()
-        {
-             return _businessLogic.GetDatacontainer();
-        }
-
-        
-        public List<double> getListToGraph()
-        {
-            return _businessLogic.returnTestList();
         }
         
         private void button4_Click(object sender, EventArgs e)
