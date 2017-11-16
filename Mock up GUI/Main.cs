@@ -11,9 +11,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using BL;
 using Interfaces;
 using DTO;
+
 
 namespace PL
 {
@@ -22,19 +24,17 @@ namespace PL
         private iBusinessLogic _businessLogic;
         private GraphDTO _graphDTO;
         private ConcurrentQueue<Datacontainer> dataQueue;
-        private double counter;
         private AlarmDTO _alarm;
         private Datacontainer measurements;
         private List<double> measureList;
-
         private iPatientConsumerObserver observer;
-
+        private double time;
+        private Thread graphThread;
 
         public Main(iBusinessLogic businessLogic)
         {
             InitializeComponent();
             _businessLogic = businessLogic;
-            counter = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -46,11 +46,6 @@ namespace PL
             */
             dataQueue = new ConcurrentQueue<Datacontainer>();
             _businessLogic.startThreads(dataQueue,this);
-
-            //_businessLogic.AttachObserver(this);
-
-
-
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -61,6 +56,10 @@ namespace PL
 
         private void Main_Load(object sender, EventArgs e)
         {
+            chart1.ChartAreas[0].AxisX.Minimum = 0;
+            chart1.ChartAreas[0].AxisX.Interval = 1;
+            chart1.ChartAreas[0].AxisX.Maximum = 5;
+            double time = 0;
         }
 
         private void upperTrackBar_Scroll(object sender, EventArgs e)
@@ -80,8 +79,6 @@ namespace PL
             _businessLogic.stopThreads();
         }
 
-
-
         public void Update()
         {
             if (this.InvokeRequired)
@@ -90,15 +87,15 @@ namespace PL
                 {
                     //chart1.Series["Blodtryk"].Points.Clear();
                     measureList = _businessLogic.mwList();
-                    double time = 0;
+
+
                     for (int i = 0; i < measureList.Count; i++)
                     {
                         chart1.Series["Blodtryk"].Points.AddXY(time, measureList[i]); //Ændres til ConvertedValue
                         time += 0.001;
                     }
                     textBox3.Text = Convert.ToString(_businessLogic.getSysFromConsumer());       //Systole
-                    textBox2.Text = Convert.ToString(_businessLogic.getDiaFromConsumer()); //Diastole
-
+                    textBox2.Text = Convert.ToString(_businessLogic.getDiaFromConsumer());       //Diastole
                 });
             }
 
