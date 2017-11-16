@@ -15,7 +15,7 @@ using DTO;
 
 namespace PL
 {
-    public partial class Main : Form
+    public partial class Main : Form, iPatentConsumerObserver
     {
         private iBusinessLogic _businessLogic;
         private GraphDTO _graphDTO;
@@ -77,17 +77,6 @@ namespace PL
             _businessLogic.stopThreads();
         }
 
-        private void UpdateGraf()
-        {
-            Datacontainer grafContainer = _businessLogic.GetDatacontainer();
-            List<double> grafList = grafContainer.getMVMeasaurement();
-
-            for (int i = 0; i < grafList.Count; i++)
-            {
-                chart1.Series["Blodtryk"].Points.AddXY(counter, grafList[i]);
-                counter = counter + 0.001;
-            }
-        }
 
         public Datacontainer getReadingsToGraph()
         {
@@ -106,12 +95,15 @@ namespace PL
             calibrateWindow.Show();
         }
 
-        public void update()        //Delegate som kalder UpdateGraf
+
+        public void UpdateGraph()
         {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke((Action)UpdateGraf);
-            }
+            
+        }
+
+        public void Update(GraphDTO GraphData)
+        {
+            
         }
     }
 }

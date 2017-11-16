@@ -64,6 +64,7 @@
     <Compile Include="CalculatePuls.cs" />
     <Compile Include="Calibration.cs" />
     <Compile Include="Consumer.cs" />
+    <Compile Include="ConsumerSubject.cs" />
     <Compile Include="CtrlBusinessLogic.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

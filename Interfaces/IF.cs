@@ -36,4 +36,9 @@ namespace Interfaces
         void startUpGUI();
     }
 
+    public interface iPatentConsumerObserver
+    {
+        void Update(GraphDTO GraphData);
+    }
+
 }
