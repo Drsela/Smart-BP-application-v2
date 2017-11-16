@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +17,7 @@ using DTO;
 
 namespace PL
 {
-    public partial class Main : Form, iPatentConsumerObserver
+    public partial class Main : Form, iPatientConsumerObserver
     {
         private iBusinessLogic _businessLogic;
         private GraphDTO _graphDTO;
@@ -24,27 +25,31 @@ namespace PL
         private double counter;
         private AlarmDTO _alarm;
         private Datacontainer measurements;
-        
+        private List<double> measureList;
 
+        private iPatientConsumerObserver observer;
 
 
         public Main(iBusinessLogic businessLogic)
         {
             InitializeComponent();
             _businessLogic = businessLogic;
-            _graphDTO = new GraphDTO();
-            _alarm = new AlarmDTO();
             counter = 0;
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            /*
             CalibrationValuesDTO latestValues = _businessLogic.GetCalibrationValuesFromDAL();
             Debug.WriteLine("Slope is :" + latestValues.Slope);
             Debug.WriteLine("Intercept is: " + latestValues.Intercept);
-            /*
-            dataQueue = new ConcurrentQueue<Datacontainer>();
-            _businessLogic.startThreads(dataQueue);
             */
+            dataQueue = new ConcurrentQueue<Datacontainer>();
+            _businessLogic.startThreads(dataQueue,this);
+
+            //_businessLogic.AttachObserver(this);
+
+
 
         }
 
@@ -75,21 +80,29 @@ namespace PL
             _businessLogic.stopThreads();
         }
 
-<<<<<<< HEAD
 
-        public Datacontainer getReadingsToGraph()
-        {
-             return _businessLogic.GetDatacontainer();
-        }
 
-        
-        public List<double> getListToGraph()
+        public void Update()
         {
-            return _businessLogic.returnTestList();
-=======
-        private void UpdateGraf()
-        {
-            Datacontainer grafContainer = _businessLogic.GetDatacontainer();
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Action)delegate
+                {
+                    //chart1.Series["Blodtryk"].Points.Clear();
+                    measureList = _businessLogic.mwList();
+                    double time = 0;
+                    for (int i = 0; i < measureList.Count; i++)
+                    {
+                        chart1.Series["Blodtryk"].Points.AddXY(time, measureList[i]); //Ændres til ConvertedValue
+                        time += 0.001;
+                    }
+                    textBox3.Text = Convert.ToString(_businessLogic.getSysFromConsumer());       //Systole
+                    textBox2.Text = Convert.ToString(_businessLogic.getDiaFromConsumer()); //Diastole
+
+                });
+            }
+
+            /*
             List<double> grafList = grafContainer.getMVMeasaurement();
 
             for (int i = 0; i < grafList.Count; i++)
@@ -97,24 +110,13 @@ namespace PL
                 chart1.Series["Blodtryk"].Points.AddXY(counter, grafList[i]);
                 counter = counter + 0.001;
             }
->>>>>>> dbaf1c7265f276f7e6755a5632b0c701a1bbf32f
+            */
         }
-        
+
         private void button4_Click(object sender, EventArgs e)
         {
             Calibrate calibrateWindow = new Calibrate(_businessLogic);
             calibrateWindow.Show();
-        }
-
-
-        public void UpdateGraph()
-        {
-            
-        }
-
-        public void Update(GraphDTO GraphData)
-        {
-            
         }
     }
 }

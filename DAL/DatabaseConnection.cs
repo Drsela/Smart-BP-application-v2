@@ -98,7 +98,7 @@ namespace DAL
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+               throw;
             }
             return calibrationValues;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,13 @@ using Interfaces;
 
 namespace BL
 {
-    public class Consumer
+    public class Consumer : ConsumerSubject
     {
         private readonly ConcurrentQueue<Datacontainer> _dataQueue;
         private Datacontainer _measurementDatacontainer;
         private List<double> testList;
+        private double _systole;
+        private double _diastole;
 
         public Consumer(ConcurrentQueue<Datacontainer> dataQueue)
         {
@@ -33,10 +36,12 @@ namespace BL
                 {
                     Thread.Sleep(0);
                 }
-                testList = new List<double>();
                 testList = container.getMVMeasaurement();
-                
-               // UDREGNINGER3
+                _systole = testList.Max();
+                _diastole = testList.Min();
+
+                Notify();
+               // UDREGNINGER
                Debug.WriteLine("______________________ Consumer START __________________");
                Debug.WriteLine("Højeste punkt: " + container.getMVMeasaurement().Max());
                Debug.WriteLine("Laveste punkt: " + container.getMVMeasaurement().Min());
@@ -45,19 +50,19 @@ namespace BL
             }
         }
 
-        public void setDatacontainer(Datacontainer Measurements500)
-        {
-            _measurementDatacontainer = Measurements500;
-        }
-
-        public List<double> returnTestList()
+        public List<double> mwList()
         {
             return testList;
         }
 
-        public Datacontainer GetDatacontainer()
+        public double getDia()
         {
-            return _measurementDatacontainer;
+            return _diastole;
+        }
+
+        public double getSys()
+        {
+            return _systole;
         }
     }
 }

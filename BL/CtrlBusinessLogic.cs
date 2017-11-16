@@ -22,6 +22,7 @@ namespace BL
         private Thread consumerThread;
         private AlarmDTO _alarm;
         private Calibration _calibration;
+        private ConsumerSubject _consumerSubject;
 
         public CtrlBusinessLogic(iDataAccessLogic mydal)
         {
@@ -37,26 +38,23 @@ namespace BL
 
         }
 
-        public void startThreads(ConcurrentQueue<Datacontainer> dataQueue)
+        public void startThreads(ConcurrentQueue<Datacontainer> dataQueue, iPatientConsumerObserver observer)
         {
             _consumer = new Consumer(dataQueue); 
             _producer = new Producer(dataQueue);
+
+            _consumer.Attach(observer);
 
             proucerThread = new Thread(_producer.RunProducer);
             consumerThread = new Thread(_consumer.RunConsumer);
 
             proucerThread.Start();
             consumerThread.Start();
-        }
 
-        public Datacontainer GetDatacontainer()
+        }
+        public void AttachObserver(iPatientConsumerObserver observer)
         {
-            return _consumer.GetDatacontainer();
-        }
-
-        public List<double> returnTestList()
-        { 
-            return _consumer.returnTestList();
+            _consumer.Attach(observer);
         }
 
         public void stopThreads()
@@ -81,6 +79,23 @@ namespace BL
         public CalibrationValuesDTO GetCalibrationValuesFromDAL()
         {
             return _currentDal.getValues();
+        }
+
+
+
+        public List<double> mwList()
+        {
+            return _consumer.mwList();
+        }
+
+        public double getDiaFromConsumer()
+        {
+            return _consumer.getDia();
+        }
+
+        public double getSysFromConsumer()
+        {
+            return _consumer.getSys();
         }
     }
 }

@@ -9,14 +9,14 @@ namespace BL
 {
     public class ConsumerSubject
     {
-        private List<iPatentConsumerObserver> _observers = new List<iPatentConsumerObserver>();
+        private List<iPatientConsumerObserver> _observers = new List<iPatientConsumerObserver>();
 
-        public void Attach(iPatentConsumerObserver IPO)
+        public void Attach(iPatientConsumerObserver IPO)
         {
             _observers.Add(IPO);
         }
 
-        public void Detach(iPatentConsumerObserver IPO)
+        public void Detach(iPatientConsumerObserver IPO)
         {
             _observers.Remove(IPO);
         }

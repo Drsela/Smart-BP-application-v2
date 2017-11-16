@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BL;
 using DTO;
 
+
 namespace Interfaces
 {
     public interface iDataAccessLogic
@@ -21,15 +22,18 @@ namespace Interfaces
     public interface iBusinessLogic
     {
         void doAnAlogrithm();
-        void startThreads(ConcurrentQueue<Datacontainer> dataQueue);
+        void startThreads(ConcurrentQueue<Datacontainer> dataQueue, iPatientConsumerObserver observer);
 
         void stopThreads();
         void startAlarm(AlarmDTO alarm);
         void getSingleReading();
-        Datacontainer GetDatacontainer();
 
-        List<double> returnTestList();
         CalibrationValuesDTO GetCalibrationValuesFromDAL();
+
+        void AttachObserver(iPatientConsumerObserver observer);
+        List<double> mwList();
+        double getDiaFromConsumer();
+        double getSysFromConsumer();
 
     }
 
@@ -38,9 +42,9 @@ namespace Interfaces
         void startUpGUI();
     }
 
-    public interface iPatentConsumerObserver
+    public interface iPatientConsumerObserver
     {
-        void Update(GraphDTO GraphData);
+        void Update();
     }
 
 }

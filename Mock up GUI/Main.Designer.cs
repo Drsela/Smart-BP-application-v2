@@ -96,7 +96,7 @@ namespace PL
             series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             series1.IsVisibleInLegend = false;
             series1.Legend = "Legend1";
-            series1.Name = "Series 1";
+            series1.Name = "Blodtryk";
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(1013, 427);
             this.chart1.TabIndex = 0;
