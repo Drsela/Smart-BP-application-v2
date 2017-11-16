@@ -16,6 +16,7 @@ namespace Interfaces
 
         double getSingleReading();
         void uploadCalibation(CalibrationValuesDTO calibrationValuesDto);
+        CalibrationValuesDTO getValues();
     }
     public interface iBusinessLogic
     {
@@ -28,6 +29,7 @@ namespace Interfaces
         Datacontainer GetDatacontainer();
 
         List<double> returnTestList();
+        CalibrationValuesDTO GetCalibrationValuesFromDAL();
 
     }
 
