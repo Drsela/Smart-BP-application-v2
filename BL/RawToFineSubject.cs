@@ -7,17 +7,16 @@ using Interfaces;
 
 namespace BL
 {
-    public class ConsumerSubject
+    class RawToFineSubject
     {
-        //private List<iPatientConsumerObserver> _observers = new List<iPatientConsumerObserver>();
-        private List<IConsumerObserver> _observers = new List<IConsumerObserver>();
+        private List<IRawToFineObserver> _observers = new List<IRawToFineObserver>();
 
-        public void Attach(IConsumerObserver IPO)
+        public void Attach(IRawToFineObserver IPO)
         {
             _observers.Add(IPO);
         }
 
-        public void Detach(IConsumerObserver IPO)
+        public void Detach(IRawToFineObserver IPO)
         {
             _observers.Remove(IPO);
         }
@@ -26,7 +25,7 @@ namespace BL
         {
             foreach (var observer in _observers)
             {
-                observer.getObserverState();
+                observer.updateGraph();
             }
         }
     }

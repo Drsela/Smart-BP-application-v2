@@ -20,39 +20,58 @@ namespace BL
         private List<double> testList;
         private double _systole;
         private double _diastole;
-
+        private List<double> _display;
+        private bool _stopThread;
         public Consumer(ConcurrentQueue<Datacontainer> dataQueue)
         {
             _dataQueue = dataQueue;
+            _stopThread = false;
+            _display = new List<double>();
         }
 
         public void RunConsumer()
         {
-            while (true)
+            while (!_stopThread)
             {
-                List<double> dataList = new List<double>();
-                Datacontainer container;
+                Datacontainer container = null;
                 while (!_dataQueue.TryDequeue(out container))
                 {
                     Thread.Sleep(0);
                 }
-                testList = container.getMVMeasaurement();
+                _display = container.getRawDoubles().ToList();
+                Notify();
+                /*
+                testList = container.getRawDoubles().ToList();
+                for (int i = 0; i < testList.Count; i = i +10)
+                {
+                    double average = (testList.GetRange(i, 10).Average());
+                    _display.Add(average);
+
+                    if (_display.Count > 250)
+                        _display.Remove(0);
+                }
+
                 _systole = testList.Max();
                 _diastole = testList.Min();
 
                 Notify();
-               // UDREGNINGER
-               Debug.WriteLine("______________________ Consumer START __________________");
-               Debug.WriteLine("Højeste punkt: " + container.getMVMeasaurement().Max());
-               Debug.WriteLine("Laveste punkt: " + container.getMVMeasaurement().Min());
-               Debug.WriteLine("Beregninger er foretaget over " + container.getMVMeasaurement().Count + " målinger");
-               Debug.WriteLine("______________________ Consumer END __________________");
+                */
+
+                // UDREGNINGER
+                /*
+                Debug.WriteLine("______________________ Consumer START __________________");
+                Debug.WriteLine("Højeste punkt: " + testList.Max());
+                Debug.WriteLine("Laveste punkt: " + testList.Min());
+                Debug.WriteLine("Beregninger er foretaget over " + container.getMVMeasaurement().Count + " målinger");
+                Debug.WriteLine("______________________ Consumer END __________________");
+                */
             }
         }
 
         public List<double> mwList()
         {
-            return testList;
+            //return testList;
+            return _display;
         }
 
         public double getDia()
@@ -63,6 +82,11 @@ namespace BL
         public double getSys()
         {
             return _systole;
+        }
+
+        public void setThreadStatus(bool run)
+        {
+            _stopThread = run;
         }
     }
 }

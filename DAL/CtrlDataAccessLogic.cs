@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace DAL
     {
         private GetData _daq;
         private DatabaseConnection _databaseConnection;
+        private AsyncDAQ _asyncDAQ;
+        private ConcurrentQueue<Datacontainer> _datacontainer;
 
         public CtrlDataAccessLogic()
         {
@@ -46,6 +49,16 @@ namespace DAL
         {
             _databaseConnection = new DatabaseConnection();
             return _databaseConnection.getCalibrationValues();
+        }
+
+        public void startAsyncDAQ()
+        {
+            _asyncDAQ.InitiateAsyncDaq();
+        }
+
+        public void setAsyncQueue(ConcurrentQueue<Datacontainer> AsyncQueue)
+        {
+            _asyncDAQ = new AsyncDAQ(AsyncQueue);
         }
     }
 }

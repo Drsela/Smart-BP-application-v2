@@ -9,32 +9,35 @@ using DTO;
 using DAL;
 using NationalInstruments.DAQmx;
 using ST2Prj2LibNI_DAQ;
+using Task = System.Threading.Tasks.Task;
 
 namespace DAL
 {
     public class Producer
     {
-        private readonly ConcurrentQueue<Datacontainer> _dataQueue;
+        private ConcurrentQueue<Datacontainer> _dataQueue;
         private GraphDTO _graphDTO;
         private NI_DAQVoltage _daq;
         private GetData _getData;
         private List<double> mvList;
         private int counter = 1;
         private double _currentValue;
+        private Datacontainer _DataDTO;
+        private Task _task;
 
-       
         public Producer(ConcurrentQueue<Datacontainer> dataQueue)
         {
             _dataQueue = dataQueue;
             mvList = new List<double>();
             _graphDTO = new GraphDTO();
+            _DataDTO = new Datacontainer();
         }
 
         public void RunProducer()
         {
             while (true)
             {
-                _getData = new GetData();
+                
                 Datacontainer measurementDatacontainer = new Datacontainer();
                 foreach (var item in _getData.GetBpList())
                 {

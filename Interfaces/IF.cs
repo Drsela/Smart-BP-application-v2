@@ -10,6 +10,16 @@ using DTO;
 
 namespace Interfaces
 {
+    public interface IConsumerObserver
+    {
+        void getObserverState();
+    }
+
+    public interface IRawToFineObserver
+    {
+        void updateGraph();
+    }
+
     public interface iDataAccessLogic
     {
         List<double> getData();//Signatur
@@ -18,23 +28,27 @@ namespace Interfaces
         double getSingleReading();
         void uploadCalibation(CalibrationValuesDTO calibrationValuesDto);
         CalibrationValuesDTO getValues();
+        void startAsyncDAQ();
+
+        void setAsyncQueue(ConcurrentQueue<Datacontainer> AsyncQueue);
     }
     public interface iBusinessLogic
     {
         void doAnAlogrithm();
-        void startThreads(ConcurrentQueue<Datacontainer> dataQueue, iPatientConsumerObserver observer);
+        void startThreads();
 
-        void stopThreads();
         void startAlarm(AlarmDTO alarm);
         void getSingleReading();
 
         CalibrationValuesDTO GetCalibrationValuesFromDAL();
 
-        void AttachObserver(iPatientConsumerObserver observer);
+        void AttachToRawFineObserver(IRawToFineObserver observer);
         List<double> mwList();
         double getDiaFromConsumer();
         double getSysFromConsumer();
 
+        void startDataGathering();
+        void StopThreads(bool run);
     }
 
     public interface iPresentationLogic

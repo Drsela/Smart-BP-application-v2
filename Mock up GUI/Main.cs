@@ -19,33 +19,29 @@ using DTO;
 
 namespace PL
 {
-    public partial class Main : Form, iPatientConsumerObserver
+    public partial class Main : Form, IRawToFineObserver
     {
         private iBusinessLogic _businessLogic;
-        private GraphDTO _graphDTO;
         private ConcurrentQueue<Datacontainer> dataQueue;
         private AlarmDTO _alarm;
-        private Datacontainer measurements;
         private List<double> measureList;
         private iPatientConsumerObserver observer;
         private double time;
-        private Thread graphThread;
 
         public Main(iBusinessLogic businessLogic)
         {
-            InitializeComponent();
             _businessLogic = businessLogic;
+            _businessLogic.AttachToRawFineObserver(this);
+            InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*
-            CalibrationValuesDTO latestValues = _businessLogic.GetCalibrationValuesFromDAL();
-            Debug.WriteLine("Slope is :" + latestValues.Slope);
-            Debug.WriteLine("Intercept is: " + latestValues.Intercept);
-            */
             dataQueue = new ConcurrentQueue<Datacontainer>();
-            _businessLogic.startThreads(dataQueue,this);
+            //_businessLogic.startDataGathering();
+
+            _businessLogic.StopThreads(false);
+            _businessLogic.startThreads();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -56,9 +52,9 @@ namespace PL
 
         private void Main_Load(object sender, EventArgs e)
         {
-            chart1.ChartAreas[0].AxisX.Minimum = 0;
-            chart1.ChartAreas[0].AxisX.Interval = 1;
-            chart1.ChartAreas[0].AxisX.Maximum = 5;
+            //chart1.ChartAreas[0].AxisX.Interval = 2.5;
+            chart1.ChartAreas[0].AxisY.Maximum= 1;
+            chart1.ChartAreas[0].AxisY.Minimum = -1;
             double time = 0;
         }
 
@@ -76,38 +72,29 @@ namespace PL
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            _businessLogic.stopThreads();
+            _businessLogic.StopThreads(true);
         }
 
-        public void Update()
+        public void updateGraph()
         {
             if (this.InvokeRequired)
             {
                 this.Invoke((Action)delegate
                 {
-                    //chart1.Series["Blodtryk"].Points.Clear();
+                    
                     measureList = _businessLogic.mwList();
 
-
+                    chart1.Series["Blodtryk"].Points.Clear();
                     for (int i = 0; i < measureList.Count; i++)
                     {
-                        chart1.Series["Blodtryk"].Points.AddXY(time, measureList[i]); //Ændres til ConvertedValue
-                        time += 0.001;
+                        chart1.Series["Blodtryk"].Points.AddXY(i, measureList[i]); //Ændres til ConvertedValue
+                        //time += 1/200;
                     }
-                    textBox3.Text = Convert.ToString(_businessLogic.getSysFromConsumer());       //Systole
-                    textBox2.Text = Convert.ToString(_businessLogic.getDiaFromConsumer());       //Diastole
+                    //textBox3.Text = Convert.ToString(_businessLogic.getSysFromConsumer());       //Systole
+                    //textBox2.Text = Convert.ToString(_businessLogic.getDiaFromConsumer());       //Diastole
+                    
                 });
             }
-
-            /*
-            List<double> grafList = grafContainer.getMVMeasaurement();
-
-            for (int i = 0; i < grafList.Count; i++)
-            {
-                chart1.Series["Blodtryk"].Points.AddXY(counter, grafList[i]);
-                counter = counter + 0.001;
-            }
-            */
         }
 
         private void button4_Click(object sender, EventArgs e)
