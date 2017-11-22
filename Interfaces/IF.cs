@@ -37,7 +37,7 @@ namespace Interfaces
         void doAnAlogrithm();
         void startThreads();
 
-        void startAlarm(AlarmDTO alarm);
+        void startAlarm();
         void getSingleReading();
 
         CalibrationValuesDTO GetCalibrationValuesFromDAL();
@@ -49,6 +49,10 @@ namespace Interfaces
 
         void startDataGathering();
         void StopThreads(bool run);
+        List<double> getFineValues();
+
+        void setUpperAlarm(int sys);
+        void setLowerAlarm(int dia);
     }
 
     public interface iPresentationLogic

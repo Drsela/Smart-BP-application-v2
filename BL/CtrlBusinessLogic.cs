@@ -22,7 +22,8 @@ namespace BL
         private Thread proucerThread;
         private Thread consumerThread;
         private Thread RawToFineThread;
-        private AlarmDTO _alarm;
+        private Thread AlarmThread;
+        private Alarm _alarmWithOutParameter;
         private Calibration _calibration;
         private ConsumerSubject _consumerSubject;
         private ConcurrentQueue<Datacontainer> asynchQueue;
@@ -39,12 +40,9 @@ namespace BL
             _consumer = new Consumer(asynchQueue);
             _rawtofine = new RawToFine(_dateReadyEventRawToFine,_consumer);
             _currentDal.setAsyncQueue(asynchQueue);
+            _alarmWithOutParameter = new Alarm();
         }
 
-        public void startAlarm()
-        {
-            
-        }
         public void doAnAlogrithm()
         {
 
@@ -61,24 +59,14 @@ namespace BL
             RawToFineThread = new Thread(_rawtofine.RunFineFilter) {IsBackground = true};
             consumerThread = new Thread(_consumer.RunConsumer) {IsBackground = true};
 
-
             consumerThread.Start();
             RawToFineThread.Start();
 
-            /*
-            _consumer = new Consumer(dataQueue); 
-            _producerAsyncDaq = new AsyncDAQ(dataQueue); 
-            //_producer = new Producer(dataQueue);
-
-            _consumer.Attach(observer);
-            proucerThread = new Thread(_producerAsyncDaq.InitiateAsyncDaq);
-            
-            //proucerThread = new Thread(_producer.RunProducer);
-            consumerThread = new Thread(_consumer.RunConsumer);
-
-            proucerThread.Start();
-            consumerThread.Start();
-            */
+            if (_alarmWithOutParameter != null)
+            {
+                AlarmThread = new Thread(_alarmWithOutParameter.CheckAlarmValues) { IsBackground = true };
+                AlarmThread.Start();
+            }
 
         }
 
@@ -88,10 +76,24 @@ namespace BL
             _consumer.setThreadStatus(run);
         }
 
-        public void startAlarm(AlarmDTO alarm)
+        public List<double> getFineValues()
         {
-            _alarm = alarm;
-            _alarm.startAlarm();
+            return _rawtofine.getFineData();
+        }
+
+        public void setUpperAlarm(int sys)
+        {
+            _alarmWithOutParameter?.setHighValue(sys);
+        }
+
+        public void setLowerAlarm(int dia)
+        {
+            _alarmWithOutParameter?.setLowValue(dia);
+        }
+
+        public void startAlarm()
+        {
+            _alarmWithOutParameter.startAlarm();
         }
 
         public void getSingleReading()
