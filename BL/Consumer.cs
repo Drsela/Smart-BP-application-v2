@@ -39,6 +39,7 @@ namespace BL
                     Thread.Sleep(0);
                 }
                 _display = container.getRawDoubles().ToList();
+
                 Notify();
                 /*
                 testList = container.getRawDoubles().ToList();

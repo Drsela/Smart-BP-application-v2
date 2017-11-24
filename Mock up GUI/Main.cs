@@ -19,7 +19,7 @@ using DTO;
 
 namespace PL
 {
-    public partial class Main : Form, IRawToFineObserver
+    public partial class Main : Form, IRawToFineObserver,ISystolicObserver
     {
         private iBusinessLogic _businessLogic;
         private ConcurrentQueue<Datacontainer> dataQueue;
@@ -42,6 +42,7 @@ namespace PL
         {
             _businessLogic = businessLogic;
             _businessLogic.AttachToRawFineObserver(this);
+            _businessLogic.AttachToSystolicObserver(this);
             InitializeComponent();
         }
 
@@ -120,7 +121,7 @@ namespace PL
             {
                 this.Invoke((Action)delegate
                 {
-                    if (monitorRadioButton.Checked == true)
+                    if (monitorRadioButton.Checked)
                     { 
                         measureList = _businessLogic.mwList();
                     
@@ -134,7 +135,7 @@ namespace PL
                             //textBox2.Text = Convert.ToString(_businessLogic.getDiaFromConsumer());       //Diastole
                     }
 
-                    if (diagnoseRadioButton.Checked == true)
+                    if (diagnoseRadioButton.Checked)
                     {
                         fineList = _businessLogic.getFineValues();
                         chart1.Series["Blodtryk"].Points.Clear();
@@ -207,6 +208,17 @@ namespace PL
             {
                 this.lowerTrackBar.Value = dia;
                 this.LowerlimitText.Text = Convert.ToString(dia);
+            }
+        }
+
+        public void updateSystolicValue()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Action) delegate
+                {
+                    textBox3.Text = Convert.ToString(_businessLogic.getSystolicValue());
+                });
             }
         }
     }

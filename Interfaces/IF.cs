@@ -10,15 +10,7 @@ using DTO;
 
 namespace Interfaces
 {
-    public interface IConsumerObserver
-    {
-        void getObserverState();
-    }
 
-    public interface IRawToFineObserver
-    {
-        void updateGraph();
-    }
 
     public interface iDataAccessLogic
     {
@@ -34,7 +26,9 @@ namespace Interfaces
     }
     public interface iBusinessLogic
     {
-        void doAnAlogrithm();
+        int getSystolicValue();
+
+
         void startThreads();
 
         void startAlarm();
@@ -43,9 +37,9 @@ namespace Interfaces
         CalibrationValuesDTO GetCalibrationValuesFromDAL();
 
         void AttachToRawFineObserver(IRawToFineObserver observer);
+        void AttachToSystolicObserver(ISystolicObserver observer);
+
         List<double> mwList();
-        double getDiaFromConsumer();
-        double getSysFromConsumer();
 
         void startDataGathering();
         void StopThreads(bool run);
@@ -63,6 +57,20 @@ namespace Interfaces
     public interface iPatientConsumerObserver
     {
         void Update();
+    }
+
+    public interface ISystolicObserver
+    {
+        void updateSystolicValue();
+    }
+    public interface IConsumerObserver
+    {
+        void getObserverState();
+    }
+
+    public interface IRawToFineObserver
+    {
+        void updateGraph();
     }
 
 }

@@ -19,10 +19,12 @@ namespace BL
         private Producer _producer;
         private AsyncDAQ _producerAsyncDaq;
         private Consumer _consumer;
+        private Systolic _systolic;
         private Thread proucerThread;
         private Thread consumerThread;
         private Thread RawToFineThread;
         private Thread AlarmThread;
+        private Thread systolicThread;
         private Alarm _alarmWithOutParameter;
         private Calibration _calibration;
         private ConsumerSubject _consumerSubject;
@@ -30,6 +32,7 @@ namespace BL
         private RawToFine _rawtofine;
 
         private AutoResetEvent _dateReadyEventRawToFine;
+        private AutoResetEvent _dataReadyEventSystolic;
         private bool threadStatus;
 
         public CtrlBusinessLogic(iDataAccessLogic mydal, ConcurrentQueue<Datacontainer> RawDataQueue)
@@ -37,20 +40,23 @@ namespace BL
             this._currentDal = mydal;
             asynchQueue = RawDataQueue;
             _dateReadyEventRawToFine = new AutoResetEvent(false);
+            _dataReadyEventSystolic = new AutoResetEvent(false);
             _consumer = new Consumer(asynchQueue);
             _rawtofine = new RawToFine(_dateReadyEventRawToFine,_consumer);
             _currentDal.setAsyncQueue(asynchQueue);
             _alarmWithOutParameter = new Alarm();
+            _systolic = new Systolic(_dataReadyEventSystolic,_consumer);
         }
 
-        public void doAnAlogrithm()
-        {
-
-        }
 
         public void AttachToRawFineObserver(IRawToFineObserver observer)
         {
             _rawtofine.Attach(observer);
+        }
+
+        public void AttachToSystolicObserver(ISystolicObserver observer)
+        {
+            _systolic.Attach(observer);
         }
 
         public void startThreads()
@@ -58,9 +64,12 @@ namespace BL
             _currentDal.startAsyncDAQ();
             RawToFineThread = new Thread(_rawtofine.RunFineFilter) {IsBackground = true};
             consumerThread = new Thread(_consumer.RunConsumer) {IsBackground = true};
+            systolicThread = new Thread(_systolic.calculateSystolicThread) {IsBackground = true}; 
 
             consumerThread.Start();
             RawToFineThread.Start();
+
+            systolicThread.Start();
 
             if (_alarmWithOutParameter != null)
             {
@@ -74,11 +83,17 @@ namespace BL
         {
             _rawtofine.setThreadStatus(run);
             _consumer.setThreadStatus(run);
+            _systolic.setThreadStatus(run);
         }
 
         public List<double> getFineValues()
         {
             return _rawtofine.getFineData();
+        }
+
+        public int getSystolicValue()
+        {
+            return _systolic.getSystolicValue();
         }
 
         public void setUpperAlarm(int sys)
