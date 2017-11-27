@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Accord.Diagnostics;
-    using System.Diagnostics;
+using System.Diagnostics;
 using Interfaces;
 using Debug = System.Diagnostics.Debug;
 
@@ -15,6 +15,7 @@ namespace BL
     {
         private List<double> sysList;
         private int _systolicValue;
+        private int _diastolicValue;
         private AutoResetEvent _dataReadResetEvent;
         private bool _threadStatus;
         private Consumer _consumer;
@@ -38,8 +39,9 @@ namespace BL
                     sysList.Add(dataList[i]);
                 if (sysList.Count == DAQ_samplerate)
                 {
-                    System.Diagnostics.Debug.WriteLine("Den afrundede værdi er: " + Math.Round(sysList.Max()));
+                    //System.Diagnostics.Debug.WriteLine("Den afrundede værdi er: " + Math.Round(sysList.Max()));
                     _systolicValue = Convert.ToInt32(Math.Round(sysList.Max()));
+                    _diastolicValue = Convert.ToInt32(Math.Round(sysList.Min()));
                     sysList.RemoveAt(0);
                 }
             }
@@ -48,6 +50,11 @@ namespace BL
         public int getSystolicValue()
         {
             return _systolicValue;
+        }
+
+        public int getDiastolicValue()
+        {
+            return _diastolicValue;
         }
 
         public void calculateSystolicThread()

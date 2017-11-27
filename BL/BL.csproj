@@ -71,6 +71,7 @@
     <Compile Include="RawToFine.cs" />
     <Compile Include="RawToFineSubject.cs" />
     <Compile Include="SaveData.cs" />
+    <Compile Include="SaveMeasurement.cs" />
     <Compile Include="Systolic.cs" />
     <Compile Include="SystolicSubject.cs" />
   </ItemGroup>

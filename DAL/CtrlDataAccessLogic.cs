@@ -56,6 +56,11 @@ namespace DAL
             _asyncDAQ.InitiateAsyncDaq();
         }
 
+        public void stopAsyncDAQ()
+        {
+            _asyncDAQ.StopMeasurement();
+        }
+
         public void setAsyncQueue(ConcurrentQueue<Datacontainer> AsyncQueue)
         {
             _asyncDAQ = new AsyncDAQ(AsyncQueue);

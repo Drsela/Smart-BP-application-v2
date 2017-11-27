@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 using DTO;
 
 namespace DAL
@@ -72,12 +72,30 @@ namespace DAL
             return _Employee;
         }
 
-        public void uploadMeasurement(string CPR, int UserID, string kommentar)
+        public void uploadMeasurement(string CPR, int UserID, string kommentar, byte[] readings)
         {
             DateTime currentTime = DateTime.Now;
-            _command = new SqlCommand("INSERT INTO MaalingDB(Patient,AnsvarligID,Dato,Kommentar) VALUES ('"+ CPR+"', '"+UserID+"', '"+ currentTime+"', '"+ kommentar+"')",conn);
-            conn.Open();
-            _sqlDataReader = _command.ExecuteReader();
+            _command = new SqlCommand("INSERT INTO MaalingDB(Patient,AnsvarligID, Maaling, Dato,Kommentar) VALUES (@Patient, @Ansvarlig, @Maaling, @Dato, @Kommentar)",conn);
+            _command.Parameters.AddWithValue("@Patient", CPR);
+            _command.Parameters.AddWithValue("@Ansvarlig", UserID);
+            _command.Parameters.AddWithValue("@Maaling", readings);
+            _command.Parameters.AddWithValue("@Dato", currentTime);
+            _command.Parameters.AddWithValue("@Kommentar", kommentar);
+
+            try
+            {
+                conn.Open();
+                _sqlDataReader = _command.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                MessageBox.Show("The entered data has been saved");
+            }
         }
 
         public CalibrationValuesDTO getCalibrationValues()

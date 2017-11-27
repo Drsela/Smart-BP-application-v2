@@ -30,9 +30,10 @@ namespace PL
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
@@ -58,6 +59,8 @@ namespace PL
             this.diagnoseRadioButton = new System.Windows.Forms.RadioButton();
             this.UpperlimitText = new System.Windows.Forms.TextBox();
             this.LowerlimitText = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upperTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lowerTrackBar)).BeginInit();
@@ -67,37 +70,37 @@ namespace PL
             // 
             this.chart1.BackColor = System.Drawing.Color.Black;
             this.chart1.BorderSkin.BorderColor = System.Drawing.Color.Empty;
-            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisX.LineColor = System.Drawing.Color.White;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea2.AxisX.Title = "Tid (s)";
-            chartArea2.AxisX.TitleForeColor = System.Drawing.Color.White;
-            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.White;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea2.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea2.AxisY.Title = "Blodtryk (mmHg)";
-            chartArea2.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea2.BackColor = System.Drawing.Color.Black;
-            chartArea2.BorderColor = System.Drawing.Color.White;
-            chartArea2.BorderWidth = 4;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.HeaderSeparatorColor = System.Drawing.Color.White;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisX.LineColor = System.Drawing.Color.White;
+            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea3.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea3.AxisX.Title = "Tid (s)";
+            chartArea3.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.LineColor = System.Drawing.Color.White;
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea3.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea3.AxisY.Title = "Blodtryk (mmHg)";
+            chartArea3.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea3.BackColor = System.Drawing.Color.Black;
+            chartArea3.BorderColor = System.Drawing.Color.White;
+            chartArea3.BorderWidth = 4;
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.HeaderSeparatorColor = System.Drawing.Color.White;
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(16, 15);
             this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.Name = "chart1";
-            series2.BorderWidth = 6;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "Blodtryk";
-            this.chart1.Series.Add(series2);
+            series3.BorderWidth = 6;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series3.IsVisibleInLegend = false;
+            series3.Legend = "Legend1";
+            series3.Name = "Blodtryk";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(1013, 427);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -368,7 +371,7 @@ namespace PL
             this.monitorRadioButton.AutoSize = true;
             this.monitorRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.monitorRadioButton.ForeColor = System.Drawing.Color.White;
-            this.monitorRadioButton.Location = new System.Drawing.Point(1041, 412);
+            this.monitorRadioButton.Location = new System.Drawing.Point(1041, 480);
             this.monitorRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.monitorRadioButton.Name = "monitorRadioButton";
             this.monitorRadioButton.Size = new System.Drawing.Size(166, 29);
@@ -382,7 +385,7 @@ namespace PL
             this.diagnoseRadioButton.AutoSize = true;
             this.diagnoseRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.diagnoseRadioButton.ForeColor = System.Drawing.Color.White;
-            this.diagnoseRadioButton.Location = new System.Drawing.Point(1041, 474);
+            this.diagnoseRadioButton.Location = new System.Drawing.Point(1041, 426);
             this.diagnoseRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.diagnoseRadioButton.Name = "diagnoseRadioButton";
             this.diagnoseRadioButton.Size = new System.Drawing.Size(185, 29);
@@ -419,12 +422,28 @@ namespace PL
             this.LowerlimitText.Text = "100";
             this.LowerlimitText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.BlanchedAlmond;
+            this.label8.Location = new System.Drawing.Point(928, 7);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 17);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "label8";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1304, 709);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.LowerlimitText);
             this.Controls.Add(this.UpperlimitText);
             this.Controls.Add(this.diagnoseRadioButton);
@@ -489,6 +508,8 @@ namespace PL
         private System.Windows.Forms.RadioButton diagnoseRadioButton;
         private System.Windows.Forms.TextBox UpperlimitText;
         private System.Windows.Forms.TextBox LowerlimitText;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

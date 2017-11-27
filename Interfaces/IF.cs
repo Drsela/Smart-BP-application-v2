@@ -17,6 +17,7 @@ namespace Interfaces
         List<double> getData();//Signatur
         void saveSomeData(int val);
 
+        void stopAsyncDAQ();
         double getSingleReading();
         void uploadCalibation(CalibrationValuesDTO calibrationValuesDto);
         CalibrationValuesDTO getValues();
@@ -27,6 +28,9 @@ namespace Interfaces
     public interface iBusinessLogic
     {
         int getSystolicValue();
+        int getDiastolicValue();
+
+        byte[] ConvertReadingToBytes();
 
 
         void startThreads();

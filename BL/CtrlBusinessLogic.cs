@@ -34,6 +34,7 @@ namespace BL
         private AutoResetEvent _dateReadyEventRawToFine;
         private AutoResetEvent _dataReadyEventSystolic;
         private bool threadStatus;
+        private SaveMeasurement _saveMeasurement;
 
         public CtrlBusinessLogic(iDataAccessLogic mydal, ConcurrentQueue<Datacontainer> RawDataQueue)
         {
@@ -45,7 +46,8 @@ namespace BL
             _rawtofine = new RawToFine(_dateReadyEventRawToFine,_consumer);
             _currentDal.setAsyncQueue(asynchQueue);
             _alarmWithOutParameter = new Alarm();
-            _systolic = new Systolic(_dataReadyEventSystolic,_consumer);
+            _systolic = new Systolic(_dataReadyEventSystolic, _consumer);
+            _saveMeasurement = new SaveMeasurement();
         }
 
 
@@ -57,6 +59,12 @@ namespace BL
         public void AttachToSystolicObserver(ISystolicObserver observer)
         {
             _systolic.Attach(observer);
+        }
+
+        public byte[] ConvertReadingToBytes()
+        {
+            var allReadings = _saveMeasurement.ConvertToBinary(_consumer.getAllReadings());
+            return allReadings;
         }
 
         public void startThreads()
@@ -84,6 +92,7 @@ namespace BL
             _rawtofine.setThreadStatus(run);
             _consumer.setThreadStatus(run);
             _systolic.setThreadStatus(run);
+            _currentDal.stopAsyncDAQ();
         }
 
         public List<double> getFineValues()
@@ -94,6 +103,11 @@ namespace BL
         public int getSystolicValue()
         {
             return _systolic.getSystolicValue();
+        }
+
+        public int getDiastolicValue()
+        {
+            return _systolic.getDiastolicValue();
         }
 
         public void setUpperAlarm(int sys)
@@ -128,16 +142,6 @@ namespace BL
         public List<double> mwList()
         {
             return _consumer.mwList();
-        }
-
-        public double getDiaFromConsumer()
-        {
-            return _consumer.getDia();
-        }
-
-        public double getSysFromConsumer()
-        {
-            return _consumer.getSys();
         }
 
         public void startDataGathering()

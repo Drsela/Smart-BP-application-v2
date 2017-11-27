@@ -17,11 +17,11 @@ namespace BL
             
         }
 
-        public void uploadEmployee(string CPR, int UserID, string kommentar)
+        public void uploadEmployee(string CPR, int UserID, string kommentar, byte[] readings)
         {
             CPR = CPR.Replace("-", "");
             _connection = new DatabaseConnection();
-            _connection.uploadMeasurement(CPR,UserID,kommentar);
+            _connection.uploadMeasurement(CPR,UserID,kommentar, readings);
         }
         public EmployeeDTO GetEmployeeFromValidation(string UN, string PW)
         {

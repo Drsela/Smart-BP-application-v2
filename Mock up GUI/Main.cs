@@ -12,9 +12,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Threading;
 using BL;
 using Interfaces;
 using DTO;
+using DateTime = System.DateTime;
 
 
 namespace PL
@@ -28,6 +30,7 @@ namespace PL
         private List<double> fineList;
         private iPatientConsumerObserver observer;
         private double time;
+        private double timeOne;
         private AdjustBP _adjustBpForm;
         private bool isrunning;
 
@@ -36,13 +39,20 @@ namespace PL
         private Thread trackbarThread;
         delegate void StringArgReturningVoidDelegate(int sys);
 
+        private DispatcherTimer timer;
+        private DateTime _nowDateTime;
         private int caseswitch = 1;
+
+        private int antalTimer;
+        private int minutter;
+        private int sekunder;
 
         public Main(iBusinessLogic businessLogic)
         {
             _businessLogic = businessLogic;
             _businessLogic.AttachToRawFineObserver(this);
             _businessLogic.AttachToSystolicObserver(this);
+            timer = new DispatcherTimer();
             InitializeComponent();
         }
 
@@ -54,14 +64,16 @@ namespace PL
                 {
                     _businessLogic.StopThreads(false);
                     _businessLogic.startThreads();
-
-                    button3.Hide();
+                        stopButton.Hide();
+                     button3.Hide();
                     button4.Hide();
                     button5.Hide();
                     button6.Hide();
                     button1.Text = "Stop";
                     caseswitch = 2;
-                    break;
+                    timer1.Interval = 1000;
+                    timer1.Start();
+                        break;
                 }
                 case 2:
                 {
@@ -74,7 +86,6 @@ namespace PL
                     caseswitch = 1;
                     break;
                 }
-
             }
 
         }
@@ -82,17 +93,20 @@ namespace PL
         private void button3_Click(object sender, EventArgs e)
         {
             Login formLogin = new Login(_businessLogic);
+            _businessLogic.StopThreads(true);
+            timer1.Stop();
             formLogin.Show();
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            //chart1.ChartAreas[0].AxisX.Interval = 2.5;
             chart1.ChartAreas[0].AxisY.Maximum= 1;
             chart1.ChartAreas[0].AxisY.Minimum = -1;
-            double time = 0;
-            monitorRadioButton.Checked = false;
+
+            monitorRadioButton.Checked = true;
             diagnoseRadioButton.Checked = false;
+            chart1.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
+            //chart1.ChartAreas[0].AxisX.LabelStyle.Format = "mm:ss"; 
         }
 
         private void upperTrackBar_Scroll(object sender, EventArgs e)
@@ -121,28 +135,28 @@ namespace PL
             {
                 this.Invoke((Action)delegate
                 {
-                    if (monitorRadioButton.Checked)
+                    if (diagnoseRadioButton.Checked)
                     { 
                         measureList = _businessLogic.mwList();
-                    
                         chart1.Series["Blodtryk"].Points.Clear();
                         for (int i = 0; i < measureList.Count; i++)
                         {
-                            chart1.Series["Blodtryk"].Points.AddXY(i, measureList[i]); //Ændres til ConvertedValue
-                            //time += 1/200;
+                            //chart1.Series["Blodtryk"].XValueType = ChartValueType.Time;
+                            chart1.Series["Blodtryk"].Points.AddY(measureList[i]); //Ændres til ConvertedValue
+                            //time = time + 0.002;
+                            //time = Math.Round(time, 3);
                         }
-                            //textBox3.Text = Convert.ToString(_businessLogic.getSysFromConsumer());       //Systole
-                            //textBox2.Text = Convert.ToString(_businessLogic.getDiaFromConsumer());       //Diastole
                     }
 
-                    if (diagnoseRadioButton.Checked)
+                    if (monitorRadioButton.Checked)
                     {
                         fineList = _businessLogic.getFineValues();
                         chart1.Series["Blodtryk"].Points.Clear();
                         for (int i = 0; i < fineList.Count; i++)
                         {
-                            chart1.Series["Blodtryk"].Points.AddXY(i, fineList[i]); //Ændres til ConvertedValue
-                            //time += 1/200;
+                            chart1.Series["Blodtryk"].Points.AddY(fineList[i]); //Ændres til ConvertedValue
+                            //timeOne = timeOne + 0.002;
+                            //timeOne = Math.Round(timeOne, 3);
                         }
 
                     }
@@ -218,8 +232,34 @@ namespace PL
                 this.Invoke((Action) delegate
                 {
                     textBox3.Text = Convert.ToString(_businessLogic.getSystolicValue());
+                    textBox2.Text = Convert.ToString(_businessLogic.getDiastolicValue());
                 });
             }
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            sekunder++;
+
+            if (sekunder >= 60)
+            {
+                sekunder = 0;
+                minutter++;
+            }
+            if (minutter >= 60)
+            {
+                minutter = 0;
+                antalTimer++;
+            }
+
+            label8.Text = "Timer: " + antalTimer + ":" + minutter + ":" + sekunder;
+
+            //label8.Text = Convert.ToString(DateTime.Now);
         }
     }
 }

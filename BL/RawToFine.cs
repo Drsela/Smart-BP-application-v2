@@ -27,9 +27,9 @@ namespace BL
 
         public void sortRawData(List<double> rawData)
         {
-            for (int i = 0; i < rawData.Count; i = i + 10)
+            for (int i = 0; i < rawData.Count; i = i + 5)
             {
-                double average = (rawData.GetRange(i, 10).Average());
+                double average = (rawData.GetRange(i, 5).Average());
                 _displayList.Add(average);
 
                 if (_displayList.Count > 500)

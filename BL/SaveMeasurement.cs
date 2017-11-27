@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DTO;
 
-namespace DAL
+namespace BL
 {
     public class SaveMeasurement
     {
