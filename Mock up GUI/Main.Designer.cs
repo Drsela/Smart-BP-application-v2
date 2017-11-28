@@ -31,9 +31,9 @@ namespace PL
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
@@ -70,37 +70,37 @@ namespace PL
             // 
             this.chart1.BackColor = System.Drawing.Color.Black;
             this.chart1.BorderSkin.BorderColor = System.Drawing.Color.Empty;
-            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea3.AxisX.LineColor = System.Drawing.Color.White;
-            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea3.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea3.AxisX.Title = "Tid (s)";
-            chartArea3.AxisX.TitleForeColor = System.Drawing.Color.White;
-            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea3.AxisY.LineColor = System.Drawing.Color.White;
-            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea3.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea3.AxisY.Title = "Blodtryk (mmHg)";
-            chartArea3.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea3.BackColor = System.Drawing.Color.Black;
-            chartArea3.BorderColor = System.Drawing.Color.White;
-            chartArea3.BorderWidth = 4;
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.HeaderSeparatorColor = System.Drawing.Color.White;
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.Title = "Tid (s)";
+            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.Title = "Blodtryk (mmHg)";
+            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.BorderColor = System.Drawing.Color.White;
+            chartArea1.BorderWidth = 4;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.HeaderSeparatorColor = System.Drawing.Color.White;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(16, 15);
             this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.Name = "chart1";
-            series3.BorderWidth = 6;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series3.IsVisibleInLegend = false;
-            series3.Legend = "Legend1";
-            series3.Name = "Blodtryk";
-            this.chart1.Series.Add(series3);
+            series1.BorderWidth = 6;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series1.IsVisibleInLegend = false;
+            series1.Legend = "Legend1";
+            series1.Name = "Blodtryk";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(1013, 427);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -174,6 +174,7 @@ namespace PL
             this.button5.TabIndex = 5;
             this.button5.Text = "Zero point";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // upperTrackBar
             // 
@@ -258,6 +259,7 @@ namespace PL
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.MaxLength = 3;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(99, 61);
             this.textBox1.TabIndex = 12;
             this.textBox1.Text = "78";
@@ -272,6 +274,7 @@ namespace PL
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.MaxLength = 3;
             this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(99, 61);
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "80";
@@ -286,6 +289,7 @@ namespace PL
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.MaxLength = 3;
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(99, 61);
             this.textBox3.TabIndex = 14;
             this.textBox3.Text = "120";
@@ -301,7 +305,7 @@ namespace PL
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(146, 19);
             this.label4.TabIndex = 15;
-            this.label4.Text = "Systolic pressure";
+            this.label4.Text = "CalculateBloodPreassure pressure";
             // 
             // label5
             // 
@@ -336,6 +340,7 @@ namespace PL
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.MaxLength = 3;
             this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(99, 61);
             this.textBox4.TabIndex = 18;
             this.textBox4.Text = "100";

@@ -21,7 +21,7 @@ using DateTime = System.DateTime;
 
 namespace PL
 {
-    public partial class Main : Form, IRawToFineObserver,ISystolicObserver
+    public partial class Main : Form, IRawToFineObserver, IBloodPressureObserver, IPulseMeanBPObserver
     {
         private iBusinessLogic _businessLogic;
         private ConcurrentQueue<Datacontainer> dataQueue;
@@ -37,6 +37,7 @@ namespace PL
         private int sysAdjust;
         private int diaAdjust;
         private Thread trackbarThread;
+
         delegate void StringArgReturningVoidDelegate(int sys);
 
         private DispatcherTimer timer;
@@ -64,8 +65,8 @@ namespace PL
                 {
                     _businessLogic.StopThreads(false);
                     _businessLogic.startThreads();
-                        stopButton.Hide();
-                     button3.Hide();
+                    stopButton.Hide();
+                    button3.Hide();
                     button4.Hide();
                     button5.Hide();
                     button6.Hide();
@@ -73,7 +74,7 @@ namespace PL
                     caseswitch = 2;
                     timer1.Interval = 1000;
                     timer1.Start();
-                        break;
+                    break;
                 }
                 case 2:
                 {
@@ -100,13 +101,23 @@ namespace PL
 
         private void Main_Load(object sender, EventArgs e)
         {
-            chart1.ChartAreas[0].AxisY.Maximum= 1;
-            chart1.ChartAreas[0].AxisY.Minimum = -1;
+            chart1.ChartAreas[0].AxisY.Maximum = 220;
+            chart1.ChartAreas[0].AxisY.Minimum = -220;
 
             monitorRadioButton.Checked = true;
             diagnoseRadioButton.Checked = false;
             chart1.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
-            //chart1.ChartAreas[0].AxisX.LabelStyle.Format = "mm:ss"; 
+            button1.Enabled = false;
+
+            DialogResult zeropointDialogResult =
+                MessageBox.Show(
+                    "You need to zeropoint adjust before you can start a reading. \nPressing OK will perform such adjustment \nPress Cancel to close the application",
+                    "Zeropoint adjust", MessageBoxButtons.OKCancel);
+
+            if (zeropointDialogResult == DialogResult.Yes)
+                button5_Click(this, e);
+            if (zeropointDialogResult == DialogResult.Cancel)
+                this.Close();
         }
 
         private void upperTrackBar_Scroll(object sender, EventArgs e)
@@ -133,10 +144,10 @@ namespace PL
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((Action)delegate
+                this.Invoke((Action) delegate
                 {
                     if (diagnoseRadioButton.Checked)
-                    { 
+                    {
                         measureList = _businessLogic.mwList();
                         chart1.Series["Blodtryk"].Points.Clear();
                         for (int i = 0; i < measureList.Count; i++)
@@ -203,7 +214,7 @@ namespace PL
             if (this.upperTrackBar.InvokeRequired)
             {
                 StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(setTrackbarSys);
-                this.Invoke(d, new object[] { sys });
+                this.Invoke(d, new object[] {sys});
             }
             else
             {
@@ -211,12 +222,13 @@ namespace PL
                 this.UpperlimitText.Text = Convert.ToString(sys);
             }
         }
+
         private void setTrackbarDia(int dia)
         {
             if (this.upperTrackBar.InvokeRequired)
             {
                 StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(setTrackbarDia);
-                this.Invoke(d, new object[] { dia });
+                this.Invoke(d, new object[] {dia});
             }
             else
             {
@@ -239,7 +251,7 @@ namespace PL
 
         private void label8_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -260,6 +272,23 @@ namespace PL
             label8.Text = "Timer: " + antalTimer + ":" + minutter + ":" + sekunder;
 
             //label8.Text = Convert.ToString(DateTime.Now);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            _businessLogic.PerformZeroPoint();
+            button1.Enabled = true;
+        }
+
+        public void updatePulseMeanBP()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Action) delegate
+                {
+                    
+                });
+            }
         }
     }
 }

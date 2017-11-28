@@ -32,7 +32,7 @@ namespace Interfaces
 
         byte[] ConvertReadingToBytes();
 
-
+        void PerformZeroPoint();
         void startThreads();
 
         void startAlarm();
@@ -41,7 +41,7 @@ namespace Interfaces
         CalibrationValuesDTO GetCalibrationValuesFromDAL();
 
         void AttachToRawFineObserver(IRawToFineObserver observer);
-        void AttachToSystolicObserver(ISystolicObserver observer);
+        void AttachToSystolicObserver(IBloodPressureObserver observer);
 
         List<double> mwList();
 
@@ -63,7 +63,7 @@ namespace Interfaces
         void Update();
     }
 
-    public interface ISystolicObserver
+    public interface IBloodPressureObserver
     {
         void updateSystolicValue();
     }
@@ -76,5 +76,8 @@ namespace Interfaces
     {
         void updateGraph();
     }
-
+    public interface IPulseMeanBPObserver
+    {
+        void updatePulseMeanBP();
+    }
 }

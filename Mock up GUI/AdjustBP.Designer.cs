@@ -94,7 +94,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 19);
             this.label2.TabIndex = 18;
-            this.label2.Text = "Systolic BP:";
+            this.label2.Text = "CalculateBloodPreassure BP:";
             // 
             // SysTextBox
             // 

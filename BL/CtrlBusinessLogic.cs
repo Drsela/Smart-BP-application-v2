@@ -19,7 +19,7 @@ namespace BL
         private Producer _producer;
         private AsyncDAQ _producerAsyncDaq;
         private Consumer _consumer;
-        private Systolic _systolic;
+        private CalculateBloodPreassure _calculateBloodPreassure;
         private Thread proucerThread;
         private Thread consumerThread;
         private Thread RawToFineThread;
@@ -35,19 +35,23 @@ namespace BL
         private AutoResetEvent _dataReadyEventSystolic;
         private bool threadStatus;
         private SaveMeasurement _saveMeasurement;
+        private ConvertClass _convertClass;
 
         public CtrlBusinessLogic(iDataAccessLogic mydal, ConcurrentQueue<Datacontainer> RawDataQueue)
         {
             this._currentDal = mydal;
             asynchQueue = RawDataQueue;
+            _convertClass = new ConvertClass(mydal);
             _dateReadyEventRawToFine = new AutoResetEvent(false);
             _dataReadyEventSystolic = new AutoResetEvent(false);
-            _consumer = new Consumer(asynchQueue);
+            _consumer = new Consumer(asynchQueue,_convertClass);
             _rawtofine = new RawToFine(_dateReadyEventRawToFine,_consumer);
             _currentDal.setAsyncQueue(asynchQueue);
             _alarmWithOutParameter = new Alarm();
-            _systolic = new Systolic(_dataReadyEventSystolic, _consumer);
+            _calculateBloodPreassure = new CalculateBloodPreassure(_dataReadyEventSystolic, _consumer);
             _saveMeasurement = new SaveMeasurement();
+            _calibration = new Calibration();
+            
         }
 
 
@@ -56,9 +60,9 @@ namespace BL
             _rawtofine.Attach(observer);
         }
 
-        public void AttachToSystolicObserver(ISystolicObserver observer)
+        public void AttachToSystolicObserver(IBloodPressureObserver observer)
         {
-            _systolic.Attach(observer);
+            _calculateBloodPreassure.Attach(observer);
         }
 
         public byte[] ConvertReadingToBytes()
@@ -67,12 +71,17 @@ namespace BL
             return allReadings;
         }
 
+        public void PerformZeroPoint()
+        {
+            _convertClass.setZeroPointValue(_currentDal.getSingleReading());
+        }
+
         public void startThreads()
         {
             _currentDal.startAsyncDAQ();
             RawToFineThread = new Thread(_rawtofine.RunFineFilter) {IsBackground = true};
             consumerThread = new Thread(_consumer.RunConsumer) {IsBackground = true};
-            systolicThread = new Thread(_systolic.calculateSystolicThread) {IsBackground = true}; 
+            systolicThread = new Thread(_calculateBloodPreassure.calculateSystolicThread) {IsBackground = true}; 
 
             consumerThread.Start();
             RawToFineThread.Start();
@@ -91,7 +100,7 @@ namespace BL
         {
             _rawtofine.setThreadStatus(run);
             _consumer.setThreadStatus(run);
-            _systolic.setThreadStatus(run);
+            _calculateBloodPreassure.setThreadStatus(run);
             _currentDal.stopAsyncDAQ();
         }
 
@@ -102,12 +111,12 @@ namespace BL
 
         public int getSystolicValue()
         {
-            return _systolic.getSystolicValue();
+            return _calculateBloodPreassure.getSystolicValue();
         }
 
         public int getDiastolicValue()
         {
-            return _systolic.getDiastolicValue();
+            return _calculateBloodPreassure.getDiastolicValue();
         }
 
         public void setUpperAlarm(int sys)

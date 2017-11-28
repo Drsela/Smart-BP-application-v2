@@ -7,16 +7,16 @@ using Interfaces;
 
 namespace BL
 {
-    public class SystolicSubject
+    public class CalculateBloodPreassureSubject
     {
-        private List<ISystolicObserver> _observers = new List<ISystolicObserver>();
+        private List<IBloodPressureObserver> _observers = new List<IBloodPressureObserver>();
 
-        public void Attach(ISystolicObserver IPO)
+        public void Attach(IBloodPressureObserver IPO)
         {
             _observers.Add(IPO);
         }
 
-        public void Detach(ISystolicObserver IPO)
+        public void Detach(IBloodPressureObserver IPO)
         {
             _observers.Remove(IPO);
         }

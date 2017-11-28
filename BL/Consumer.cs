@@ -22,12 +22,17 @@ namespace BL
         private double _diastole;
         private List<double> _display;
         private bool _stopThread;
-        public Consumer(ConcurrentQueue<Datacontainer> dataQueue)
+        private ConvertClass _convertClass;
+        private List<double> mmhHgValues;
+
+        public Consumer(ConcurrentQueue<Datacontainer> dataQueue, ConvertClass convert)
         {
             _dataQueue = dataQueue;
             _stopThread = false;
             _display = new List<double>();
             allReadings = new List<double>();
+            _convertClass = convert;
+            mmhHgValues = new List<double>();
         }
 
         public void RunConsumer()
@@ -40,6 +45,9 @@ namespace BL
                     Thread.Sleep(0);
                 }
                 _display = container.getRawDoubles().ToList();
+
+                mmhHgValues =_convertClass.Conversation(_display);
+
                 allReadings.AddRange(_display);
                 Notify();
 
@@ -49,7 +57,8 @@ namespace BL
 
         public List<double> mwList()
         {
-            return _display;
+            return mmhHgValues;
+            //return _display;
         }
 
         public List<double> getAllReadings()

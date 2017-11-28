@@ -11,7 +11,7 @@ using Debug = System.Diagnostics.Debug;
 
 namespace BL
 {
-    public class Systolic : SystolicSubject, IConsumerObserver
+    public class CalculateBloodPreassure : CalculateBloodPreassureSubject, IConsumerObserver
     {
         private List<double> sysList;
         private int _systolicValue;
@@ -20,7 +20,7 @@ namespace BL
         private bool _threadStatus;
         private Consumer _consumer;
         private int DAQ_samplerate;
-        public Systolic(AutoResetEvent dataReadyResetEvent, Consumer consumer)
+        public CalculateBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer)
         {
             _dataReadResetEvent = dataReadyResetEvent;
             _consumer = consumer;
@@ -31,7 +31,7 @@ namespace BL
         }
 
 
-        public void CalculateSystolicValue(List<double> dataList)
+        public void CalculateBPValues(List<double> dataList)
         {
             for (int i = 0; i < dataList.Count; i++)
             {
@@ -63,7 +63,7 @@ namespace BL
             {
                 _dataReadResetEvent.WaitOne();
                 List<double> rawData = _consumer.mwList();
-                CalculateSystolicValue(rawData);
+                CalculateBPValues(rawData);
                 Notify();
             }
         }
