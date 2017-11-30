@@ -20,7 +20,8 @@ namespace BL
         private bool _threadStatus;
         private Consumer _consumer;
         private int DAQ_samplerate;
-        public CalculateBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer)
+        private iBusinessLogic _businessLogic;
+        public CalculateBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer, iBusinessLogic businessLogic)
         {
             _dataReadResetEvent = dataReadyResetEvent;
             _consumer = consumer;
@@ -28,6 +29,7 @@ namespace BL
             _consumer.Attach(this);
             sysList = new List<double>();
             DAQ_samplerate = 500;
+            _businessLogic = businessLogic;
         }
 
 
@@ -49,11 +51,13 @@ namespace BL
 
         public int getSystolicValue()
         {
+            _businessLogic.setCurrentSysValue(_systolicValue);
             return _systolicValue;
         }
 
         public int getDiastolicValue()
         {
+            _businessLogic.setCurrentDiaValue(_diastolicValue);
             return _diastolicValue;
         }
 

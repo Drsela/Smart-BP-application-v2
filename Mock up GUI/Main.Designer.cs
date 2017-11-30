@@ -31,9 +31,9 @@ namespace PL
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
@@ -61,46 +61,52 @@ namespace PL
             this.LowerlimitText = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upperTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lowerTrackBar)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.Color.Black;
             this.chart1.BorderSkin.BorderColor = System.Drawing.Color.Empty;
-            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisX.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.Title = "Tid (s)";
-            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.Title = "Blodtryk (mmHg)";
-            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.BorderColor = System.Drawing.Color.White;
-            chartArea1.BorderWidth = 4;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.HeaderSeparatorColor = System.Drawing.Color.White;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea4.AxisX.LineColor = System.Drawing.Color.White;
+            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea4.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea4.AxisX.Title = "Tid (s)";
+            chartArea4.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea4.AxisY.LineColor = System.Drawing.Color.White;
+            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea4.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea4.AxisY.Title = "Blodtryk (mmHg)";
+            chartArea4.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea4.BackColor = System.Drawing.Color.Black;
+            chartArea4.BorderColor = System.Drawing.Color.White;
+            chartArea4.BorderWidth = 4;
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
+            legend4.HeaderSeparatorColor = System.Drawing.Color.White;
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(16, 15);
             this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.Name = "chart1";
-            series1.BorderWidth = 6;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series1.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
-            series1.Name = "Blodtryk";
-            this.chart1.Series.Add(series1);
+            series4.BorderWidth = 6;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series4.IsVisibleInLegend = false;
+            series4.Legend = "Legend1";
+            series4.Name = "Blodtryk";
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(1013, 427);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -152,10 +158,10 @@ namespace PL
             this.button4.BackColor = System.Drawing.Color.White;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(1179, 662);
+            this.button4.Location = new System.Drawing.Point(-4, -18);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(109, 32);
+            this.button4.Size = new System.Drawing.Size(200, 108);
             this.button4.TabIndex = 4;
             this.button4.Text = "Calibrate";
             this.button4.UseVisualStyleBackColor = false;
@@ -167,10 +173,10 @@ namespace PL
             this.button5.BackColor = System.Drawing.Color.White;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(1179, 623);
+            this.button5.Location = new System.Drawing.Point(-4, -10);
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(109, 32);
+            this.button5.Size = new System.Drawing.Size(200, 90);
             this.button5.TabIndex = 5;
             this.button5.Text = "Zero point";
             this.button5.UseVisualStyleBackColor = false;
@@ -180,8 +186,8 @@ namespace PL
             // 
             this.upperTrackBar.Location = new System.Drawing.Point(431, 526);
             this.upperTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.upperTrackBar.Maximum = 220;
-            this.upperTrackBar.Minimum = 100;
+            this.upperTrackBar.Maximum = 250;
+            this.upperTrackBar.Minimum = 70;
             this.upperTrackBar.Name = "upperTrackBar";
             this.upperTrackBar.Size = new System.Drawing.Size(269, 56);
             this.upperTrackBar.TabIndex = 6;
@@ -192,8 +198,8 @@ namespace PL
             // 
             this.lowerTrackBar.Location = new System.Drawing.Point(431, 599);
             this.lowerTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.lowerTrackBar.Maximum = 110;
-            this.lowerTrackBar.Minimum = 40;
+            this.lowerTrackBar.Maximum = 140;
+            this.lowerTrackBar.Minimum = 20;
             this.lowerTrackBar.Name = "lowerTrackBar";
             this.lowerTrackBar.Size = new System.Drawing.Size(269, 56);
             this.lowerTrackBar.TabIndex = 7;
@@ -303,9 +309,9 @@ namespace PL
             this.label4.Location = new System.Drawing.Point(1037, 107);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(146, 19);
+            this.label4.Size = new System.Drawing.Size(71, 19);
             this.label4.TabIndex = 15;
-            this.label4.Text = "CalculateBloodPreassure pressure";
+            this.label4.Text = "Systolic";
             // 
             // label5
             // 
@@ -315,9 +321,9 @@ namespace PL
             this.label5.Location = new System.Drawing.Point(1037, 206);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(151, 19);
+            this.label5.Size = new System.Drawing.Size(76, 19);
             this.label5.TabIndex = 16;
-            this.label5.Text = "Diastolic pressure";
+            this.label5.Text = "Diastolic";
             // 
             // label6
             // 
@@ -354,9 +360,9 @@ namespace PL
             this.label7.Location = new System.Drawing.Point(1037, 303);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(185, 19);
+            this.label7.Size = new System.Drawing.Size(50, 19);
             this.label7.TabIndex = 19;
-            this.label7.Text = "Mean arterial pressure";
+            this.label7.Text = "Mean";
             // 
             // muteButton
             // 
@@ -370,6 +376,7 @@ namespace PL
             this.muteButton.TabIndex = 20;
             this.muteButton.Text = "Mute";
             this.muteButton.UseVisualStyleBackColor = false;
+            this.muteButton.Click += new System.EventHandler(this.muteButton_Click);
             // 
             // monitorRadioButton
             // 
@@ -430,17 +437,52 @@ namespace PL
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.BlanchedAlmond;
-            this.label8.Location = new System.Drawing.Point(928, 7);
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(512, 408);
+            this.label8.MinimumSize = new System.Drawing.Size(100, 25);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 17);
+            this.label8.Size = new System.Drawing.Size(100, 25);
             this.label8.TabIndex = 25;
-            this.label8.Text = "label8";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.ItemSize = new System.Drawing.Size(98, 21);
+            this.tabControl1.Location = new System.Drawing.Point(1108, 613);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(200, 100);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 26;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Black;
+            this.tabPage1.Controls.Add(this.button5);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(192, 71);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "User";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.Black;
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(192, 71);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Technician";
             // 
             // Main
             // 
@@ -448,6 +490,7 @@ namespace PL
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1304, 709);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.LowerlimitText);
             this.Controls.Add(this.UpperlimitText);
@@ -468,8 +511,6 @@ namespace PL
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lowerTrackBar);
             this.Controls.Add(this.upperTrackBar);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.button1);
@@ -481,6 +522,10 @@ namespace PL
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.upperTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lowerTrackBar)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,6 +560,9 @@ namespace PL
         private System.Windows.Forms.TextBox LowerlimitText;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 

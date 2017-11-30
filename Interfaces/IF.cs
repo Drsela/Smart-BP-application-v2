@@ -27,9 +27,14 @@ namespace Interfaces
     }
     public interface iBusinessLogic
     {
+        void setCurrentSysValue(int sys);
+        void setCurrentDiaValue(int dia);
+        void AttachToMeanBPObserver(IMeanBPObserver observer);
+        int getMeanBloodPreassure();
         int getSystolicValue();
         int getDiastolicValue();
 
+        int getPulse();
         byte[] ConvertReadingToBytes();
 
         void PerformZeroPoint();
@@ -51,6 +56,7 @@ namespace Interfaces
 
         void setUpperAlarm(int sys);
         void setLowerAlarm(int dia);
+        void muteAlarm();
     }
 
     public interface iPresentationLogic
@@ -76,8 +82,13 @@ namespace Interfaces
     {
         void updateGraph();
     }
-    public interface IPulseMeanBPObserver
+    public interface IMeanBPObserver
     {
-        void updatePulseMeanBP();
+        void updateMeanBP();
+    }
+
+    public interface IPulseObserver
+    {
+        void updatePulse();
     }
 }

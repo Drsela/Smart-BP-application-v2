@@ -24,14 +24,26 @@ namespace BL
         public void calibrateSystem()
         {
             _calibrationValuesDto.addValue(_iDataAccessLogic.getSingleReading());
-            
+            DialogResult dialogResponse = DialogResult.None;
             for (int i = 0; i<= 1; i++)
             {
-                DialogResult dialogResponse = MessageBox.Show("Connect next coloumn as seen on the screen. Press Yes when the coloumn is connected",
-                    "Important", MessageBoxButtons.YesNoCancel);
-                if (dialogResponse == DialogResult.Yes)
+                if (i == 0)
+                {
+                     dialogResponse = MessageBox.Show("Apply 50 mmHg preassure to the transducer. Press Yes when the coloumn is connected",
+                        "Important", MessageBoxButtons.OKCancel);
+                }
+                if (i == 1)
+                {
+                     dialogResponse = MessageBox.Show("Apply 100 mmHg preassure to the transducer. Press Yes when the coloumn is connected",
+                        "Important", MessageBoxButtons.OKCancel);
+                }
+                if (dialogResponse == DialogResult.OK)
                 {
                     _calibrationValuesDto.addValue(_iDataAccessLogic.getSingleReading());
+                }
+                if (dialogResponse == DialogResult.Cancel)
+                {
+                    return;
                 }
             }
 

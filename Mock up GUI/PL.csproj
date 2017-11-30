@@ -89,6 +89,9 @@
     <Compile Include="Save.Designer.cs">
       <DependentUpon>Save.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerticalProgressbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="AdjustBP.resx">
       <DependentUpon>AdjustBP.cs</DependentUpon>
     </EmbeddedResource>

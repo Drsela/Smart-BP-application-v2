@@ -7,16 +7,16 @@ using Interfaces;
 
 namespace BL
 {
-    public class calcMeanCalcPulseSubject
+    public class calcMeanBloodPreassureSubject
     {
-        private List<IPulseMeanBPObserver> _observers = new List<IPulseMeanBPObserver>();
+        private List<IMeanBPObserver> _observers = new List<IMeanBPObserver>();
 
-        public void Attach(IPulseMeanBPObserver IPO)
+        public void Attach(IMeanBPObserver IPO)
         {
             _observers.Add(IPO);
         }
 
-        public void Detach(IPulseMeanBPObserver IPO)
+        public void Detach(IMeanBPObserver IPO)
         {
             _observers.Remove(IPO);
         }
@@ -25,7 +25,7 @@ namespace BL
         {
             foreach (var observer in _observers)
             {
-                observer.updatePulseMeanBP();
+                observer.updateMeanBP();
             }
         }
     }

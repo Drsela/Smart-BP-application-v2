@@ -62,9 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
-    <Compile Include="CalcMeanCalcPulse.cs" />
-    <Compile Include="calcMeanCalcPulseSubject.cs" />
-    <Compile Include="CalculatePuls.cs" />
+    <Compile Include="CalcMeanBloodPreassure.cs" />
+    <Compile Include="calcMeanBloodPreassureSubject.cs" />
+    <Compile Include="CalculatePulse.cs" />
+    <Compile Include="CalculatePulseSubject.cs" />
     <Compile Include="Calibration.cs" />
     <Compile Include="Consumer.cs" />
     <Compile Include="ConsumerSubject.cs" />

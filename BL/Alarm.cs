@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BL
 {
@@ -13,23 +16,30 @@ namespace BL
         private int LowValue;
         private int _currentSys;
         private int _currentDia;
+        private Stopwatch _stopwatch;
 
         public Alarm(int sysHighValue, int diaLowValue)
         {
             HighValue = sysHighValue;
             LowValue = diaLowValue;
-            enabled = false;
+            enabled = true;
         }
         public Alarm()
         {
             HighValue = 180;
             LowValue = 60;
-            enabled = false;
+            enabled = true;
         }
 
         public void startAlarm()
         {
-            enabled = true;
+            while (enabled)
+            {
+                if (_currentSys != 0 && _currentSys > HighValue)
+                    Console.Beep(500, 200);
+                if (_currentDia != 0 && _currentDia < LowValue)
+                    Console.Beep(2000, 200);
+            }
         }
 
         public void stopAlarm()
@@ -60,13 +70,34 @@ namespace BL
         {
             while (enabled)
             {
-                if (_currentSys > HighValue)
+                if (_currentSys != 0 && _currentSys > HighValue)
                     Console.Beep(500,200);
-                if (_currentDia < LowValue)
+                if (_currentDia != 0 && _currentDia < LowValue)
                     Console.Beep(2000,200);
             }
-           
         }
 
+        public void PauseAlarm()
+        {
+            enabled = false;
+            _stopwatch= Stopwatch.StartNew();
+            //_stopwatch.Start();
+            Thread alarmCheck = new Thread(AlarmThreadCheck) {IsBackground = true};
+            alarmCheck.Start();
+        }
+
+        public void AlarmThreadCheck()
+        {
+            while (_stopwatch.IsRunning)
+            {
+                if (_stopwatch.Elapsed.Seconds >= 10)
+                {
+                    _stopwatch.Stop();
+                    enabled = true;
+                    Thread checkThread = new Thread(CheckAlarmValues) { IsBackground = true };      //WTF
+                    checkThread.Start();
+                }
+            }
+        }
     }
 }

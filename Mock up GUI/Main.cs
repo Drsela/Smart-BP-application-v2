@@ -21,7 +21,7 @@ using DateTime = System.DateTime;
 
 namespace PL
 {
-    public partial class Main : Form, IRawToFineObserver, IBloodPressureObserver, IPulseMeanBPObserver
+    public partial class Main : Form, IRawToFineObserver, IBloodPressureObserver, IMeanBPObserver, IPulseObserver
     {
         private iBusinessLogic _businessLogic;
         private ConcurrentQueue<Datacontainer> dataQueue;
@@ -41,20 +41,25 @@ namespace PL
         delegate void StringArgReturningVoidDelegate(int sys);
 
         private DispatcherTimer timer;
+        private Stopwatch _stopwatch;
         private DateTime _nowDateTime;
         private int caseswitch = 1;
 
         private int antalTimer;
         private int minutter;
         private int sekunder;
+        private bool _alarmStatus;
 
         public Main(iBusinessLogic businessLogic)
         {
             _businessLogic = businessLogic;
             _businessLogic.AttachToRawFineObserver(this);
             _businessLogic.AttachToSystolicObserver(this);
+            _businessLogic.AttachToMeanBPObserver(this);
+            _alarmStatus = false;
             timer = new DispatcherTimer();
             InitializeComponent();
+        
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -67,13 +72,15 @@ namespace PL
                     _businessLogic.startThreads();
                     stopButton.Hide();
                     button3.Hide();
-                    button4.Hide();
-                    button5.Hide();
+                    //button4.Hide();
+                    //button5.Hide();
                     button6.Hide();
+                    tabControl1.Hide();
                     button1.Text = "Stop";
                     caseswitch = 2;
-                    timer1.Interval = 1000;
+                    timer1.Interval = 250;
                     timer1.Start();
+                    _stopwatch = Stopwatch.StartNew();
                     break;
                 }
                 case 2:
@@ -107,7 +114,6 @@ namespace PL
             monitorRadioButton.Checked = true;
             diagnoseRadioButton.Checked = false;
             chart1.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
-            button1.Enabled = false;
 
             DialogResult zeropointDialogResult =
                 MessageBox.Show(
@@ -220,6 +226,7 @@ namespace PL
             {
                 this.upperTrackBar.Value = sys;
                 this.UpperlimitText.Text = Convert.ToString(sys);
+                _businessLogic.setUpperAlarm(sys);
             }
         }
 
@@ -234,6 +241,7 @@ namespace PL
             {
                 this.lowerTrackBar.Value = dia;
                 this.LowerlimitText.Text = Convert.ToString(dia);
+                _businessLogic.setLowerAlarm(dia);
             }
         }
 
@@ -269,9 +277,9 @@ namespace PL
                 antalTimer++;
             }
 
-            label8.Text = "Timer: " + antalTimer + ":" + minutter + ":" + sekunder;
 
-            //label8.Text = Convert.ToString(DateTime.Now);
+            //label8.Text = "Timer: " + antalTimer + ":" + minutter + ":" + sekunder;
+            label8.Text = "Timer: " +_stopwatch.Elapsed.Hours + ":" + _stopwatch.Elapsed.Minutes + ":" + _stopwatch.Elapsed.Seconds;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -280,15 +288,32 @@ namespace PL
             button1.Enabled = true;
         }
 
-        public void updatePulseMeanBP()
+        public void updateMeanBP()
         {
             if (this.InvokeRequired)
             {
                 this.Invoke((Action) delegate
-                {
-                    
+                { 
+                    textBox4.Text = Convert.ToString(_businessLogic.getMeanBloodPreassure());
                 });
             }
+        }
+
+        public void updatePulse()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Action)delegate
+                {
+                    textBox1.Text = Convert.ToString(_businessLogic.getPulse());
+                });
+            }
+        }
+
+        private void muteButton_Click(object sender, EventArgs e)
+        {
+                    _businessLogic.muteAlarm();
+                    _alarmStatus = false;   
         }
     }
 }
