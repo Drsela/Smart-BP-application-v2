@@ -56,7 +56,7 @@ namespace BL
             _rawtofine = new RawToFine(_dateReadyEventRawToFine,_consumer);
             _currentDal.setAsyncQueue(asynchQueue);
             _alarmWithOutParameter = new Alarm();
-            _calculateBloodPreassure = new CalculateBloodPreassure(_dataReadyEventSystolic, _consumer,this);
+            _calculateBloodPreassure = new CalculateBloodPreassure(_dataReadyEventSystolic, _consumer, this, _alarmWithOutParameter); 
             _saveMeasurement = new SaveMeasurement();
             _calibration = new Calibration();
             _calculateMean = new CalcMeanBloodPreassure(_dataReadyEventMean, _consumer);
