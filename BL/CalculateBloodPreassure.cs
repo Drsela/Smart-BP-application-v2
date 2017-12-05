@@ -19,18 +19,31 @@ namespace BL
         private AutoResetEvent _dataReadResetEvent;
         private bool _threadStatus;
         private Consumer _consumer;
+<<<<<<< HEAD
         private int DAQ_samplerate;
         private bool alarmEnabledBool;
+=======
+        private int numberOfReadings;
+        private Alarm _alarm;
+
+>>>>>>> 5a701e260b5737be2f9a42b7ac883ab9cc928930
         private iBusinessLogic _businessLogic;
-        public CalculateBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer, iBusinessLogic businessLogic)
+
+        public CalculateBloodPreassure()
+        {
+        }
+
+        public CalculateBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer,
+            iBusinessLogic businessLogic, Alarm alarm)
         {
             _dataReadResetEvent = dataReadyResetEvent;
             _consumer = consumer;
             _systolicValue = 0;
             _consumer.Attach(this);
             sysList = new List<double>();
-            DAQ_samplerate = 500;
+            numberOfReadings = 1000;                // 500 el. 1000?
             _businessLogic = businessLogic;
+            _alarm = alarm;
         }
 
 
@@ -38,13 +51,16 @@ namespace BL
         {
             for (int i = 0; i < dataList.Count; i++)
             {
-                if(sysList.Count < DAQ_samplerate)
+                if(sysList.Count < numberOfReadings)
                     sysList.Add(dataList[i]);
-                if (sysList.Count == DAQ_samplerate)
+                if (sysList.Count == numberOfReadings)
                 {
                     //System.Diagnostics.Debug.WriteLine("Den afrundede værdi er: " + Math.Round(sysList.Max()));
                     _systolicValue = Convert.ToInt32(Math.Round(sysList.Max()));
+                    _alarm.setCurrentSys(_systolicValue);
+
                     _diastolicValue = Convert.ToInt32(Math.Round(sysList.Min()));
+                    _alarm.setCurrentDia(_diastolicValue);
                     sysList.RemoveAt(0);
                 }
             }
@@ -84,6 +100,14 @@ namespace BL
                 _dataReadResetEvent.WaitOne();
                 List<double> rawData = _consumer.mwList();
                 CalculateBPValues(rawData);
+                if (_alarm.alarmStatus())
+                {
+                    _alarm.CheckAlarmValues();          // Tjekker om værdier er overskredet
+                }
+                if(!_alarm.alarmStatus())
+                {
+                    _alarm.checkAlarmState();           // Checker om alarmtimeren er 30.
+                }
                 Notify();
             }
         }

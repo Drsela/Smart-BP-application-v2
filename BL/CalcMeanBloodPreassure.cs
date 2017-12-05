@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace BL
 {
-    class CalcMeanBloodPreassure : calcMeanBloodPreassureSubject, IConsumerObserver
+    public class CalcMeanBloodPreassure : calcMeanBloodPreassureSubject, IConsumerObserver
     {
         private AutoResetEvent _dataReadResetEvent;
         private Consumer _consumer;

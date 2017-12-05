@@ -68,24 +68,36 @@ namespace BL
         }
         public void CheckAlarmValues()
         {
-            while (enabled)
+            if (enabled)
             {
                 if (_currentSys != 0 && _currentSys > HighValue)
-                    Console.Beep(500,200);
+                    Console.Beep(500, 200);
                 if (_currentDia != 0 && _currentDia < LowValue)
-                    Console.Beep(2000,200);
+                    Console.Beep(2000, 200);
             }
         }
 
         public void PauseAlarm()
         {
-            enabled = false;
-            _stopwatch= Stopwatch.StartNew();
+            if (enabled)
+            {
+                enabled = false;
+                _stopwatch = Stopwatch.StartNew();
+            }
+
             //_stopwatch.Start();
-            Thread alarmCheck = new Thread(AlarmThreadCheck) {IsBackground = true};
-            alarmCheck.Start();
+            //Thread alarmCheck = new Thread(AlarmThreadCheck) {IsBackground = true};
+            //alarmCheck.Start();
         }
 
+        public void checkAlarmState()
+        {
+            if (_stopwatch.Elapsed.Seconds >= 30 && enabled == false)
+            {
+                enabled = true;
+                _stopwatch.Stop();
+            }
+        }
         public void AlarmThreadCheck()
         {
             while (_stopwatch.IsRunning)
@@ -98,6 +110,11 @@ namespace BL
                     checkThread.Start();
                 }
             }
+        }
+
+        public bool alarmStatus()
+        {
+            return enabled;
         }
     }
 }

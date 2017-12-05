@@ -109,9 +109,14 @@ namespace DAL
                 _sqlDataReader =_command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
                 while (_sqlDataReader.Read())
                 {
+<<<<<<< HEAD
                     calibrationValues.Intercept = Convert.ToDouble(_sqlDataReader.GetString(4));
                     calibrationValues.Slope = Convert.ToDouble(_sqlDataReader.GetString(5));
                     calibrationValues.ID = _sqlDataReader.GetInt32(0);
+=======
+                    calibrationValues.Intercept = Convert.ToDouble(_sqlDataReader.GetString(5));
+                    calibrationValues.Slope = Convert.ToDouble(_sqlDataReader.GetString(4));
+>>>>>>> 5a701e260b5737be2f9a42b7ac883ab9cc928930
                 }
                 conn.Close();
             }
