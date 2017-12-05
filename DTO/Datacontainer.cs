@@ -11,7 +11,7 @@ namespace DTO
     {
         public double _mv;
         public List<double> _MvList;
-        private double[] rawDoubles = new double[500];
+        private double[] rawDoubles = new double[1000];
 
         public Datacontainer()
         {

@@ -89,6 +89,7 @@
     <Compile Include="Save.Designer.cs">
       <DependentUpon>Save.cs</DependentUpon>
     </Compile>
+    <Compile Include="Taskbar.cs" />
     <Compile Include="VerticalProgressbar.cs">
       <SubType>Component</SubType>
     </Compile>

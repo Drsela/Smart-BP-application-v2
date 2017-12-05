@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using BL;
 using Interfaces;
 using DTO;
+using Mock_up_GUI;
 using DateTime = System.DateTime;
 
 
@@ -33,6 +34,7 @@ namespace PL
         private double timeOne;
         private AdjustBP _adjustBpForm;
         private bool isrunning;
+        private double _zeroPointValue;
 
         private int sysAdjust;
         private int diaAdjust;
@@ -48,6 +50,8 @@ namespace PL
         private int antalTimer;
         private int minutter;
         private int sekunder;
+        private int maxYValue;
+        private int minYValue;
         private bool _alarmStatus;
 
         public Main(iBusinessLogic businessLogic)
@@ -60,7 +64,7 @@ namespace PL
             _alarmStatus = false;
             timer = new DispatcherTimer();
             InitializeComponent();
-        
+            FormBorderStyle = FormBorderStyle.None;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -82,6 +86,7 @@ namespace PL
                     timer1.Interval = 250;
                     timer1.Start();
                     _stopwatch = Stopwatch.StartNew();
+                    button1.BackColor = Color.Yellow;
                     break;
                 }
                 case 2:
@@ -109,8 +114,8 @@ namespace PL
 
         private void Main_Load(object sender, EventArgs e)
         {
-            chart1.ChartAreas[0].AxisY.Maximum = 100;
-            chart1.ChartAreas[0].AxisY.Minimum = 0;
+            chart1.ChartAreas[0].AxisY.Maximum = maxYValue;
+            chart1.ChartAreas[0].AxisY.Minimum = minYValue;
 
             monitorRadioButton.Checked = true;
             diagnoseRadioButton.Checked = false;
@@ -125,6 +130,8 @@ namespace PL
                 button5_Click(this, e);
             if (zeropointDialogResult == DialogResult.Cancel)
                 this.Close();
+            maxYValue = 200;
+            minYValue = 50;
         }
 
         private void upperTrackBar_Scroll(object sender, EventArgs e)
@@ -141,10 +148,13 @@ namespace PL
 
         private void stopButton_Click(object sender, EventArgs e)
         {
+            Application.Exit();
+            /*
             foreach (var series in chart1.Series)
             {
                 series.Points.Clear();
             }
+            */
         }
 
         public void updateGraph()
@@ -156,19 +166,20 @@ namespace PL
                     if (diagnoseRadioButton.Checked)
                     {
                         measureList = _businessLogic.mwList();
+                        chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(measureList.Max());
+                        chart1.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(measureList.Min());
                         chart1.Series["Blodtryk"].Points.Clear();
                         for (int i = 0; i < measureList.Count; i++)
                         {
-                            //chart1.Series["Blodtryk"].XValueType = ChartValueType.Time;
                             chart1.Series["Blodtryk"].Points.AddY(measureList[i]); //Ændres til ConvertedValue
-                            //time = time + 0.002;
-                            //time = Math.Round(time, 3);
                         }
                     }
 
                     if (monitorRadioButton.Checked)
                     {
                         fineList = _businessLogic.getFineValues();
+                        chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(fineList.Max());
+                        chart1.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(fineList.Min());
                         chart1.Series["Blodtryk"].Points.Clear();
                         for (int i = 0; i < fineList.Count; i++)
                         {
@@ -184,7 +195,7 @@ namespace PL
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Calibrate calibrateWindow = new Calibrate(_businessLogic);
+            Calibrate calibrateWindow = new Calibrate(_businessLogic,_zeroPointValue);
             calibrateWindow.Show();
         }
 
@@ -286,6 +297,7 @@ namespace PL
         private void button5_Click(object sender, EventArgs e)
         {
             _businessLogic.PerformZeroPoint();
+            _zeroPointValue = _businessLogic.getZeroPointValue();
             button1.Enabled = true;
         }
 

@@ -59,7 +59,7 @@ namespace BL
             _alarmWithOutParameter = new Alarm();
             _calculateBloodPreassure = new CalculateBloodPreassure(_dataReadyEventSystolic, _consumer, this, _alarmWithOutParameter); 
             _saveMeasurement = new SaveMeasurement();
-            _calibration = new Calibration();
+            _calibration = new Calibration(_convertClass.GetZeroPointValue());
             _calculateMean = new CalcMeanBloodPreassure(_dataReadyEventMean, _consumer);
             _calculatePulse = new CalculatePulse(_dataReadyEventPulse, _consumer);
             _saveData = new SaveData();
@@ -73,6 +73,11 @@ namespace BL
         public void AttachToPulseObserver(IPulseObserver observer)
         {
             _calculatePulse.Attach(observer);
+        }
+
+        public double getZeroPointValue()
+        {
+            return _convertClass.GetZeroPointValue();
         }
 
         public int getMeanBloodPreassure()
@@ -192,7 +197,8 @@ namespace BL
 
         public void getSingleReading()
         {
-            _calibration = new Calibration();
+            double zp = _convertClass.GetZeroPointValue();
+            _calibration = new Calibration(zp);
             _calibration.calibrateSystem();
             
         }

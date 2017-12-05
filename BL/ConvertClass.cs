@@ -31,6 +31,8 @@ namespace BL
             mmHgList = new List<double>();
             for (int i = 0; i < mvValues.Count; i++)
             {
+                mmHgList.Add(mvValues[i] * slope - intercept + (_zeroPointValue*slope));
+                /*
                 if (intercept > 0)
                 {
                     mmHgList.Add(mvValues[i] * slope - intercept + _zeroPointValue);
@@ -40,6 +42,7 @@ namespace BL
                 {
                     mmHgList.Add(mvValues[i] * slope + intercept + _zeroPointValue);
                 }
+                */
             }
             return mmHgList;
         }
@@ -47,6 +50,11 @@ namespace BL
         public void setZeroPointValue(double zp)
         {
             _zeroPointValue = zp;
+        }
+
+        public double GetZeroPointValue()
+        {
+            return _zeroPointValue;
         }
     }
 }

@@ -15,10 +15,12 @@ namespace PL
     public partial class Calibrate : Form
     {
         public iBusinessLogic _BusinessLogic;
-        public Calibrate(iBusinessLogic businessLogic)
+        private double _zeroPoint;
+        public Calibrate(iBusinessLogic businessLogic,double ZeroPoint)
         {
             InitializeComponent();
             _BusinessLogic = businessLogic;
+            _zeroPoint = ZeroPoint;
         }
 
         private void label1_Click(object sender, EventArgs e)

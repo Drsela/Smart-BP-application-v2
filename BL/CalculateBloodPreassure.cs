@@ -19,14 +19,10 @@ namespace BL
         private AutoResetEvent _dataReadResetEvent;
         private bool _threadStatus;
         private Consumer _consumer;
-<<<<<<< HEAD
         private int DAQ_samplerate;
         private bool alarmEnabledBool;
-=======
         private int numberOfReadings;
-        private Alarm _alarm;
-
->>>>>>> 5a701e260b5737be2f9a42b7ac883ab9cc928930
+        private Alarm _alarm;  
         private iBusinessLogic _businessLogic;
 
         public CalculateBloodPreassure()

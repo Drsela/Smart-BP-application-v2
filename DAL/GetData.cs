@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,8 +38,9 @@ namespace DAL
             foreach (double item in _daq.currentVoltageSeq)
             {
                 _singleList.Add(item);
+                //Debug.WriteLine(item);
             }
-
+            Debug.WriteLine("Gennemsnit (zeropoint) = " + _singleList.Average());
             return _singleList.Average();
         }
 
@@ -49,8 +51,8 @@ namespace DAL
                 deviceName = "Dev1/ai0",
                 samplesPerChannel = 500,
                 sampleRateInHz = 1000,
-                rangeMaximumVolt = 1,
-                rangeMinimumVolt = -1
+                rangeMaximumVolt = 5,
+                rangeMinimumVolt = 0
             };
             return _daq; // Opretter DAQ som giver 500 målinger
         }

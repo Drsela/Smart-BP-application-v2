@@ -18,7 +18,7 @@ namespace DAL
         private AsyncCallback analogCallback;
         private AnalogWaveform<double>[] data;
         private readonly ConcurrentQueue<Datacontainer> _datacontainer;
-        private int numberOfReadings = 500;
+        private int numberOfReadings = 1000;
 
         public AsyncDAQ(ConcurrentQueue<Datacontainer> datacontainer)
         {
