@@ -56,6 +56,7 @@ namespace PL
             _businessLogic.AttachToRawFineObserver(this);
             _businessLogic.AttachToSystolicObserver(this);
             _businessLogic.AttachToMeanBPObserver(this);
+            _businessLogic.AttachToPulseObserver(this);
             _alarmStatus = false;
             timer = new DispatcherTimer();
             InitializeComponent();
@@ -108,8 +109,8 @@ namespace PL
 
         private void Main_Load(object sender, EventArgs e)
         {
-            chart1.ChartAreas[0].AxisY.Maximum = 220;
-            chart1.ChartAreas[0].AxisY.Minimum = -220;
+            chart1.ChartAreas[0].AxisY.Maximum = 100;
+            chart1.ChartAreas[0].AxisY.Minimum = 0;
 
             monitorRadioButton.Checked = true;
             diagnoseRadioButton.Checked = false;

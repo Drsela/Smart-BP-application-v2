@@ -41,6 +41,7 @@ namespace BL
         private SaveMeasurement _saveMeasurement;
         private ConvertClass _convertClass;
         private CalculatePulse _calculatePulse;
+        private SaveData _saveData;
 
         private Thread meanBPThread;
         public CtrlBusinessLogic(iDataAccessLogic mydal, ConcurrentQueue<Datacontainer> RawDataQueue)
@@ -61,7 +62,7 @@ namespace BL
             _calibration = new Calibration();
             _calculateMean = new CalcMeanBloodPreassure(_dataReadyEventMean, _consumer);
             _calculatePulse = new CalculatePulse(_dataReadyEventPulse, _consumer);
-
+            _saveData = new SaveData();
         }
 
         public void AttachToMeanBPObserver(IMeanBPObserver observer)
@@ -167,6 +168,11 @@ namespace BL
         public void muteAlarm()
         {
             _alarmWithOutParameter.PauseAlarm();
+        }
+
+        public void uploadEmployee(string text, int employeeId, string s, byte[] allReadings)
+        {
+            _saveData.uploadMeasurementData(text,employeeId,s,allReadings,GetCalibrationValuesFromDAL().ID);
         }
 
         public void startAlarm()

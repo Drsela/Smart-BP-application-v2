@@ -17,14 +17,14 @@ namespace BL
             
         }
 
-        public void uploadEmployee(string CPR, int UserID, string kommentar, byte[] readings)
+        public void uploadMeasurementData(string CPR, int UserID, string kommentar, byte[] readings, int calibrationID)
         {
             CPR = CPR.Replace("-", "");
             _connection = new DatabaseConnection();
-            _connection.uploadMeasurement(CPR,UserID,kommentar, readings);
+            _connection.uploadMeasurement(CPR,UserID,kommentar, readings, calibrationID);
         }
         public EmployeeDTO GetEmployeeFromValidation(string UN, string PW)
-        {
+        {                                                                                                                   
             _connection = new DatabaseConnection();
             return  _connection.GetDto(UN, PW);
         }

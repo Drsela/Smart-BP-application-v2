@@ -20,6 +20,7 @@ namespace BL
         private bool _threadStatus;
         private Consumer _consumer;
         private int DAQ_samplerate;
+        private bool alarmEnabledBool;
         private iBusinessLogic _businessLogic;
         public CalculateBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer, iBusinessLogic businessLogic)
         {
@@ -47,6 +48,21 @@ namespace BL
                     sysList.RemoveAt(0);
                 }
             }
+            if (alarmEnabledBool = true)
+            {
+                /*
+           Alarm _alarm = new Alarm();
+           _alarm.setCurrentDia(_diastolicValue);
+           _alarm.setCurrentSys(_systolicValue);
+           _alarm.CheckAlarmValues();
+           */
+            }
+
+        }
+
+        public void alarmEnabled(bool enable)
+        {
+            alarmEnabledBool = enable;
         }
 
         public int getSystolicValue()

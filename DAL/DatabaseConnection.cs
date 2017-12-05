@@ -72,15 +72,16 @@ namespace DAL
             return _Employee;
         }
 
-        public void uploadMeasurement(string CPR, int UserID, string kommentar, byte[] readings)
+        public void uploadMeasurement(string CPR, int UserID, string kommentar, byte[] readings, int calibrationID)
         {
             DateTime currentTime = DateTime.Now;
-            _command = new SqlCommand("INSERT INTO MaalingDB(Patient,AnsvarligID, Maaling, Dato,Kommentar) VALUES (@Patient, @Ansvarlig, @Maaling, @Dato, @Kommentar)",conn);
+            _command = new SqlCommand("INSERT INTO MaalingDB(Patient,AnsvarligID, Maaling, Dato,Kommentar, CalibrationID) VALUES (@Patient, @Ansvarlig, @Maaling, @Dato, @Kommentar, @CalibrationID)", conn);
             _command.Parameters.AddWithValue("@Patient", CPR);
             _command.Parameters.AddWithValue("@Ansvarlig", UserID);
             _command.Parameters.AddWithValue("@Maaling", readings);
             _command.Parameters.AddWithValue("@Dato", currentTime);
             _command.Parameters.AddWithValue("@Kommentar", kommentar);
+            _command.Parameters.AddWithValue("@CalibrationID", calibrationID);
 
             try
             {
@@ -108,8 +109,9 @@ namespace DAL
                 _sqlDataReader =_command.ExecuteReader(); // nu indeholder _sqlDataReader-objektet resultatet af forespørgslen
                 while (_sqlDataReader.Read())
                 {
-                    calibrationValues.Intercept = Convert.ToDouble(_sqlDataReader.GetString(3));
-                    calibrationValues.Slope = Convert.ToDouble(_sqlDataReader.GetString(4));
+                    calibrationValues.Intercept = Convert.ToDouble(_sqlDataReader.GetString(4));
+                    calibrationValues.Slope = Convert.ToDouble(_sqlDataReader.GetString(5));
+                    calibrationValues.ID = _sqlDataReader.GetInt32(0);
                 }
                 conn.Close();
             }

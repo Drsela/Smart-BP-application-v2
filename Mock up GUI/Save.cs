@@ -36,7 +36,7 @@ namespace PL
             if (_saveData.ValidateCPR(CPRtextBox1.Text) == true)
             {
                 var allReadings = _businessLogic.ConvertReadingToBytes();
-                _saveData.uploadEmployee(CPRtextBox1.Text,_Employee.ID,commentTextBox.Text, allReadings);
+                _businessLogic.uploadEmployee(CPRtextBox1.Text,_Employee.ID,commentTextBox.Text, allReadings);
                 this.Close();
                 
             }

@@ -10,11 +10,18 @@ namespace DTO
     {
         private List<double> _calibrationValues;
         private double _slope;
+        private int _id;
         public double Slope {
             get => _slope;
             set => _slope = value;
         }
-        
+
+        public int ID
+        {
+            get => _id;
+            set => _id = value;
+        }
+
         private double _intercept;
         public double Intercept
         {

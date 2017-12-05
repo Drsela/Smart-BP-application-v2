@@ -39,7 +39,7 @@ namespace DAL
 
                     // Configure the timing parameters
                     myTask.Timing.ConfigureSampleClock("", 1000, // 1000 = frekvensen der læses med i hz
-                        SampleClockActiveEdge.Rising, SampleQuantityMode.ContinuousSamples, numberOfReadings); // 100 = antal samples per læsning
+                        SampleClockActiveEdge.Rising, SampleQuantityMode.ContinuousSamples, numberOfReadings); // 500 = antal samples per læsning
 
                     // Verify the Task
                     myTask.Control(TaskAction.Verify);
@@ -69,6 +69,14 @@ namespace DAL
                 // Dispose of the task
                 runningTask = null;
                 myTask.Dispose();
+            }
+        }
+
+        public void stopDAQ(bool stop)
+        {
+            if (runningTask != null)
+            {
+                
             }
         }
 

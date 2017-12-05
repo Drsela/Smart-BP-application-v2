@@ -57,6 +57,8 @@ namespace Interfaces
         void setUpperAlarm(int sys);
         void setLowerAlarm(int dia);
         void muteAlarm();
+        void uploadEmployee(string text, int employeeId, string s, byte[] allReadings);
+        void AttachToPulseObserver(IPulseObserver Observer);
     }
 
     public interface iPresentationLogic

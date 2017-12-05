@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Accord.Diagnostics;
 using Interfaces;
+using System.Diagnostics;
+using Accord.IO;
 
 namespace BL
 {
@@ -38,12 +41,19 @@ namespace BL
 
         public void CalculatePulseMethod(List<double> rawDoubles)
         {
-            _calculatePulseList.AddRange(rawDoubles);
+            if (_calculatePulseList.Count <= 9500)
+                _calculatePulseList.AddRange(rawDoubles);
+
             if (_calculatePulseList.Count >= 10000)
             {
-                for (int i = 0; i < _calculatePulseList.Count-1; i++)
+                var new1 = _calculatePulseList.ToList();
+
+                for (int i = 0; i < new1.Count-1; i++)
                 {
-                    if (_calculatePulseList[i] >= (_calculatePulseList.Max()*0.6))
+                    //System.Diagnostics.Debug.WriteLine("Punkt" + Math.Abs(_calculatePulseList[i]) + " Max: " + Math.Abs(_calculatePulseList.Max()) *0.85);
+                    if (Math.Abs(new1[i]) >= (new1.Max() - Math.Abs(new1.Max()*0.60)) &&
+                        new1[i] > new1[i+1] &&
+                        new1[i+1] < (new1.Max() - new1.Max()*0.60))
                     {
                         _pulse++;
                     }
@@ -55,7 +65,16 @@ namespace BL
 
         public int getPulse()
         {
-            return _pulse * 6;
+            try
+            {
+                return _pulse * 6;
+            }
+            finally
+            {
+                _pulse = 0;
+            }
+            
+            
         }
         public void getObserverState()
         {
