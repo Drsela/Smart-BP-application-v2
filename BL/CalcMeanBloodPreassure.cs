@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Interfaces;
 
 namespace BL
 {
     public class CalcMeanBloodPreassure : calcMeanBloodPreassureSubject, IConsumerObserver
     {
-        private AutoResetEvent _dataReadResetEvent;
-        private Consumer _consumer;
-        private List<double> _calculateMeanBloodPreassureList;
-        private double meanBloodPreassure;
+        private readonly List<double> _calculateMeanBloodPreassureList;
+        private readonly Consumer _consumer;
+        private readonly AutoResetEvent _dataReadResetEvent;
         private bool _threadStatus;
+        private double meanBloodPreassure;
 
         public CalcMeanBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer)
         {
@@ -24,14 +22,18 @@ namespace BL
             _calculateMeanBloodPreassureList = new List<double>();
         }
 
+        public void getObserverState()
+        {
+            _dataReadResetEvent.Set();
+        }
+
         public void calculateMeanBPThread()
         {
             while (!_threadStatus)
             {
                 _dataReadResetEvent.WaitOne();
-                List<double> rawData = _consumer.mwList();
+                var rawData = _consumer.mwList();
                 calculateMeanBloodPreassure(rawData);
-                
             }
         }
 
@@ -40,15 +42,10 @@ namespace BL
             _calculateMeanBloodPreassureList.AddRange(mmHgValues);
             if (_calculateMeanBloodPreassureList.Count > 5000)
             {
-                meanBloodPreassure =_calculateMeanBloodPreassureList.Average();
-                _calculateMeanBloodPreassureList.RemoveRange(0,500);
+                meanBloodPreassure = _calculateMeanBloodPreassureList.Average();
+                _calculateMeanBloodPreassureList.RemoveRange(0, 500);
                 Notify();
             }
-        }
-
-        public void getObserverState()
-        {
-            _dataReadResetEvent.Set();
         }
 
         public int getMeanBloodPreassure()

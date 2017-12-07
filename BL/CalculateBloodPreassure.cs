@@ -1,29 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Accord.Diagnostics;
-using System.Diagnostics;
 using Interfaces;
-using Debug = System.Diagnostics.Debug;
 
 namespace BL
 {
     public class CalculateBloodPreassure : CalculateBloodPreassureSubject, IConsumerObserver
     {
-        private List<double> sysList;
-        private int _systolicValue;
+        private readonly Alarm _alarm;
+        private readonly iBusinessLogic _businessLogic;
+        private readonly Consumer _consumer;
+        private readonly AutoResetEvent _dataReadResetEvent;
+        private readonly List<double> bpList;
+        private readonly int numberOfReadings;
         private int _diastolicValue;
-        private AutoResetEvent _dataReadResetEvent;
+        private int _systolicValue;
         private bool _threadStatus;
-        private Consumer _consumer;
-        private int DAQ_samplerate;
         private bool alarmEnabledBool;
-        private int numberOfReadings;
-        private Alarm _alarm;  
-        private iBusinessLogic _businessLogic;
+        private int DAQ_samplerate;
 
         public CalculateBloodPreassure()
         {
@@ -36,40 +31,35 @@ namespace BL
             _consumer = consumer;
             _systolicValue = 0;
             _consumer.Attach(this);
-            sysList = new List<double>();
-            numberOfReadings = 1000;                // 500 el. 1000?
+            bpList = new List<double>();
+            numberOfReadings = 1000; // 500 el. 1000?
             _businessLogic = businessLogic;
             _alarm = alarm;
+        }
+
+        public void getObserverState()
+        {
+            _dataReadResetEvent.Set();
         }
 
 
         public void CalculateBPValues(List<double> dataList)
         {
-            for (int i = 0; i < dataList.Count; i++)
+            for (var i = 0; i < dataList.Count; i++)
             {
-                if(sysList.Count < numberOfReadings)
-                    sysList.Add(dataList[i]);
-                if (sysList.Count == numberOfReadings)
+                if (bpList.Count < numberOfReadings)
+                    bpList.Add(dataList[i]);
+                if (bpList.Count == numberOfReadings)
                 {
-                    //System.Diagnostics.Debug.WriteLine("Den afrundede værdi er: " + Math.Round(sysList.Max()));
-                    _systolicValue = Convert.ToInt32(Math.Round(sysList.Max()));
+                    //System.Diagnostics.Debug.WriteLine("Den afrundede værdi er: " + Math.Round(bpList.Max()));
+                    _systolicValue = Convert.ToInt32(Math.Round(bpList.Max()));
                     _alarm.setCurrentSys(_systolicValue);
 
-                    _diastolicValue = Convert.ToInt32(Math.Round(sysList.Min()));
+                    _diastolicValue = Convert.ToInt32(Math.Round(bpList.Min()));
                     _alarm.setCurrentDia(_diastolicValue);
-                    sysList.RemoveAt(0);
+                    bpList.RemoveAt(0);
                 }
             }
-            if (alarmEnabledBool = true)
-            {
-                /*
-           Alarm _alarm = new Alarm();
-           _alarm.setCurrentDia(_diastolicValue);
-           _alarm.setCurrentSys(_systolicValue);
-           _alarm.CheckAlarmValues();
-           */
-            }
-
         }
 
         public void alarmEnabled(bool enable)
@@ -89,28 +79,20 @@ namespace BL
             return _diastolicValue;
         }
 
-        public void calculateSystolicThread()
+        public void calculateBloodpreassureThread()
         {
             while (!_threadStatus)
             {
                 _dataReadResetEvent.WaitOne();
-                List<double> rawData = _consumer.mwList();
+                var rawData = _consumer.mwList();
                 CalculateBPValues(rawData);
                 if (_alarm.alarmStatus())
-                {
-                    _alarm.CheckAlarmValues();          // Tjekker om værdier er overskredet
-                }
-                if(!_alarm.alarmStatus())
-                {
-                    _alarm.checkAlarmState();           // Checker om alarmtimeren er 30.
-                }
+                    _alarm.CheckAlarmValues(); // Tjekker om værdier er overskredet
+                if (!_alarm.alarmStatus())
+                    _alarm.checkAlarmState(); // Checker om alarmtimeren er 30 og aktiverer den igen.
+
                 Notify();
             }
-        }
-
-        public void getObserverState()
-        {
-            _dataReadResetEvent.Set();
         }
 
         public void setThreadStatus(bool status)
@@ -118,6 +100,4 @@ namespace BL
             _threadStatus = status;
         }
     }
-
-
 }

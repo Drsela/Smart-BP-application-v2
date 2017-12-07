@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Forms;
 using Interfaces;
-using System.Windows.Forms;
-using PL;
 
 namespace PL
 {
@@ -13,19 +7,21 @@ namespace PL
     {
         //private iBusinessLogic currentBL;
         public Main _myMain;
-        public iBusinessLogic currentBL { set; get; }
+
         public CtrlPresentation(iBusinessLogic mybl)
         {
-            this.currentBL = mybl;
+            currentBL = mybl;
             Application.SetCompatibleTextRenderingDefault(false);
             _myMain = new Main(currentBL);
         }
+
+        public iBusinessLogic currentBL { set; get; }
+
         public void startUpGUI()
         {
             Application.EnableVisualStyles();
             Application.DoEvents();
             Application.Run(_myMain);
         }
-
     }
 }

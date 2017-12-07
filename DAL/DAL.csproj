@@ -52,10 +52,7 @@
     <Compile Include="AsyncDAQ.cs" />
     <Compile Include="CtrlDataAccessLogic.cs" />
     <Compile Include="DatabaseConnection.cs" />
-    <Compile Include="Employee.cs" />
     <Compile Include="GetData.cs" />
-    <Compile Include="Patient.cs" />
-    <Compile Include="Producer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

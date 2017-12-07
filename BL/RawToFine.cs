@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Interfaces;
 
 namespace BL
 {
-    class RawToFine : RawToFineSubject, IConsumerObserver
+    internal class RawToFine : RawToFineSubject, IConsumerObserver
     {
-        private List<double> _displayList;
-        private AutoResetEvent _dataReady;
-        private Consumer _consumer;
+        private readonly Consumer _consumer;
+        private readonly AutoResetEvent _dataReady;
+        private readonly List<double> _displayList;
         private bool _stopThread;
 
         public RawToFine(AutoResetEvent dateReady, Consumer consumer)
@@ -21,15 +17,20 @@ namespace BL
             _dataReady = dateReady;
             _consumer = consumer;
             _stopThread = false;
-            _displayList  = new List<double>();
+            _displayList = new List<double>();
             _consumer.Attach(this);
+        }
+
+        public void getObserverState()
+        {
+            _dataReady.Set();
         }
 
         public void sortRawData(List<double> rawData)
         {
-            for (int i = 0; i < rawData.Count; i = i + 5)
+            for (var i = 0; i < rawData.Count; i = i + 5)
             {
-                double average = (rawData.GetRange(i, 5).Average());
+                var average = rawData.GetRange(i, 5).Average();
                 _displayList.Add(average);
 
                 if (_displayList.Count > 500)
@@ -42,17 +43,12 @@ namespace BL
             return _displayList;
         }
 
-        public void getObserverState()
-        {
-            _dataReady.Set();
-        }
-
         public void RunFineFilter()
         {
             while (!_stopThread)
             {
                 _dataReady.WaitOne();
-                List<double> sortList = _consumer.mwList();
+                var sortList = _consumer.mwList();
                 sortRawData(sortList);
                 Notify();
             }

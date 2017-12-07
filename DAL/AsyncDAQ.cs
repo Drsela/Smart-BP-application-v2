@@ -1,52 +1,49 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DTO;
-using NationalInstruments.DAQmx;
 using NationalInstruments;
+using NationalInstruments.DAQmx;
 
 namespace DAL
 {
     public class AsyncDAQ
     {
-        private AnalogMultiChannelReader analogInReader;
-        private NationalInstruments.DAQmx.Task myTask;
-        private NationalInstruments.DAQmx.Task runningTask;
-        private AsyncCallback analogCallback;
-        private AnalogWaveform<double>[] data;
         private readonly ConcurrentQueue<Datacontainer> _datacontainer;
-        private int numberOfReadings = 1000;
+        private readonly int numberOfReadings = 1000;
+        private AsyncCallback analogCallback;
+        private AnalogMultiChannelReader analogInReader;
+        private AnalogWaveform<double>[] data;
+        private Task myTask;
+        private Task runningTask;
 
         public AsyncDAQ(ConcurrentQueue<Datacontainer> datacontainer)
         {
             _datacontainer = datacontainer;
         }
+
         public void InitiateAsyncDaq()
         {
             if (runningTask == null)
-            {
                 try
                 {
                     // Create a new task
-                    myTask = new NationalInstruments.DAQmx.Task();
+                    myTask = new Task();
 
                     // Create a virtual channel
                     myTask.AIChannels.CreateVoltageChannel("Dev1/ai0", "",
-                        (AITerminalConfiguration)(-1), 0, 5, AIVoltageUnits.Volts);
+                        (AITerminalConfiguration) (-1), 0, 5, AIVoltageUnits.Volts);
 
                     // Configure the timing parameters
                     myTask.Timing.ConfigureSampleClock("", 1000, // 1000 = frekvensen der læses med i hz
-                        SampleClockActiveEdge.Rising, SampleQuantityMode.ContinuousSamples, numberOfReadings); // 500 = antal samples per læsning
+                        SampleClockActiveEdge.Rising, SampleQuantityMode.ContinuousSamples,
+                        numberOfReadings); // 500 = antal samples per læsning
 
                     // Verify the Task
                     myTask.Control(TaskAction.Verify);
 
                     runningTask = myTask;
                     analogInReader = new AnalogMultiChannelReader(myTask.Stream);
-                    analogCallback = new AsyncCallback(AnalogInCallback);
+                    analogCallback = AnalogInCallback;
 
                     // Use SynchronizeCallbacks to specify that the object 
                     // marshals callbacks across threads appropriately.
@@ -59,7 +56,6 @@ namespace DAL
                     runningTask = null;
                     myTask.Dispose();
                 }
-            }
         }
 
         public void StopMeasurement()
@@ -69,14 +65,6 @@ namespace DAL
                 // Dispose of the task
                 runningTask = null;
                 myTask.Dispose();
-            }
-        }
-
-        public void stopDAQ(bool stop)
-        {
-            if (runningTask != null)
-            {
-                
             }
         }
 
@@ -90,7 +78,7 @@ namespace DAL
                     data = analogInReader.EndReadWaveform(ar);
 
                     //DataToDataList(data);
-                    Datacontainer measurementDatacontainer= new Datacontainer();
+                    var measurementDatacontainer = new Datacontainer();
                     measurementDatacontainer.SetRawDataSample(data);
                     _datacontainer.Enqueue(measurementDatacontainer); //Consumer producer patteren
 

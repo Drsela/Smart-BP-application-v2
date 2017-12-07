@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Interfaces;
 
 namespace BL
@@ -10,7 +6,7 @@ namespace BL
     public class ConsumerSubject
     {
         //private List<iPatientConsumerObserver> _observers = new List<iPatientConsumerObserver>();
-        private List<IConsumerObserver> _observers = new List<IConsumerObserver>();
+        private readonly List<IConsumerObserver> _observers = new List<IConsumerObserver>();
 
         public void Attach(IConsumerObserver IPO)
         {
@@ -25,9 +21,7 @@ namespace BL
         public void Notify()
         {
             foreach (var observer in _observers)
-            {
                 observer.getObserverState();
-            }
         }
     }
 }

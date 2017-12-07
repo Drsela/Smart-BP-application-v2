@@ -1,33 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DTO
 {
     public class CalibrationValuesDTO
     {
-        private List<double> _calibrationValues;
-        private double _slope;
-        private int _id;
-        public double Slope {
-            get => _slope;
-            set => _slope = value;
-        }
-
-        public int ID
-        {
-            get => _id;
-            set => _id = value;
-        }
-
-        private double _intercept;
-        public double Intercept
-        {
-            get => _intercept;
-            set => _intercept = value;
-        }
+        private readonly List<double> _calibrationValues;
 
 
         public CalibrationValuesDTO()
@@ -35,7 +12,12 @@ namespace DTO
             _calibrationValues = new List<double>();
         }
 
-        
+        public double Slope { get; set; }
+
+        public int ID { get; set; }
+
+        public double Intercept { get; set; }
+
 
         public void addValue(double value)
         {

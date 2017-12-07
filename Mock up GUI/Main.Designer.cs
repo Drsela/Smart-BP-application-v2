@@ -186,8 +186,8 @@ namespace PL
             // 
             this.upperTrackBar.Location = new System.Drawing.Point(728, 906);
             this.upperTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.upperTrackBar.Maximum = 250;
-            this.upperTrackBar.Minimum = 70;
+            this.upperTrackBar.Maximum = 270;
+            this.upperTrackBar.Minimum = 30;
             this.upperTrackBar.Name = "upperTrackBar";
             this.upperTrackBar.Size = new System.Drawing.Size(269, 56);
             this.upperTrackBar.TabIndex = 6;
@@ -198,8 +198,8 @@ namespace PL
             // 
             this.lowerTrackBar.Location = new System.Drawing.Point(728, 979);
             this.lowerTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.lowerTrackBar.Maximum = 140;
-            this.lowerTrackBar.Minimum = 20;
+            this.lowerTrackBar.Maximum = 150;
+            this.lowerTrackBar.Minimum = 10;
             this.lowerTrackBar.Name = "lowerTrackBar";
             this.lowerTrackBar.Size = new System.Drawing.Size(269, 56);
             this.lowerTrackBar.TabIndex = 7;
@@ -269,7 +269,7 @@ namespace PL
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(200, 100);
             this.textBox1.TabIndex = 12;
-            this.textBox1.Text = "78";
+            this.textBox1.Text = "00";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
@@ -285,7 +285,7 @@ namespace PL
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(200, 100);
             this.textBox2.TabIndex = 13;
-            this.textBox2.Text = "80";
+            this.textBox2.Text = "00";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox3
@@ -301,7 +301,7 @@ namespace PL
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(200, 100);
             this.textBox3.TabIndex = 14;
-            this.textBox3.Text = "120";
+            this.textBox3.Text = "00";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
@@ -353,7 +353,7 @@ namespace PL
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(200, 100);
             this.textBox4.TabIndex = 18;
-            this.textBox4.Text = "100";
+            this.textBox4.Text = "00";
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label7
@@ -443,7 +443,7 @@ namespace PL
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(914, 808);
+            this.label8.Location = new System.Drawing.Point(872, 807);
             this.label8.MinimumSize = new System.Drawing.Size(100, 25);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 25);

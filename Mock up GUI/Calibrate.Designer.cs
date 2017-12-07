@@ -91,7 +91,6 @@ namespace PL
             this.label1.Size = new System.Drawing.Size(98, 24);
             this.label1.TabIndex = 24;
             this.label1.Text = "10 mmHg";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label3
             // 

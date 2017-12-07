@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using DAL;
 using DTO;
-using Interfaces;
 
 namespace BL
 {
     public class Consumer : ConsumerSubject
     {
+        private readonly ConvertClass _convertClass;
         private readonly ConcurrentQueue<Datacontainer> _dataQueue;
-        private Datacontainer _measurementDatacontainer;
-        private List<double> allReadings;
-        private double _systole;
+        private readonly List<double> allReadings;
         private double _diastole;
         private List<double> _display;
         private bool _stopThread;
-        private ConvertClass _convertClass;
+        private double _systole;
         private List<double> mmhHgValues;
 
         public Consumer(ConcurrentQueue<Datacontainer> dataQueue, ConvertClass convert)
@@ -41,30 +33,24 @@ namespace BL
             {
                 Datacontainer container = null;
                 while (!_dataQueue.TryDequeue(out container))
-                {
                     Thread.Sleep(0);
-                }
                 _display = container.getRawDoubles().ToList();
-
-                mmhHgValues =_convertClass.Conversation(_display);
-
+                mmhHgValues = _convertClass.Conversation(_display);
                 allReadings.AddRange(_display);
                 Notify();
-
-
             }
         }
 
         public List<double> mwList()
         {
             return mmhHgValues;
-            //return _display;
         }
 
         public List<double> getAllReadings()
         {
             return allReadings;
         }
+
         public void setThreadStatus(bool run)
         {
             _stopThread = run;

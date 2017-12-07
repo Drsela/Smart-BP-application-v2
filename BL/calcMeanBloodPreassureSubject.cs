@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Interfaces;
 
 namespace BL
 {
     public class calcMeanBloodPreassureSubject
     {
-        private List<IMeanBPObserver> _observers = new List<IMeanBPObserver>();
+        private readonly List<IMeanBPObserver> _observers = new List<IMeanBPObserver>();
 
         public void Attach(IMeanBPObserver IPO)
         {
@@ -24,9 +20,7 @@ namespace BL
         public void Notify()
         {
             foreach (var observer in _observers)
-            {
                 observer.updateMeanBP();
-            }
         }
     }
 }

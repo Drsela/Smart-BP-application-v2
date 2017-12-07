@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using DTO;
 using Interfaces;
 
@@ -10,12 +6,12 @@ namespace BL
 {
     public class ConvertClass
     {
-        private iDataAccessLogic _dataAccessLogic;
-        private List<double> mmHgList;
-        private CalibrationValuesDTO _calibrationDTO;
-        private double slope;
-        private double intercept;
+        private readonly CalibrationValuesDTO _calibrationDTO;
+        private readonly iDataAccessLogic _dataAccessLogic;
+        private readonly double intercept;
+        private readonly double slope;
         private double _zeroPointValue;
+        private List<double> mmHgList;
 
         public ConvertClass(iDataAccessLogic dataAccessLogic)
         {
@@ -23,27 +19,13 @@ namespace BL
             _calibrationDTO = _dataAccessLogic.getValues();
             slope = _calibrationDTO.Slope;
             intercept = _calibrationDTO.Intercept;
-
         }
 
         public List<double> Conversation(List<double> mvValues)
         {
             mmHgList = new List<double>();
-            for (int i = 0; i < mvValues.Count; i++)
-            {
-                mmHgList.Add(mvValues[i] * slope - intercept + (_zeroPointValue*slope));
-                /*
-                if (intercept > 0)
-                {
-                    mmHgList.Add(mvValues[i] * slope - intercept + _zeroPointValue);
-                }
-
-                if (intercept < 0)
-                {
-                    mmHgList.Add(mvValues[i] * slope + intercept + _zeroPointValue);
-                }
-                */
-            }
+            for (var i = 0; i < mvValues.Count; i++)
+                mmHgList.Add(mvValues[i] * slope + intercept + _zeroPointValue * slope);
             return mmHgList;
         }
 

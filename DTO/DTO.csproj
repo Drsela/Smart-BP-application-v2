@@ -53,11 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlarmDTO.cs" />
     <Compile Include="CalibrationValuesDTO.cs" />
     <Compile Include="Datacontainer.cs" />
+    <Compile Include="Employee.cs" />
     <Compile Include="EmployeeDTO.cs" />
-    <Compile Include="GraphDTO.cs" />
+    <Compile Include="Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

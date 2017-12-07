@@ -1,63 +1,52 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using System.Windows.Forms;
-using DAL;
 using DTO;
 using Interfaces;
-
 
 namespace BL
 {
     public class CtrlBusinessLogic : iBusinessLogic
     {
-        private iDataAccessLogic _currentDal;
-        private Producer _producer;
-        private AsyncDAQ _producerAsyncDaq;
-        private Consumer _consumer;
-        private CalculateBloodPreassure _calculateBloodPreassure;
+        private readonly Alarm _alarmWithOutParameter; //Opretter alarm. Parametre kan sættes vha. Get/Set
+        private readonly CalculateBloodPreassure _calculateBloodPreassure; // Klasse til at beregne Sys/Dia
+        private readonly CalcMeanBloodPreassure _calculateMean; // Klasse til at beregne middelblodtryk
+        private readonly CalculatePulse _calculatePulse; // Klasse til at beregne pulsen
+        private readonly Consumer _consumer; // Klasse til consumer/producer
+        private readonly ConvertClass _convertClass; // Klasse til at konvertere mV to mmHg
+        private readonly iDataAccessLogic _currentDal; // Forbindelse til datalaget
+        private readonly AutoResetEvent _dataReadyEventMean; // Autoresetevent for trådsammenkobling
+        private readonly AutoResetEvent _dataReadyEventPulse; // Autoresetevent for trådsammenkobling
+        private readonly AutoResetEvent _dataReadyEventSystolic; // Autoresetevent for trådsammenkobling
+        private readonly AutoResetEvent _dateReadyEventRawToFine; // Autoresetevent for trådsammenkobling
+        private readonly RawToFine _rawtofine; // Klasse til smoothing filyrt
+        private readonly SaveData _saveData; // Klasse til konvertering af måling til Byte Array
+        private readonly SaveMeasurement _saveMeasurement; // Klasse til at uploade measurement til Databasen
+        private readonly ConcurrentQueue<Datacontainer> asynchQueue; // Køen som bruges til Consumer/Producer
+        private Calibration _calibration; // Klasse til at kalibrere systemet
+
+        private Thread consumerThread; // Diverse tråde.
+        private Thread meanBPThread; // Navnet forkarer det hele
         private Thread proucerThread;
-        private Thread consumerThread;
-        private Thread RawToFineThread;
-        private Thread AlarmThread;
-        private Thread systolicThread;
         private Thread pulseThread;
-        private Alarm _alarmWithOutParameter;
-        private Calibration _calibration;
-        private ConsumerSubject _consumerSubject;
-        private ConcurrentQueue<Datacontainer> asynchQueue;
-        private RawToFine _rawtofine;
-        private CalcMeanBloodPreassure _calculateMean;
+        private Thread RawToFineThread;
+        private Thread systolicThread;
 
-        private AutoResetEvent _dateReadyEventRawToFine;
-        private AutoResetEvent _dataReadyEventSystolic;
-        private AutoResetEvent _dataReadyEventMean;
-        private AutoResetEvent _dataReadyEventPulse;
-        private bool threadStatus;
-        private SaveMeasurement _saveMeasurement;
-        private ConvertClass _convertClass;
-        private CalculatePulse _calculatePulse;
-        private SaveData _saveData;
-
-        private Thread meanBPThread;
         public CtrlBusinessLogic(iDataAccessLogic mydal, ConcurrentQueue<Datacontainer> RawDataQueue)
         {
-            this._currentDal = mydal;
+            _currentDal = mydal;
             asynchQueue = RawDataQueue;
             _convertClass = new ConvertClass(mydal);
             _dateReadyEventRawToFine = new AutoResetEvent(false);
             _dataReadyEventSystolic = new AutoResetEvent(false);
             _dataReadyEventMean = new AutoResetEvent(false);
             _dataReadyEventPulse = new AutoResetEvent(false);
-            _consumer = new Consumer(asynchQueue,_convertClass);
-            _rawtofine = new RawToFine(_dateReadyEventRawToFine,_consumer);
+            _consumer = new Consumer(asynchQueue, _convertClass);
+            _rawtofine = new RawToFine(_dateReadyEventRawToFine, _consumer);
             _currentDal.setAsyncQueue(asynchQueue);
             _alarmWithOutParameter = new Alarm();
-            _calculateBloodPreassure = new CalculateBloodPreassure(_dataReadyEventSystolic, _consumer, this, _alarmWithOutParameter); 
+            _calculateBloodPreassure =
+                new CalculateBloodPreassure(_dataReadyEventSystolic, _consumer, this, _alarmWithOutParameter);
             _saveMeasurement = new SaveMeasurement();
             _calibration = new Calibration(_convertClass.GetZeroPointValue());
             _calculateMean = new CalcMeanBloodPreassure(_dataReadyEventMean, _consumer);
@@ -116,25 +105,15 @@ namespace BL
             _currentDal.startAsyncDAQ();
             RawToFineThread = new Thread(_rawtofine.RunFineFilter) {IsBackground = true};
             consumerThread = new Thread(_consumer.RunConsumer) {IsBackground = true};
-            systolicThread = new Thread(_calculateBloodPreassure.calculateSystolicThread) {IsBackground = true}; 
+            systolicThread = new Thread(_calculateBloodPreassure.calculateBloodpreassureThread) {IsBackground = true};
             meanBPThread = new Thread(_calculateMean.calculateMeanBPThread) {IsBackground = true};
             pulseThread = new Thread(_calculatePulse.calculatePulseThread) {IsBackground = true};
-            AlarmThread = new Thread(_alarmWithOutParameter.startAlarm) {IsBackground = true};
 
             consumerThread.Start();
             RawToFineThread.Start();
             systolicThread.Start();
             meanBPThread.Start();
             pulseThread.Start();
-            AlarmThread.Start();
-
-            
-            if (_alarmWithOutParameter != null)
-            {
-                AlarmThread = new Thread(_alarmWithOutParameter.CheckAlarmValues) { IsBackground = true };
-                AlarmThread.Start();
-            }
-
         }
 
         public void StopThreads(bool run)
@@ -177,13 +156,9 @@ namespace BL
 
         public void uploadEmployee(string text, int employeeId, string s, byte[] allReadings)
         {
-            _saveData.uploadMeasurementData(text,employeeId,s,allReadings,GetCalibrationValuesFromDAL().ID);
+            _saveData.uploadMeasurementData(text, employeeId, s, allReadings, GetCalibrationValuesFromDAL().ID);
         }
 
-        public void startAlarm()
-        {
-            _alarmWithOutParameter.startAlarm();
-        }
 
         public void setCurrentSysValue(int sys)
         {
@@ -197,10 +172,9 @@ namespace BL
 
         public void getSingleReading()
         {
-            double zp = _convertClass.GetZeroPointValue();
+            var zp = _convertClass.GetZeroPointValue();
             _calibration = new Calibration(zp);
-            _calibration.calibrateSystem();
-            
+            _calibration.CalibrateSystem();
         }
 
         public CalibrationValuesDTO GetCalibrationValuesFromDAL()
@@ -209,15 +183,9 @@ namespace BL
         }
 
 
-
         public List<double> mwList()
         {
             return _consumer.mwList();
-        }
-
-        public void startDataGathering()
-        {
-            _currentDal.startAsyncDAQ();
         }
     }
 }

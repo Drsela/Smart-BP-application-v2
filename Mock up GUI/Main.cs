@@ -1,58 +1,33 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Threading;
-using BL;
 using Interfaces;
-using DTO;
-using Mock_up_GUI;
-using DateTime = System.DateTime;
-
 
 namespace PL
 {
     public partial class Main : Form, IRawToFineObserver, IBloodPressureObserver, IMeanBPObserver, IPulseObserver
     {
-        private iBusinessLogic _businessLogic;
-        private ConcurrentQueue<Datacontainer> dataQueue;
-        private AlarmDTO _alarm;
-        private List<double> measureList;
-        private List<double> fineList;
-        private iPatientConsumerObserver observer;
-        private double time;
-        private double timeOne;
+        private readonly iBusinessLogic _businessLogic;
         private AdjustBP _adjustBpForm;
-        private bool isrunning;
+        private int _antalTimer;
+        private int _caseswitch = 1;
+        private int _diaAdjust;
+        private List<double> _fineList;
+        private bool _isrunning;
+        private int _maxYValue;
+        private List<double> _measureList;
+        private int _minutter;
+        private int _minYValue;
+        private int _sekunder;
+        private Stopwatch _stopwatch;
+        private int _sysAdjust;
         private double _zeroPointValue;
 
-        private int sysAdjust;
-        private int diaAdjust;
         private Thread trackbarThread;
-
-        delegate void StringArgReturningVoidDelegate(int sys);
-
-        private DispatcherTimer timer;
-        private Stopwatch _stopwatch;
-        private DateTime _nowDateTime;
-        private int caseswitch = 1;
-
-        private int antalTimer;
-        private int minutter;
-        private int sekunder;
-        private int maxYValue;
-        private int minYValue;
-        private bool _alarmStatus;
 
         public Main(iBusinessLogic businessLogic)
         {
@@ -61,15 +36,79 @@ namespace PL
             _businessLogic.AttachToSystolicObserver(this);
             _businessLogic.AttachToMeanBPObserver(this);
             _businessLogic.AttachToPulseObserver(this);
-            _alarmStatus = false;
-            timer = new DispatcherTimer();
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.None;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void updateBloodPreassureValues()
         {
-            switch (caseswitch)
+            if (InvokeRequired)
+                Invoke((Action) delegate
+                {
+                    textBox3.Text = Convert.ToString(_businessLogic.getSystolicValue());
+                    textBox2.Text = Convert.ToString(_businessLogic.getDiastolicValue());
+                });
+        }
+
+        public void updateMeanBP()
+        {
+            if (InvokeRequired)
+                Invoke((Action) delegate { textBox4.Text = Convert.ToString(_businessLogic.getMeanBloodPreassure()); });
+        }
+
+        public void updatePulse()
+        {
+            if (InvokeRequired)
+                Invoke((Action) delegate { textBox1.Text = Convert.ToString(_businessLogic.getPulse()); });
+        }
+
+        public void updateGraph()
+        {
+            if (InvokeRequired)
+                Invoke((Action) delegate
+                {
+                    if (diagnoseRadioButton.Checked)
+                    {
+                        _measureList = _businessLogic.mwList();
+                        if (_measureList.Max() > chart1.ChartAreas[0].AxisY.Maximum)
+                            chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(_measureList.Max());
+                        if (_measureList.Min() < chart1.ChartAreas[0].AxisY.Minimum)
+                            chart1.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(_measureList.Min());
+                        if (_maxYValue > _measureList.Max() && _minYValue < _measureList.Min())
+                        {
+                            chart1.ChartAreas[0].AxisY.Maximum = _maxYValue;
+                            chart1.ChartAreas[0].AxisY.Minimum = _minYValue;
+                        }
+
+                        chart1.Series["Blodtryk"].Points.Clear();
+                        foreach (var t in _measureList)
+                            chart1.Series["Blodtryk"].Points.AddY(t); //Ændres til ConvertedValue
+                    }
+
+                    if (monitorRadioButton.Checked)
+                    {
+                        _fineList = _businessLogic.getFineValues();
+                        if (_fineList.Max() > chart1.ChartAreas[0].AxisY.Maximum)
+                            chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(_fineList.Max());
+                        if (_fineList.Min() < chart1.ChartAreas[0].AxisY.Minimum)
+                            chart1.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(_fineList.Min());
+                        if (_maxYValue > _fineList.Max() && _minYValue < _fineList.Min())
+                        {
+                            chart1.ChartAreas[0].AxisY.Maximum = _maxYValue;
+                            chart1.ChartAreas[0].AxisY.Minimum = _minYValue;
+                        }
+
+
+                        chart1.Series["Blodtryk"].Points.Clear();
+                        foreach (var t in _fineList)
+                            chart1.Series["Blodtryk"].Points.AddY(t);
+                    }
+                });
+        }
+
+        private void button1_Click(object sender, EventArgs e) //Startknappen
+        {
+            switch (_caseswitch)
             {
                 case 1:
                 {
@@ -80,246 +119,167 @@ namespace PL
                     button6.Hide();
                     tabControl1.Hide();
                     button1.Text = "Stop";
-                    caseswitch = 2;
-                    timer1.Interval = 250;
+                    timer1.Interval = 500;
                     timer1.Start();
                     _stopwatch = Stopwatch.StartNew();
                     button1.BackColor = Color.Yellow;
+                    _caseswitch = 2;
                     break;
                 }
                 case 2:
                 {
                     _businessLogic.StopThreads(true);
+                    _businessLogic.muteAlarm();
                     button1.Text = "Start";
-                    foreach (Control item in this.Controls)
-                    {
+                    foreach (Control item in Controls)
                         item.Show();
-                    }
-                    caseswitch = 1;
+                    _caseswitch = 1;
+                    MessageBox.Show(
+                        "You have now stopped the measurement. You can save the measurement in the Database by clicking the Save-button. \nYou need to restart the program to perform another measurement.",
+                        "Reminder", MessageBoxButtons.OK);
                     break;
                 }
             }
-
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) // Save Button
         {
-            Login formLogin = new Login(_businessLogic);
-            _businessLogic.StopThreads(true);
+            var formLogin = new Login(_businessLogic);
             timer1.Stop();
             formLogin.Show();
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void Main_Load(object sender, EventArgs e) // Når formen loades
         {
-            chart1.ChartAreas[0].AxisY.Maximum = maxYValue;
-            chart1.ChartAreas[0].AxisY.Minimum = minYValue;
-
+            chart1.ChartAreas[0].AxisY.Maximum = _maxYValue;
+            chart1.ChartAreas[0].AxisY.Minimum = _minYValue;
             monitorRadioButton.Checked = true;
             diagnoseRadioButton.Checked = false;
             chart1.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
-
-            DialogResult zeropointDialogResult =
+            var zeropointDialogResult =
                 MessageBox.Show(
                     "You need to zeropoint adjust before you can start a reading. \nPress OK to enter the application and perform a ZeroPoint adjustment in the lower right corner \nPressing Cancel will close the application",
                     "Reminder", MessageBoxButtons.OKCancel);
-
-            if (zeropointDialogResult == DialogResult.Yes)
-                button5_Click(this, e);
             if (zeropointDialogResult == DialogResult.Cancel)
-                this.Close();
-            maxYValue = 200;
-            minYValue = 50;
+                Close();
+
+            _maxYValue = 200;
+            _minYValue = 50;
             button1.Enabled = false;
         }
 
-        private void upperTrackBar_Scroll(object sender, EventArgs e)
+        private void upperTrackBar_Scroll(object sender, EventArgs e) // Opdaterer systol-alarm-værdien
         {
             UpperlimitText.Text = Convert.ToString(upperTrackBar.Value);
             _businessLogic.setUpperAlarm(upperTrackBar.Value);
         }
 
-        private void lowerTrackBar_Scroll(object sender, EventArgs e)
+        private void lowerTrackBar_Scroll(object sender, EventArgs e) // Opdaterer diastol-alarm-værdien
         {
             LowerlimitText.Text = Convert.ToString(lowerTrackBar.Value);
             _businessLogic.setLowerAlarm(lowerTrackBar.Value);
         }
 
-        private void stopButton_Click(object sender, EventArgs e)
+        private void stopButton_Click(object sender, EventArgs e) // Lukker applikationen
         {
             Application.Exit();
         }
 
-        public void updateGraph()
+        private void button4_Click(object sender, EventArgs e) // Åbner calibration-vinduet
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((Action) delegate
-                {
-                    if (diagnoseRadioButton.Checked)
-                    {
-                        measureList = _businessLogic.mwList();
-                        chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(measureList.Max());
-                        chart1.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(measureList.Min());
-                        chart1.Series["Blodtryk"].Points.Clear();
-                        for (int i = 0; i < measureList.Count; i++)
-                        {
-                            chart1.Series["Blodtryk"].Points.AddY(measureList[i]); //Ændres til ConvertedValue
-                        }
-                    }
-
-                    if (monitorRadioButton.Checked)
-                    {
-                        fineList = _businessLogic.getFineValues();
-                        chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(fineList.Max());
-                        chart1.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(fineList.Min());
-                        chart1.Series["Blodtryk"].Points.Clear();
-                        for (int i = 0; i < fineList.Count; i++)
-                        {
-                            chart1.Series["Blodtryk"].Points.AddY(fineList[i]); //Ændres til ConvertedValue
-                            //timeOne = timeOne + 0.002;
-                            //timeOne = Math.Round(timeOne, 3);
-                        }
-
-                    }
-                });
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Calibrate calibrateWindow = new Calibrate(_businessLogic,_zeroPointValue);
+            var calibrateWindow = new Calibrate(_businessLogic);
             calibrateWindow.Show();
         }
 
-        public void button6_Click(object sender, EventArgs e)
+        public void button6_Click(object sender, EventArgs e) // Åbner vinduet med mulighed for BP-adjustment
         {
             _adjustBpForm = new AdjustBP(this);
             _adjustBpForm.Show();
-            this.trackbarThread = new Thread(this.updateTrackbar);
+            trackbarThread = new Thread(updateTrackbar);
 
-            this.trackbarThread.Start();
-            isrunning = true;
-
+            trackbarThread.Start();
+            _isrunning = true;
         }
 
-        public void updateTrackbar()
+        public void updateTrackbar() // Opdaterer trackbar på baggrund af BP-Adjustment vinduet
         {
-            while (isrunning == true)
-            {
+            while (_isrunning)
                 if (_adjustBpForm.getSys() > 0 && _adjustBpForm.getDia() > 0)
                 {
-                    sysAdjust = Convert.ToInt16(_adjustBpForm.getSys());
-                    diaAdjust = Convert.ToInt16(_adjustBpForm.getDia());
-                    this.setTrackbarSys(sysAdjust);
-                    this.setTrackbarDia(diaAdjust);
+                    _sysAdjust = Convert.ToInt16(_adjustBpForm.getSys());
+                    _diaAdjust = Convert.ToInt16(_adjustBpForm.getDia());
+                    setTrackbarSys(_sysAdjust);
+                    setTrackbarDia(_diaAdjust);
                     //upperTrackBar.Value = Convert.ToInt16(_adjustBpForm.getSys());
                     //lowerTrackBar.Value = Convert.ToInt16(_adjustBpForm.getDia());
-                    isrunning = false;
+                    _isrunning = false;
                 }
-            }
         }
 
-        private void setTrackbarSys(int sys)
+        private void setTrackbarSys(int sys) // Opdaterer trackbar på baggrund af BP-Adjustment vinduet
         {
-            if (this.upperTrackBar.InvokeRequired)
+            if (upperTrackBar.InvokeRequired)
             {
-                StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(setTrackbarSys);
-                this.Invoke(d, new object[] {sys});
+                StringArgReturningVoidDelegate d = setTrackbarSys;
+                Invoke(d, sys);
             }
             else
             {
-                this.upperTrackBar.Value = sys;
-                this.UpperlimitText.Text = Convert.ToString(sys);
+                upperTrackBar.Value = sys;
+                UpperlimitText.Text = Convert.ToString(sys);
                 _businessLogic.setUpperAlarm(sys);
             }
         }
 
         private void setTrackbarDia(int dia)
         {
-            if (this.upperTrackBar.InvokeRequired)
+            if (upperTrackBar.InvokeRequired)
             {
-                StringArgReturningVoidDelegate d = new StringArgReturningVoidDelegate(setTrackbarDia);
-                this.Invoke(d, new object[] {dia});
+                StringArgReturningVoidDelegate d = setTrackbarDia;
+                Invoke(d, dia);
             }
             else
             {
-                this.lowerTrackBar.Value = dia;
-                this.LowerlimitText.Text = Convert.ToString(dia);
+                lowerTrackBar.Value = dia;
+                LowerlimitText.Text = Convert.ToString(dia);
                 _businessLogic.setLowerAlarm(dia);
-            }
-        }
-
-        public void updateSystolicValue()
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((Action) delegate
-                {
-                    textBox3.Text = Convert.ToString(_businessLogic.getSystolicValue());
-                    textBox2.Text = Convert.ToString(_businessLogic.getDiastolicValue());
-                });
             }
         }
 
         private void label8_Click(object sender, EventArgs e)
         {
-
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e) // Timer til operationstid
         {
-            sekunder++;
+            _sekunder++;
 
-            if (sekunder >= 60)
+            if (_sekunder >= 60)
             {
-                sekunder = 0;
-                minutter++;
+                _sekunder = 0;
+                _minutter++;
             }
-            if (minutter >= 60)
+            if (_minutter >= 60)
             {
-                minutter = 0;
-                antalTimer++;
+                _minutter = 0;
+                _antalTimer++;
             }
-
-
-            //label8.Text = "Timer: " + antalTimer + ":" + minutter + ":" + sekunder;
-            label8.Text = "Timer: " +_stopwatch.Elapsed.Hours + ":" + _stopwatch.Elapsed.Minutes + ":" + _stopwatch.Elapsed.Seconds;
+            label8.Text = "Timer: " + _stopwatch.Elapsed.Hours + ":" + _stopwatch.Elapsed.Minutes + ":" +
+                          _stopwatch.Elapsed.Seconds;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) // Zeropoint calibration
         {
             _businessLogic.PerformZeroPoint();
             _zeroPointValue = _businessLogic.getZeroPointValue();
             button1.Enabled = true;
         }
 
-        public void updateMeanBP()
+        private void muteButton_Click(object sender, EventArgs e) // Muter alarmen 30 sekunder.
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((Action) delegate
-                { 
-                    textBox4.Text = Convert.ToString(_businessLogic.getMeanBloodPreassure());
-                });
-            }
+            _businessLogic.muteAlarm();
         }
 
-        public void updatePulse()
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke((Action)delegate
-                {
-                    textBox1.Text = Convert.ToString(_businessLogic.getPulse());
-                });
-            }
-        }
-
-        private void muteButton_Click(object sender, EventArgs e)
-        {
-                    _businessLogic.muteAlarm();
-                    _alarmStatus = false;   
-        }
+        private delegate void StringArgReturningVoidDelegate(int sys); // Bruges til trackbars opdateringen.
     }
 }

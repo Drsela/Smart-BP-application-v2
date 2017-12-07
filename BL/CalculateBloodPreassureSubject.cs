@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Interfaces;
 
 namespace BL
 {
     public class CalculateBloodPreassureSubject
     {
-        private List<IBloodPressureObserver> _observers = new List<IBloodPressureObserver>();
+        private readonly List<IBloodPressureObserver> _observers = new List<IBloodPressureObserver>();
 
         public void Attach(IBloodPressureObserver IPO)
         {
@@ -24,9 +20,7 @@ namespace BL
         public void Notify()
         {
             foreach (var observer in _observers)
-            {
-                observer.updateSystolicValue();
-            }
+                observer.updateBloodPreassureValues();
         }
     }
 }

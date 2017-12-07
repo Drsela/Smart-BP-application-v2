@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BL;
 using Interfaces;
-using DTO;
 
 namespace PL
 {
     public partial class Login : Form
     {
-        private iBusinessLogic _businessLogic;
+        private readonly iBusinessLogic _businessLogic;
         private readonly SaveData _saveData;
 
         public Login(iBusinessLogic businessLogic)
@@ -25,32 +17,30 @@ namespace PL
             _saveData = new SaveData();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) // Login button
         {
-            if(_saveData.ValidateLogin(EmployeeID.Text,Password.Text) == true)
+            if (_saveData.ValidateLogin(EmployeeID.Text, Password.Text))
             {
-                //_saveData.GetEmployeeFromValidation(EmployeeID.Text, Password.Text);
-                Save formSave = new Save(_businessLogic, _saveData.GetEmployeeFromValidation(EmployeeID.Text, Password.Text));
-                this.Close();
+                var formSave = new Save(_businessLogic,
+                    _saveData.GetEmployeeFromValidation(EmployeeID.Text, Password.Text));
+                Close();
                 formSave.Show();
             }
             else
             {
-                MessageBox.Show("Invalid Login \n Please try again");
+                MessageBox.Show("Invalid Login \nPlease try again");
             }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
                 button3_Click(this, new EventArgs());
-            }
         }
     }
 }

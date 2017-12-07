@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL;
 using DTO;
-
 
 namespace Interfaces
 {
-
-
     public interface iDataAccessLogic
     {
-        List<double> getData();//Signatur
-        void saveSomeData(int val);
-
         void stopAsyncDAQ();
         double getSingleReading();
         void uploadCalibation(CalibrationValuesDTO calibrationValuesDto);
@@ -25,6 +14,7 @@ namespace Interfaces
 
         void setAsyncQueue(ConcurrentQueue<Datacontainer> AsyncQueue);
     }
+
     public interface iBusinessLogic
     {
         void setCurrentSysValue(int sys);
@@ -39,8 +29,6 @@ namespace Interfaces
 
         void PerformZeroPoint();
         void startThreads();
-
-        void startAlarm();
         void getSingleReading();
 
         CalibrationValuesDTO GetCalibrationValuesFromDAL();
@@ -49,8 +37,6 @@ namespace Interfaces
         void AttachToSystolicObserver(IBloodPressureObserver observer);
 
         List<double> mwList();
-
-        void startDataGathering();
         void StopThreads(bool run);
         List<double> getFineValues();
 
@@ -74,8 +60,9 @@ namespace Interfaces
 
     public interface IBloodPressureObserver
     {
-        void updateSystolicValue();
+        void updateBloodPreassureValues();
     }
+
     public interface IConsumerObserver
     {
         void getObserverState();
@@ -85,6 +72,7 @@ namespace Interfaces
     {
         void updateGraph();
     }
+
     public interface IMeanBPObserver
     {
         void updateMeanBP();

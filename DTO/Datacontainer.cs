@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using NationalInstruments;
 
 namespace DTO
 {
     public class Datacontainer
     {
+        private readonly double[] rawDoubles = new double[1000];
         public double _mv;
         public List<double> _MvList;
-        private double[] rawDoubles = new double[1000];
 
         public Datacontainer()
         {
@@ -27,6 +23,7 @@ namespace DTO
         {
             _MvList.Add(mv);
         }
+
         public List<double> getMVMeasaurement()
         {
             return _MvList;
@@ -34,13 +31,9 @@ namespace DTO
 
         public void SetRawDataSample(AnalogWaveform<double>[] data)
         {
-            foreach (AnalogWaveform<double> waveform in data)
-            {
-                for (int i = 0; i < waveform.Samples.Count; i++)
-                {
+            foreach (var waveform in data)
+                for (var i = 0; i < waveform.Samples.Count; i++)
                     rawDoubles[i] = waveform.Samples[i].Value;
-                }
-            }
         }
     }
 }

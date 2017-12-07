@@ -56,12 +56,6 @@
     <Compile Include="AdjustBP.Designer.cs">
       <DependentUpon>AdjustBP.cs</DependentUpon>
     </Compile>
-    <Compile Include="AreYouSure.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AreYouSure.Designer.cs">
-      <DependentUpon>AreYouSure.cs</DependentUpon>
-    </Compile>
     <Compile Include="Calibrate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,9 +89,6 @@
     </Compile>
     <EmbeddedResource Include="AdjustBP.resx">
       <DependentUpon>AdjustBP.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AreYouSure.resx">
-      <DependentUpon>AreYouSure.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Calibrate.resx">
       <DependentUpon>Calibrate.cs</DependentUpon>

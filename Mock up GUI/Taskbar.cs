@@ -1,14 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace Mock_up_GUI
 {
-    class Taskbar
+    internal class Taskbar
     {
+        private const int SW_HIDE = 0;
+        private const int SW_SHOW = 1;
+
+        private Taskbar()
+        {
+            // hide ctor
+        }
+
+        protected static int Handle => FindWindow("Shell_TrayWnd", "");
+
+        protected static int HandleOfStartButton
+        {
+            get
+            {
+                var handleOfDesktop = GetDesktopWindow();
+                var handleOfStartButton = FindWindowEx(handleOfDesktop, 0, "button", 0);
+                return handleOfStartButton;
+            }
+        }
+
         [DllImport("user32.dll")]
         private static extern int FindWindow(string className, string windowText);
 
@@ -20,32 +35,6 @@ namespace Mock_up_GUI
 
         [DllImport("user32.dll")]
         private static extern int GetDesktopWindow();
-
-        private const int SW_HIDE = 0;
-        private const int SW_SHOW = 1;
-
-        protected static int Handle
-        {
-            get
-            {
-                return FindWindow("Shell_TrayWnd", "");
-            }
-        }
-
-        protected static int HandleOfStartButton
-        {
-            get
-            {
-                int handleOfDesktop = GetDesktopWindow();
-                int handleOfStartButton = FindWindowEx(handleOfDesktop, 0, "button", 0);
-                return handleOfStartButton;
-            }
-        }
-
-        private Taskbar()
-        {
-            // hide ctor
-        }
 
         public static void Show()
         {

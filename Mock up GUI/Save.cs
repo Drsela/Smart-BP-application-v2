@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Interfaces;
 using BL;
 using DTO;
+using Interfaces;
 
 namespace PL
 {
     public partial class Save : Form
     {
-        private iBusinessLogic _businessLogic;
-        private SaveData _saveData;
+        private readonly iBusinessLogic _businessLogic;
+        private readonly SaveData _saveData;
         public EmployeeDTO _Employee;
+
         public Save(iBusinessLogic businessLogic, EmployeeDTO employee)
         {
             InitializeComponent();
@@ -28,19 +22,17 @@ namespace PL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (_saveData.ValidateCPR(CPRtextBox1.Text) == true)
+            if (_saveData.ValidateCPR(CPRtextBox1.Text))
             {
                 var allReadings = _businessLogic.ConvertReadingToBytes();
-                _businessLogic.uploadEmployee(CPRtextBox1.Text,_Employee.ID,commentTextBox.Text, allReadings);
-                this.Close();
-                
+                _businessLogic.uploadEmployee(CPRtextBox1.Text, _Employee.ID, commentTextBox.Text, allReadings);
+                Close();
             }
-                
             else
             {
                 MessageBox.Show("Wrong CPR-Number");
