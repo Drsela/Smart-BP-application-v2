@@ -77,8 +77,6 @@ namespace PL
                     _businessLogic.startThreads();
                     stopButton.Hide();
                     button3.Hide();
-                    //button4.Hide();
-                    //button5.Hide();
                     button6.Hide();
                     tabControl1.Hide();
                     button1.Text = "Stop";
@@ -123,8 +121,8 @@ namespace PL
 
             DialogResult zeropointDialogResult =
                 MessageBox.Show(
-                    "You need to zeropoint adjust before you can start a reading. \nPressing OK will perform such adjustment \nPress Cancel to close the application",
-                    "Zeropoint adjust", MessageBoxButtons.OKCancel);
+                    "You need to zeropoint adjust before you can start a reading. \nPress OK to enter the application and perform a ZeroPoint adjustment in the lower right corner \nPressing Cancel will close the application",
+                    "Reminder", MessageBoxButtons.OKCancel);
 
             if (zeropointDialogResult == DialogResult.Yes)
                 button5_Click(this, e);
@@ -132,6 +130,7 @@ namespace PL
                 this.Close();
             maxYValue = 200;
             minYValue = 50;
+            button1.Enabled = false;
         }
 
         private void upperTrackBar_Scroll(object sender, EventArgs e)
@@ -149,12 +148,6 @@ namespace PL
         private void stopButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
-            /*
-            foreach (var series in chart1.Series)
-            {
-                series.Points.Clear();
-            }
-            */
         }
 
         public void updateGraph()

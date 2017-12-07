@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,11 +18,13 @@ namespace BL
         private int _currentSys;
         private int _currentDia;
         private Stopwatch _stopwatch;
+        private SoundPlayer alarmSound;
 
         public Alarm(int sysHighValue, int diaLowValue)
         {
             HighValue = sysHighValue;
             LowValue = diaLowValue;
+            alarmSound = new SoundPlayer(@"C:\Users\drsel\Documents\GitHub\Smart-BP-application-v2\highAlarm.wav");
             enabled = true;
         }
         public Alarm()
@@ -29,6 +32,7 @@ namespace BL
             HighValue = 180;
             LowValue = 60;
             enabled = true;
+            alarmSound = new SoundPlayer(@"C:\Users\drsel\Documents\GitHub\Smart-BP-application-v2\highAlarm.wav");
         }
 
         public void startAlarm()
@@ -36,9 +40,10 @@ namespace BL
             while (enabled)
             {
                 if (_currentSys != 0 && _currentSys > HighValue)
-                    Console.Beep(500, 200);
-                if (_currentDia != 0 && _currentDia < LowValue)
-                    Console.Beep(2000, 200);
+                    alarmSound.PlayLooping();
+
+                //if (_currentDia != 0 && _currentDia < LowValue)
+                    //alarmSound.Play();
             }
         }
 
@@ -71,9 +76,11 @@ namespace BL
             if (enabled)
             {
                 if (_currentSys != 0 && _currentSys > HighValue)
-                    Console.Beep(500, 200);
+                    alarmSound.PlayLooping();
+                //Console.Beep(500, 200);
                 if (_currentDia != 0 && _currentDia < LowValue)
-                    Console.Beep(2000, 200);
+                    alarmSound.PlayLooping();
+                //Console.Beep(2000, 200);
             }
         }
 
@@ -81,13 +88,11 @@ namespace BL
         {
             if (enabled)
             {
+
                 enabled = false;
+                alarmSound.Stop();
                 _stopwatch = Stopwatch.StartNew();
             }
-
-            //_stopwatch.Start();
-            //Thread alarmCheck = new Thread(AlarmThreadCheck) {IsBackground = true};
-            //alarmCheck.Start();
         }
 
         public void checkAlarmState()
