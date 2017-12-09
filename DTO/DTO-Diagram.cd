@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="DTO.CalibrationValuesDTO">
+    <Position X="1" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAgCAAAAAAAAEAAAAAAAACAAAAAgAAAEA=</HashCode>
+      <FileName>CalibrationValuesDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.Datacontainer">
+    <Position X="4.25" Y="3" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAQgAAAAAgAQAAAAAAAACAAAAAAAAAAAAAAgAABAA=</HashCode>
+      <FileName>Datacontainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DTO.EmployeeDTO">
+    <Position X="7.25" Y="6.25" Width="3.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true">
+      <Path>
+        <Point X="6.25" Y="1.812" />
+        <Point X="6.25" Y="2.653" />
+        <Point X="8.844" Y="2.653" />
+        <Point X="8.844" Y="6.25" />
+        <Point X="9" Y="6.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EmployeeDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.Employee">
+    <Position X="9.25" Y="3" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAgIAAAAAAAAQABAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAL.Patient">
+    <Position X="2.5" Y="6.25" Width="3.75" />
+    <InheritanceLine Type="System.Object" FixedToPoint="true">
+      <Path>
+        <Point X="6.25" Y="1.812" />
+        <Point X="6.25" Y="2.653" />
+        <Point X="4.062" Y="2.653" />
+        <Point X="4.062" Y="6.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAQABAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Patient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="5.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

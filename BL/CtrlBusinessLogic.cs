@@ -8,22 +8,11 @@ namespace BL
 {
     public class CtrlBusinessLogic : iBusinessLogic
     {
-        private readonly Alarm _alarmWithOutParameter; //Opretter alarm. Parametre kan sættes vha. Get/Set
-        private readonly CalculateBloodPreassure _calculateBloodPreassure; // Klasse til at beregne Sys/Dia
-        private readonly CalcMeanBloodPreassure _calculateMean; // Klasse til at beregne middelblodtryk
-        private readonly CalculatePulse _calculatePulse; // Klasse til at beregne pulsen
-        private readonly Consumer _consumer; // Klasse til consumer/producer
-        private readonly ConvertClass _convertClass; // Klasse til at konvertere mV to mmHg
-        private readonly iDataAccessLogic _currentDal; // Forbindelse til datalaget
         private readonly AutoResetEvent _dataReadyEventMean; // Autoresetevent for trådsammenkobling
         private readonly AutoResetEvent _dataReadyEventPulse; // Autoresetevent for trådsammenkobling
         private readonly AutoResetEvent _dataReadyEventSystolic; // Autoresetevent for trådsammenkobling
         private readonly AutoResetEvent _dateReadyEventRawToFine; // Autoresetevent for trådsammenkobling
-        private readonly RawToFine _rawtofine; // Klasse til smoothing filyrt
-        private readonly SaveData _saveData; // Klasse til konvertering af måling til Byte Array
-        private readonly SaveMeasurement _saveMeasurement; // Klasse til at uploade measurement til Databasen
         private readonly ConcurrentQueue<Datacontainer> asynchQueue; // Køen som bruges til Consumer/Producer
-        private Calibration _calibration; // Klasse til at kalibrere systemet
 
         private Thread consumerThread; // Diverse tråde.
         private Thread meanBPThread; // Navnet forkarer det hele

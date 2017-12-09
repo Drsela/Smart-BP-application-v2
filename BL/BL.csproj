@@ -104,6 +104,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BL-Diagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
