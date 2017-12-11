@@ -180,6 +180,11 @@ namespace BL
             _calibration.CalibrateSystem();
         }
 
+        public List<double> GetCalibrationValuesList()
+        {
+            return _calibration.getCalibrationValues();
+        }
+
         public CalibrationValuesDTO GetCalibrationValuesFromDAL()
         {
             return _currentDal.getValues();

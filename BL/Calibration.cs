@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Accord.Statistics.Models.Regression.Linear;
 using DAL;
@@ -12,6 +13,7 @@ namespace BL
         private readonly CalibrationValuesDTO _calibrationValuesDto;
         private readonly iDataAccessLogic _iDataAccessLogic;
         private readonly double _zp;
+        private List<double> CalibrationValues;
 
         public Calibration(double zp)
         {
@@ -43,6 +45,9 @@ namespace BL
                 Debug.WriteLine("Kalibrationsværdi: " + _calibrationValuesDto.getValues()[i]);
             }
 
+            CalibrationValues = new List<double>(_calibrationValuesDto.getValues());
+
+
             double[] _voltageArray =
             {
                 _calibrationValuesDto.getValues()[0] - _zp, _calibrationValuesDto.getValues()[1] - _zp,
@@ -50,17 +55,36 @@ namespace BL
             };
             double[] _mmhgArray = {10, 50, 100};
 
-            var ols = new OrdinaryLeastSquares();
-            var _linearRegression = ols.Learn(_voltageArray, _mmhgArray);
+            dialogResponse = DialogResult.None;
+            dialogResponse =
+                MessageBox.Show(
+                    "Are you satisfied with the values? \nPress Yes to use these values. \nPress no to abort calibration",
+                    "", MessageBoxButtons.YesNo);
+            switch (dialogResponse)
+            {
+                case DialogResult.Yes:
+                    var ols = new OrdinaryLeastSquares();
+                    var _linearRegression = ols.Learn(_voltageArray, _mmhgArray);
 
-            var slope = _linearRegression.Slope;
-            var intercept = _linearRegression.Intercept;
+                    var slope = _linearRegression.Slope;
+                    var intercept = _linearRegression.Intercept;
 
-            _calibrationValuesDto.Slope = slope;
-            _calibrationValuesDto.Intercept = intercept;
+                    _calibrationValuesDto.Slope = slope;
+                    _calibrationValuesDto.Intercept = intercept;
 
 
-            _iDataAccessLogic.uploadCalibation(_calibrationValuesDto);
+                    _iDataAccessLogic.uploadCalibation(_calibrationValuesDto);
+                    break;
+                case DialogResult.No:
+                    return;
+            }
+
+           
+        }
+
+        public List<double> getCalibrationValues()
+        {
+            return CalibrationValues; 
         }
     }
 }

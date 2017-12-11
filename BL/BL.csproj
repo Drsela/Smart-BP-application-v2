@@ -74,6 +74,7 @@
     <Compile Include="CalculatePulse.cs" />
     <Compile Include="CalculatePulseSubject.cs" />
     <Compile Include="Calibration.cs" />
+    <Compile Include="CalibrationSubject.cs" />
     <Compile Include="Consumer.cs" />
     <Compile Include="ConsumerSubject.cs" />
     <Compile Include="ConvertClass.cs" />

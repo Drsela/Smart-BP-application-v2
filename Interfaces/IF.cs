@@ -17,6 +17,7 @@ namespace Interfaces
 
     public interface iBusinessLogic
     {
+        List<double> GetCalibrationValuesList();
         void setCurrentSysValue(int sys);
         void setCurrentDiaValue(int dia);
         void AttachToMeanBPObserver(IMeanBPObserver observer);
@@ -81,5 +82,10 @@ namespace Interfaces
     public interface IPulseObserver
     {
         void updatePulse();
+    }
+
+    public interface ICalibrateValueUpdater
+    {
+        void updateCBValue();
     }
 }
