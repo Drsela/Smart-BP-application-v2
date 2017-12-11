@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace BL
 {
-    internal class Calibration
+    internal class Calibration : CalibrationSubject
     {
         private readonly CalibrationValuesDTO _calibrationValuesDto;
         private readonly iDataAccessLogic _iDataAccessLogic;
@@ -46,7 +46,7 @@ namespace BL
             }
 
             CalibrationValues = new List<double>(_calibrationValuesDto.getValues());
-
+            Notify();
 
             double[] _voltageArray =
             {
@@ -55,7 +55,6 @@ namespace BL
             };
             double[] _mmhgArray = {10, 50, 100};
 
-            dialogResponse = DialogResult.None;
             dialogResponse =
                 MessageBox.Show(
                     "Are you satisfied with the values? \nPress Yes to use these values. \nPress no to abort calibration",
@@ -76,10 +75,9 @@ namespace BL
                     _iDataAccessLogic.uploadCalibation(_calibrationValuesDto);
                     break;
                 case DialogResult.No:
+                    MessageBox.Show("Calibration aborted");
                     return;
             }
-
-           
         }
 
         public List<double> getCalibrationValues()
