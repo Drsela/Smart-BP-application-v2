@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading;
 using BL;
 using DAL;
 using DTO;
@@ -57,6 +58,5 @@ namespace Unit.Test.BL
             Assert.That(uut.getDiastolicValue(), Is.EqualTo(0));
             Assert.That(uut.getSystolicValue(), Is.EqualTo(499));
         }
-
     }
 }
