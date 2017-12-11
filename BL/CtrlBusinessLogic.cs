@@ -31,7 +31,6 @@ namespace BL
 
         private Thread consumerThread; // Diverse tråde.
         private Thread meanBPThread; // Navnet forkarer det hele
-        private Thread proucerThread;
         private Thread pulseThread;
         private Thread RawToFineThread;
         private Thread systolicThread;

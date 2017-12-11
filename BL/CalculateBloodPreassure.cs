@@ -20,8 +20,12 @@ namespace BL
         private bool alarmEnabledBool;
         private int DAQ_samplerate;
 
-        public CalculateBloodPreassure()
+        public CalculateBloodPreassure(iBusinessLogic businessLogic)
         {
+            numberOfReadings = 500;
+            bpList = new List<double>();
+             _alarm= new Alarm();
+            _businessLogic = businessLogic;
         }
 
         public CalculateBloodPreassure(AutoResetEvent dataReadyResetEvent, Consumer consumer,
@@ -99,5 +103,7 @@ namespace BL
         {
             _threadStatus = status;
         }
+
+
     }
 }

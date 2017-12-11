@@ -54,9 +54,17 @@
       <Project>{a80d5e57-a8e6-48e6-a7f3-c0018c4b76e3}</Project>
       <Name>BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{8d25be05-3086-4d4b-ab3f-13383d1976b3}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DTO\DTO.csproj">
       <Project>{772b379f-5e6a-472c-bf64-84b8484514ed}</Project>
       <Name>DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{03b4736f-6ec4-4232-8f50-0a88b7d43c79}</Project>
+      <Name>Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

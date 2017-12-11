@@ -12,6 +12,7 @@ namespace BL
         private bool enabled;
         private int HighValue;
         private int LowValue;
+        private bool tonePlaying;
 
         public Alarm(int sysHighValue, int diaLowValue) // Til Unit Test
         {
@@ -19,6 +20,7 @@ namespace BL
             LowValue = diaLowValue;
             alarmSound = new SoundPlayer(@"C:\Users\drsel\Documents\GitHub\Smart-BP-application-v2\mediumAlarm.wav");
             enabled = true;
+            tonePlaying = false;
         }
 
         public Alarm()
@@ -27,6 +29,7 @@ namespace BL
             LowValue = 60;
             enabled = true;
             alarmSound = new SoundPlayer(@"C:\Users\drsel\Documents\GitHub\Smart-BP-application-v2\mediumAlarm.wav");
+            tonePlaying = false;
         }
 
 
@@ -55,10 +58,18 @@ namespace BL
             if (enabled)
             {
                 if (_currentSys != 0 && _currentSys > HighValue)
+                {
                     alarmSound.PlayLooping();
+                    tonePlaying = true;
+                }
+                   
                 //Console.Beep(500, 200);
                 if (_currentDia != 0 && _currentDia < LowValue)
+                {
                     alarmSound.PlayLooping();
+                    tonePlaying = true;
+                }
+                    
                 //Console.Beep(2000, 200);
             }
         }
@@ -69,6 +80,7 @@ namespace BL
             {
                 enabled = false;
                 alarmSound.Stop();
+                tonePlaying = false;
                 _stopwatch = Stopwatch.StartNew();
             }
         }
@@ -85,6 +97,11 @@ namespace BL
         public bool alarmStatus()
         {
             return enabled;
+        }
+
+        public bool isTonePlaying()
+        {
+            return tonePlaying;
         }
     }
 }
