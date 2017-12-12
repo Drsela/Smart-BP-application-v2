@@ -144,12 +144,12 @@ namespace BL
 
         public void setUpperAlarm(int sys)
         {
-            _alarmWithOutParameter?.setHighValue(sys);
+            _alarmWithOutParameter.setHighValue(sys);
         }
 
         public void setLowerAlarm(int dia)
         {
-            _alarmWithOutParameter?.setLowValue(dia);
+            _alarmWithOutParameter.setLowValue(dia);
         }
 
         public void muteAlarm()

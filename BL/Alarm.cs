@@ -59,17 +59,19 @@ namespace BL
             {
                 if (_currentSys != 0 && _currentSys > HighValue)
                 {
-                    alarmSound.PlayLooping();
+                    Debug.WriteLine("CurrentSys: " + _currentSys +"\nLimitValue: " + HighValue);
+                    alarmSound.PlaySync();
                     tonePlaying = true;
                 }
                    
-                //Console.Beep(500, 200);
+                //Console.Beep(500, 200)
                 if (_currentDia != 0 && _currentDia < LowValue)
                 {
-                    alarmSound.PlayLooping();
+                    alarmSound.PlaySync();
                     tonePlaying = true;
                 }
-                    
+                 
+                
                 //Console.Beep(2000, 200);
             }
         }

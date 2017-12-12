@@ -31,9 +31,9 @@ namespace PL
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
@@ -76,38 +76,38 @@ namespace PL
             // 
             this.chart1.BackColor = System.Drawing.Color.Black;
             this.chart1.BorderSkin.BorderColor = System.Drawing.Color.Empty;
-            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisX.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.Title = "Tid (s)";
-            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.Title = "Blodtryk (mmHg)";
-            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.BorderColor = System.Drawing.Color.White;
-            chartArea1.BorderWidth = 4;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.HeaderSeparatorColor = System.Drawing.Color.White;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisX.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.Title = "Tid (s)";
+            chartArea2.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.Title = "Blodtryk (mmHg)";
+            chartArea2.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.BackColor = System.Drawing.Color.Black;
+            chartArea2.BorderColor = System.Drawing.Color.White;
+            chartArea2.BorderWidth = 4;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.HeaderSeparatorColor = System.Drawing.Color.White;
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(-60, 15);
             this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.Name = "chart1";
-            series1.BorderWidth = 6;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series1.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
-            series1.Name = "Blodtryk";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(1885, 847);
+            series2.BorderWidth = 6;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Blodtryk";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(1814, 847);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -144,7 +144,7 @@ namespace PL
             this.button3.BackColor = System.Drawing.Color.White;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.Font = new System.Drawing.Font("Arial", 20F, System.Drawing.FontStyle.Bold);
-            this.button3.Location = new System.Drawing.Point(200, 870);
+            this.button3.Location = new System.Drawing.Point(204, 870);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(200, 160);
@@ -184,26 +184,26 @@ namespace PL
             // 
             // upperTrackBar
             // 
-            this.upperTrackBar.Location = new System.Drawing.Point(728, 906);
+            this.upperTrackBar.Location = new System.Drawing.Point(611, 906);
             this.upperTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.upperTrackBar.Maximum = 270;
             this.upperTrackBar.Minimum = 30;
             this.upperTrackBar.Name = "upperTrackBar";
-            this.upperTrackBar.Size = new System.Drawing.Size(269, 56);
+            this.upperTrackBar.Size = new System.Drawing.Size(375, 56);
             this.upperTrackBar.TabIndex = 6;
-            this.upperTrackBar.Value = 100;
+            this.upperTrackBar.Value = 144;
             this.upperTrackBar.Scroll += new System.EventHandler(this.upperTrackBar_Scroll);
             // 
             // lowerTrackBar
             // 
-            this.lowerTrackBar.Location = new System.Drawing.Point(728, 979);
+            this.lowerTrackBar.Location = new System.Drawing.Point(611, 979);
             this.lowerTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.lowerTrackBar.Maximum = 150;
             this.lowerTrackBar.Minimum = 10;
             this.lowerTrackBar.Name = "lowerTrackBar";
-            this.lowerTrackBar.Size = new System.Drawing.Size(269, 56);
+            this.lowerTrackBar.Size = new System.Drawing.Size(375, 56);
             this.lowerTrackBar.TabIndex = 7;
-            this.lowerTrackBar.Value = 40;
+            this.lowerTrackBar.Value = 64;
             this.lowerTrackBar.Scroll += new System.EventHandler(this.lowerTrackBar_Scroll);
             // 
             // label1
@@ -211,7 +211,7 @@ namespace PL
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(820, 870);
+            this.label1.Location = new System.Drawing.Point(775, 870);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 19);
@@ -221,24 +221,24 @@ namespace PL
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(561, 909);
+            this.label2.Location = new System.Drawing.Point(412, 906);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 19);
+            this.label2.Size = new System.Drawing.Size(191, 24);
             this.label2.TabIndex = 9;
             this.label2.Text = "Upper systolic limit";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(561, 984);
+            this.label3.Location = new System.Drawing.Point(412, 981);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(165, 19);
+            this.label3.Size = new System.Drawing.Size(198, 24);
             this.label3.TabIndex = 10;
             this.label3.Text = "Lower diastolic limit";
             // 
@@ -247,7 +247,7 @@ namespace PL
             this.button6.BackColor = System.Drawing.Color.White;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button6.Font = new System.Drawing.Font("Arial", 20F, System.Drawing.FontStyle.Bold);
-            this.button6.Location = new System.Drawing.Point(1126, 875);
+            this.button6.Location = new System.Drawing.Point(1115, 870);
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(200, 80);
@@ -259,15 +259,14 @@ namespace PL
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.Black;
-            this.textBox1.Font = new System.Drawing.Font("Arial", 40F, System.Drawing.FontStyle.Bold);
+            this.textBox1.Font = new System.Drawing.Font("Arial", 60F, System.Drawing.FontStyle.Bold);
             this.textBox1.ForeColor = System.Drawing.Color.LimeGreen;
-            this.textBox1.Location = new System.Drawing.Point(1720, 80);
+            this.textBox1.Location = new System.Drawing.Point(1677, 80);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.MaxLength = 3;
-            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(200, 100);
+            this.textBox1.Size = new System.Drawing.Size(243, 122);
             this.textBox1.TabIndex = 12;
             this.textBox1.Text = "00";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -275,15 +274,14 @@ namespace PL
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.Color.Black;
-            this.textBox2.Font = new System.Drawing.Font("Arial", 40F, System.Drawing.FontStyle.Bold);
+            this.textBox2.Font = new System.Drawing.Font("Arial", 60F, System.Drawing.FontStyle.Bold);
             this.textBox2.ForeColor = System.Drawing.Color.Red;
-            this.textBox2.Location = new System.Drawing.Point(1721, 400);
+            this.textBox2.Location = new System.Drawing.Point(1677, 400);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.MaxLength = 3;
-            this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(200, 100);
+            this.textBox2.Size = new System.Drawing.Size(244, 122);
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "00";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -291,15 +289,14 @@ namespace PL
             // textBox3
             // 
             this.textBox3.BackColor = System.Drawing.Color.Black;
-            this.textBox3.Font = new System.Drawing.Font("Arial", 40F, System.Drawing.FontStyle.Bold);
+            this.textBox3.Font = new System.Drawing.Font("Arial", 60F, System.Drawing.FontStyle.Bold);
             this.textBox3.ForeColor = System.Drawing.Color.Red;
-            this.textBox3.Location = new System.Drawing.Point(1720, 240);
+            this.textBox3.Location = new System.Drawing.Point(1677, 240);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.MaxLength = 3;
-            this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(200, 100);
+            this.textBox3.Size = new System.Drawing.Size(243, 122);
             this.textBox3.TabIndex = 14;
             this.textBox3.Text = "00";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -309,7 +306,7 @@ namespace PL
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(1715, 215);
+            this.label4.Location = new System.Drawing.Point(1675, 215);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 30);
@@ -321,7 +318,7 @@ namespace PL
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(1715, 377);
+            this.label5.Location = new System.Drawing.Point(1675, 377);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(117, 30);
@@ -333,25 +330,24 @@ namespace PL
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(1715, 55);
+            this.label6.Location = new System.Drawing.Point(1676, 55);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 30);
+            this.label6.Size = new System.Drawing.Size(80, 30);
             this.label6.TabIndex = 17;
-            this.label6.Text = "Puls";
+            this.label6.Text = "Pulse";
             // 
             // textBox4
             // 
             this.textBox4.BackColor = System.Drawing.Color.Black;
-            this.textBox4.Font = new System.Drawing.Font("Arial", 40F, System.Drawing.FontStyle.Bold);
+            this.textBox4.Font = new System.Drawing.Font("Arial", 60F, System.Drawing.FontStyle.Bold);
             this.textBox4.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.textBox4.Location = new System.Drawing.Point(1720, 560);
+            this.textBox4.Location = new System.Drawing.Point(1677, 560);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.MaxLength = 3;
-            this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(200, 100);
+            this.textBox4.Size = new System.Drawing.Size(243, 122);
             this.textBox4.TabIndex = 18;
             this.textBox4.Text = "00";
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -361,7 +357,7 @@ namespace PL
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(1717, 537);
+            this.label7.Location = new System.Drawing.Point(1677, 537);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(77, 30);
@@ -373,7 +369,7 @@ namespace PL
             this.muteButton.BackColor = System.Drawing.Color.White;
             this.muteButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.muteButton.Font = new System.Drawing.Font("Arial", 20F, System.Drawing.FontStyle.Bold);
-            this.muteButton.Location = new System.Drawing.Point(1126, 954);
+            this.muteButton.Location = new System.Drawing.Point(1115, 954);
             this.muteButton.Margin = new System.Windows.Forms.Padding(4);
             this.muteButton.Name = "muteButton";
             this.muteButton.Size = new System.Drawing.Size(200, 80);
@@ -385,12 +381,12 @@ namespace PL
             // monitorRadioButton
             // 
             this.monitorRadioButton.AutoSize = true;
-            this.monitorRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monitorRadioButton.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
             this.monitorRadioButton.ForeColor = System.Drawing.Color.White;
-            this.monitorRadioButton.Location = new System.Drawing.Point(1722, 748);
+            this.monitorRadioButton.Location = new System.Drawing.Point(1677, 776);
             this.monitorRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.monitorRadioButton.Name = "monitorRadioButton";
-            this.monitorRadioButton.Size = new System.Drawing.Size(166, 29);
+            this.monitorRadioButton.Size = new System.Drawing.Size(220, 36);
             this.monitorRadioButton.TabIndex = 21;
             this.monitorRadioButton.TabStop = true;
             this.monitorRadioButton.Text = "Monitor-mode";
@@ -399,12 +395,12 @@ namespace PL
             // diagnoseRadioButton
             // 
             this.diagnoseRadioButton.AutoSize = true;
-            this.diagnoseRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.diagnoseRadioButton.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
             this.diagnoseRadioButton.ForeColor = System.Drawing.Color.White;
-            this.diagnoseRadioButton.Location = new System.Drawing.Point(1722, 694);
+            this.diagnoseRadioButton.Location = new System.Drawing.Point(1677, 722);
             this.diagnoseRadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.diagnoseRadioButton.Name = "diagnoseRadioButton";
-            this.diagnoseRadioButton.Size = new System.Drawing.Size(185, 29);
+            this.diagnoseRadioButton.Size = new System.Drawing.Size(244, 36);
             this.diagnoseRadioButton.TabIndex = 22;
             this.diagnoseRadioButton.TabStop = true;
             this.diagnoseRadioButton.Text = "Diagnose-mode";
@@ -413,29 +409,29 @@ namespace PL
             // UpperlimitText
             // 
             this.UpperlimitText.BackColor = System.Drawing.Color.Black;
-            this.UpperlimitText.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpperlimitText.Font = new System.Drawing.Font("Arial", 32F, System.Drawing.FontStyle.Bold);
             this.UpperlimitText.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.UpperlimitText.Location = new System.Drawing.Point(1005, 887);
+            this.UpperlimitText.Location = new System.Drawing.Point(994, 887);
             this.UpperlimitText.Margin = new System.Windows.Forms.Padding(4);
             this.UpperlimitText.MaxLength = 3;
             this.UpperlimitText.Name = "UpperlimitText";
-            this.UpperlimitText.Size = new System.Drawing.Size(99, 61);
+            this.UpperlimitText.Size = new System.Drawing.Size(99, 69);
             this.UpperlimitText.TabIndex = 23;
-            this.UpperlimitText.Text = "100";
+            this.UpperlimitText.Text = "144";
             this.UpperlimitText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // LowerlimitText
             // 
             this.LowerlimitText.BackColor = System.Drawing.Color.Black;
-            this.LowerlimitText.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LowerlimitText.Font = new System.Drawing.Font("Arial", 32F, System.Drawing.FontStyle.Bold);
             this.LowerlimitText.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.LowerlimitText.Location = new System.Drawing.Point(1005, 965);
+            this.LowerlimitText.Location = new System.Drawing.Point(994, 965);
             this.LowerlimitText.Margin = new System.Windows.Forms.Padding(4);
             this.LowerlimitText.MaxLength = 3;
             this.LowerlimitText.Name = "LowerlimitText";
-            this.LowerlimitText.Size = new System.Drawing.Size(99, 61);
+            this.LowerlimitText.Size = new System.Drawing.Size(99, 69);
             this.LowerlimitText.TabIndex = 24;
-            this.LowerlimitText.Text = "100";
+            this.LowerlimitText.Text = "64";
             this.LowerlimitText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
@@ -443,7 +439,7 @@ namespace PL
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(872, 807);
+            this.label8.Location = new System.Drawing.Point(840, 809);
             this.label8.MinimumSize = new System.Drawing.Size(100, 25);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 25);
@@ -458,8 +454,9 @@ namespace PL
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Arial", 12F);
             this.tabControl1.ItemSize = new System.Drawing.Size(200, 21);
-            this.tabControl1.Location = new System.Drawing.Point(1325, 874);
+            this.tabControl1.Location = new System.Drawing.Point(1320, 871);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(404, 161);

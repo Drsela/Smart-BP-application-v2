@@ -21,10 +21,9 @@ namespace PL
             {
                 var result =
                     MessageBox.Show(
-                        "The entered values indicates severe hypertension. \nDo you want to continue?",
-                        "Attention", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
+                        "The entered values indicates severe hypertension.",
+                        "Attention", MessageBoxButtons.OK);
+               
                     sysValue = Convert.ToInt16(SysTextBox.Text);
                     diaValue = Convert.ToInt16(DiaTextBox.Text);
 
@@ -32,17 +31,16 @@ namespace PL
                     diaValue = diaValue * 0.8;
 
                     Close();
-                }
+                
             }
 
             else if (Convert.ToInt32(SysTextBox.Text) < 90 || Convert.ToInt32(DiaTextBox.Text) < 60)
             {
                 var result =
                     MessageBox.Show(
-                        "The entered values indicates severe hypotension. \nDo you want to continue?",
-                        "Attention", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
+                        "The entered values indicates severe hypotension.",
+                        "Attention", MessageBoxButtons.OK);
+             
                     sysValue = Convert.ToInt16(SysTextBox.Text);
                     diaValue = Convert.ToInt16(DiaTextBox.Text);
 
@@ -50,7 +48,7 @@ namespace PL
                     diaValue = diaValue * 0.8;
 
                     Close();
-                }
+                
             }
 
 

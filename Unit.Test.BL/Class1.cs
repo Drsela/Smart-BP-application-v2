@@ -4,14 +4,16 @@ using System.Threading;
 using BL;
 using DAL;
 using DTO;
-using Interfaces;
+//using Interfaces;
 using NUnit.Framework;
 
 namespace Unit.Test.BL
 {
+
     [TestFixture]
     public class Class1
     {
+        /*
         private iBusinessLogic businessLogic;
 
         [SetUp]
@@ -58,5 +60,8 @@ namespace Unit.Test.BL
             Assert.That(uut.getDiastolicValue(), Is.EqualTo(0));
             Assert.That(uut.getSystolicValue(), Is.EqualTo(499));
         }
+        */
     }
+
+    
 }

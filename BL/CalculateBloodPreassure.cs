@@ -90,9 +90,9 @@ namespace BL
                 _dataReadResetEvent.WaitOne();
                 var rawData = _consumer.mwList();
                 CalculateBPValues(rawData);
-                if (_alarm.alarmStatus())
+                if (_alarm.alarmStatus() == true)
                     _alarm.CheckAlarmValues(); // Tjekker om værdier er overskredet
-                if (!_alarm.alarmStatus())
+                if (_alarm.alarmStatus() == false)
                     _alarm.checkAlarmState(); // Checker om alarmtimeren er 30 og aktiverer den igen.
 
                 Notify();

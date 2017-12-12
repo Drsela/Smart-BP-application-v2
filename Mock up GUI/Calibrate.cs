@@ -25,13 +25,6 @@ namespace PL
         private void calibrateButton_Click_1(object sender, EventArgs e)
         {
             _BusinessLogic.getSingleReading();
-            var result =
-                MessageBox.Show(
-                    "Calibration Succesfull \n You need to restart the application to apply the calibration. \nPressing OK will exit the application",
-                    "Attention", MessageBoxButtons.OK);
-
-            if (result == DialogResult.OK)
-                Application.Exit();
         }
 
         public void updateCBValue()
@@ -44,6 +37,11 @@ namespace PL
                     label6.Text = values[1].ToString() + "mV";
                     label7.Text = values[2].ToString() + "mV";
                 });
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

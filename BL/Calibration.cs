@@ -57,7 +57,7 @@ namespace BL
 
             dialogResponse =
                 MessageBox.Show(
-                    "Are you satisfied with the values? \nPress Yes to use these values. \nPress no to abort calibration",
+                    "Are you satisfied with the values? \n10 mmHg: " + _voltageArray[0] + " \n50 mmHg: " + _voltageArray[1]+ " \n100 mmHg: " + _voltageArray[2]+ "\nPress Yes to use these values. \nPress no to abort calibration",
                     "", MessageBoxButtons.YesNo);
             switch (dialogResponse)
             {
@@ -73,9 +73,11 @@ namespace BL
 
 
                     _iDataAccessLogic.uploadCalibation(_calibrationValuesDto);
+                    MessageBox.Show("Succesfully calibrated \nPressing OK will restart the applicatoin.");
+                    Application.Restart();
                     break;
                 case DialogResult.No:
-                    MessageBox.Show("Calibration aborted");
+                    MessageBox.Show("Calibration aborted", "Notice");
                     return;
             }
         }

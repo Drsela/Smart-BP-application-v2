@@ -134,8 +134,9 @@ namespace PL
                     foreach (Control item in Controls)
                         item.Show();
                     _caseswitch = 1;
+                        timer1.Stop();
                     MessageBox.Show(
-                        "You have now stopped the measurement. You can save the measurement in the Database by clicking the Save-button. \nYou need to restart the program to perform another measurement.",
+                        "Measurement stopped. \nPress Save button to save the measurement \nRestart the application to perform a new measurement",
                         "Reminder", MessageBoxButtons.OK);
                     break;
                 }
@@ -274,6 +275,7 @@ namespace PL
         {
             _businessLogic.PerformZeroPoint();
             _zeroPointValue = _businessLogic.getZeroPointValue();
+            MessageBox.Show("The current ZeroPoint value is: " + _zeroPointValue + ". \nPress OK to use this value.");
             button1.Enabled = true;
         }
 
