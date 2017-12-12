@@ -166,6 +166,8 @@ namespace PL
             _maxYValue = 200;
             _minYValue = 50;
             button1.Enabled = false;
+            UpperlimitText.Text = Convert.ToString(upperTrackBar.Value);
+            LowerlimitText.Text = Convert.ToString(lowerTrackBar.Value);
         }
 
         private void upperTrackBar_Scroll(object sender, EventArgs e) // Opdaterer systol-alarm-værdien
