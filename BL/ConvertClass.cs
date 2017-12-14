@@ -25,7 +25,7 @@ namespace BL
         {
             mmHgList = new List<double>();
             for (var i = 0; i < mvValues.Count; i++)
-                mmHgList.Add(mvValues[i] * slope + intercept + _zeroPointValue * slope);
+                mmHgList.Add(mvValues[i] * slope + intercept - (_zeroPointValue * slope));
             return mmHgList;
         }
 

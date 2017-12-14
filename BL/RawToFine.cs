@@ -33,7 +33,7 @@ namespace BL
                 var average = rawData.GetRange(i, 5).Average();
                 _displayList.Add(average);
 
-                if (_displayList.Count > 500)
+                if (_displayList.Count > 2000)
                     _displayList.RemoveAt(0);
             }
         }

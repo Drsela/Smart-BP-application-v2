@@ -35,7 +35,23 @@ namespace BL
                 while (!_dataQueue.TryDequeue(out container))
                     Thread.Sleep(0);
                 _display = container.getRawDoubles().ToList();
+
                 mmhHgValues = _convertClass.Conversation(_display);
+
+                /*
+                foreach (var item in _convertClass.Conversation(_display))
+                {
+                    if (mmhHgValues.Count < 3000)
+                    {
+                        mmhHgValues.Add(item);
+                    }
+                    if (mmhHgValues.Count >= 3001)
+                    {
+                        mmhHgValues.RemoveAt(0);
+                        mmhHgValues.Add(item);
+                    }
+                }
+                */
                 allReadings.AddRange(_display);
                 Notify();
             }

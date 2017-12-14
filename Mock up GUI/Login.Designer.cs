@@ -51,7 +51,7 @@
             // EmployeeID
             // 
             this.EmployeeID.Location = new System.Drawing.Point(247, 87);
-            this.EmployeeID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.EmployeeID.Margin = new System.Windows.Forms.Padding(4);
             this.EmployeeID.Name = "EmployeeID";
             this.EmployeeID.Size = new System.Drawing.Size(185, 22);
             this.EmployeeID.TabIndex = 11;
@@ -72,7 +72,7 @@
             // 
             this.Password.HideSelection = false;
             this.Password.Location = new System.Drawing.Point(247, 146);
-            this.Password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Password.Margin = new System.Windows.Forms.Padding(4);
             this.Password.Name = "Password";
             this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(185, 22);
@@ -84,8 +84,8 @@
             this.button3.BackColor = System.Drawing.Color.White;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(313, 208);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Location = new System.Drawing.Point(88, 208);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(120, 43);
             this.button3.TabIndex = 15;
@@ -98,8 +98,8 @@
             this.cancelButton.BackColor = System.Drawing.Color.White;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cancelButton.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelButton.Location = new System.Drawing.Point(141, 208);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancelButton.Location = new System.Drawing.Point(312, 208);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(120, 43);
             this.cancelButton.TabIndex = 16;
@@ -119,7 +119,7 @@
             this.Controls.Add(this.Password);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.EmployeeID);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);

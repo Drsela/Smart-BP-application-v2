@@ -15,8 +15,10 @@ namespace DAL
 
         public DatabaseConnection()
         {
-            conn = new SqlConnection("Data Source =i4dab.ase.au.dk; Initial Catalog = " + DatabaseString +
-                                     "; Persist Security Info = True; User ID =" + DatabaseString + "; password = " +
+            conn = new SqlConnection("Data Source =i4dab.ase.au.dk; Initial Catalog = " 
+									+ DatabaseString +
+                                     "; Persist Security Info = True; User ID =" 
+									 + DatabaseString + "; password = " +
                                      DatabaseString + "");
         }
 

@@ -17,7 +17,7 @@ namespace PL
 
         public void button3_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(SysTextBox.Text) >= 180 || Convert.ToInt32(DiaTextBox.Text) > 110)
+            if (Convert.ToInt32(SysTextBox.Text) >= 180 || Convert.ToInt32(DiaTextBox.Text) >= 110)
             {
                 var result =
                     MessageBox.Show(
@@ -34,7 +34,7 @@ namespace PL
                 
             }
 
-            else if (Convert.ToInt32(SysTextBox.Text) < 90 || Convert.ToInt32(DiaTextBox.Text) < 60)
+            else if (Convert.ToInt32(SysTextBox.Text) <= 90 || Convert.ToInt32(DiaTextBox.Text) <= 60)
             {
                 var result =
                     MessageBox.Show(
@@ -46,9 +46,7 @@ namespace PL
 
                     sysValue = sysValue * 1.2;
                     diaValue = diaValue * 0.8;
-
                     Close();
-                
             }
 
 

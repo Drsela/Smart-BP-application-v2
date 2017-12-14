@@ -36,7 +36,7 @@ namespace BL
             _systolicValue = 0;
             _consumer.Attach(this);
             bpList = new List<double>();
-            numberOfReadings = 1000; // 500 el. 1000?
+            numberOfReadings = 1000; // Ændres potentielt til noget større.
             _businessLogic = businessLogic;
             _alarm = alarm;
         }

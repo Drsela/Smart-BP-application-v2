@@ -4,8 +4,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
+using System.Windows;
 using System.Windows.Forms;
 using Interfaces;
+using Application = System.Windows.Forms.Application;
+using FontStyle = System.Drawing.FontStyle;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace PL
 {
@@ -74,6 +78,8 @@ namespace PL
                             chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(_measureList.Max());
                         if (_measureList.Min() < chart1.ChartAreas[0].AxisY.Minimum)
                             chart1.ChartAreas[0].AxisY.Minimum = Convert.ToInt32(_measureList.Min());
+                        
+
                         if (_maxYValue > _measureList.Max() && _minYValue < _measureList.Min())
                         {
                             chart1.ChartAreas[0].AxisY.Maximum = _maxYValue;
@@ -87,6 +93,7 @@ namespace PL
 
                     if (monitorRadioButton.Checked)
                     {
+                        monitorRadioButton.Font = new Font(monitorRadioButton.Font, FontStyle.Bold);
                         _fineList = _businessLogic.getFineValues();
                         if (_fineList.Max() > chart1.ChartAreas[0].AxisY.Maximum)
                             chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(_fineList.Max());
@@ -133,11 +140,18 @@ namespace PL
                     button1.Text = "Start";
                     foreach (Control item in Controls)
                         item.Show();
-                    _caseswitch = 1;
                         timer1.Stop();
                     MessageBox.Show(
                         "Measurement stopped. \nPress Save button to save the measurement \nRestart the application to perform a new measurement",
                         "Reminder", MessageBoxButtons.OK);
+                    button1.BackColor = Color.OrangeRed;
+                    button1.Text = "Restart";
+                    _caseswitch = 3;
+                    break;
+                }
+                case 3:
+                {
+                    Application.Restart();
                     break;
                 }
             }
@@ -157,6 +171,7 @@ namespace PL
             monitorRadioButton.Checked = true;
             diagnoseRadioButton.Checked = false;
             chart1.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
+            button1.Hide();
             var zeropointDialogResult =
                 MessageBox.Show(
                     "You need to zeropoint adjust before you can start a reading. \nPress OK to enter the application and perform a ZeroPoint adjustment in the lower right corner \nPressing Cancel will close the application",
@@ -169,6 +184,7 @@ namespace PL
             button1.Enabled = false;
             UpperlimitText.Text = Convert.ToString(upperTrackBar.Value);
             LowerlimitText.Text = Convert.ToString(lowerTrackBar.Value);
+            
         }
 
         private void upperTrackBar_Scroll(object sender, EventArgs e) // Opdaterer systol-alarm-værdien
@@ -276,6 +292,7 @@ namespace PL
             _businessLogic.PerformZeroPoint();
             _zeroPointValue = _businessLogic.getZeroPointValue();
             MessageBox.Show("The current ZeroPoint value is: " + _zeroPointValue + ". \nPress OK to use this value.");
+            button1.Show();
             button1.Enabled = true;
         }
 
@@ -285,5 +302,21 @@ namespace PL
         }
 
         private delegate void StringArgReturningVoidDelegate(int sys); // Bruges til trackbars opdateringen.
+
+        private void diagnoseRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (diagnoseRadioButton.Checked)
+                diagnoseRadioButton.Font = new Font(diagnoseRadioButton.Font, FontStyle.Bold);
+            if (diagnoseRadioButton.Checked == false)
+                diagnoseRadioButton.Font = new Font(diagnoseRadioButton.Font, FontStyle.Regular);
+        }
+
+        private void monitorRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (monitorRadioButton.Checked)
+                monitorRadioButton.Font = new Font(diagnoseRadioButton.Font, FontStyle.Bold);
+            if (monitorRadioButton.Checked == false)
+                monitorRadioButton.Font = new Font(diagnoseRadioButton.Font, FontStyle.Regular);
+        }
     }
 }

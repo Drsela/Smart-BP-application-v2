@@ -33,17 +33,17 @@ namespace BL
             while (!_threadStatus)
             {
                 _dataReadResetEvent.WaitOne();
-                var rawData = _consumer.mwList();
+                var rawData = _consumer.mwList(); 
                 CalculatePulseMethod(rawData);
             }
         }
 
         public void CalculatePulseMethod(List<double> rawDoubles)
         {
-            if (_calculatePulseList.Count <= 4500)
+            if (_calculatePulseList.Count <= 9500)
                 _calculatePulseList.AddRange(rawDoubles);
 
-            if (_calculatePulseList.Count >= 5000)
+            if (_calculatePulseList.Count >= 10000)
             {
                 var new1 = _calculatePulseList.ToList();
                 var sys = 0;

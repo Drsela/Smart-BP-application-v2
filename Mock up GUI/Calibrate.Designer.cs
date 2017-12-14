@@ -61,7 +61,7 @@ namespace PL
             this.button1.BackColor = System.Drawing.Color.White;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(940, 517);
+            this.button1.Location = new System.Drawing.Point(980, 518);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(140, 43);
@@ -75,7 +75,7 @@ namespace PL
             this.calibrateButton.BackColor = System.Drawing.Color.White;
             this.calibrateButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.calibrateButton.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.calibrateButton.Location = new System.Drawing.Point(139, 517);
+            this.calibrateButton.Location = new System.Drawing.Point(99, 518);
             this.calibrateButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.calibrateButton.Name = "calibrateButton";
             this.calibrateButton.Size = new System.Drawing.Size(140, 43);

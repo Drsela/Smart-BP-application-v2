@@ -73,7 +73,7 @@ namespace BL
 
 
                     _iDataAccessLogic.uploadCalibation(_calibrationValuesDto);
-                    MessageBox.Show("Succesfully calibrated \nPressing OK will restart the applicatoin.");
+                    MessageBox.Show("Succesfully calibrated! \nPressing OK will restart the application.");
                     Application.Restart();
                     break;
                 case DialogResult.No:
